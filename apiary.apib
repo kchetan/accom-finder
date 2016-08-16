@@ -1,0 +1,131 @@
+FORMAT: 1A
+HOST: http://52.43.52.91/accom-finder/
+
+# Accom-finder
+
+Accom-finder is an API made for Practeon for to find fellow practeons as roommates, or help the other practeons to find accommodation
+
+## Search Houses [/search{?locality,bhk,min_price,max_price,furnished,orderby,order,page}]
+
+Search for houses based on filters such as 
+* locality
+* property type
+* price
+* furnished type
+* orderby
+* order
+
+### List all the posts [GET]
+
++ Parameters
+    + locality (optional, string, `Hsr layout`)
+    + bhk (optional,number,`2`)
+    + min_price (optional,number,`1000`)
+    + max_price (optional,number,`10000`)
+    + furnished (optional,string,`semi-furnished`)
+    + orderby (optional,string,`price`)
+    + order (optional,string,`asc`)
+    + page (optional,number,`1`)
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "4",
+                "Title": "One room in 2bhk available" ,
+                "Price": "7000",
+                "locality": "Hsr layout",
+                "area": "1000 sqft",
+                "avalability_rooms": "1"
+            }
+            {
+                "id": "6",
+                "Title": "2 rooms in 3bhk" ,
+                "Price": "8500",
+                "locality": "koramangla",
+                "area": "1200 sqft",
+                "avalability_rooms": "2"
+            }
+        ]
+
+## GET/POST/Modify/Delete listings [/listing/{listing_id}]
+
+### Get a listing [GET]
+
++ Parameters
+    + listing_id (number,1)
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "4",
+                "Title": "One room in 2bhk available" ,
+                "Price": "7000",
+                "locality": "Hsr layout",
+                "area": "1000 sqft",
+                "avalability_rooms": "1"
+            }
+        ]
+
+### Post a listing [POST]
+
++ Request (application/json)
+
+        {
+            
+        }
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /dashboard/21
+
+    + Body
+
+            {
+                "message": "Trip posted succesfully"
+            }
+
+### Change the listing details[PUT]
++ Request (application/json)
+
+        {
+            "trip_id": "21",
+            "user": "xyz@gmail.com",
+            "when": "28/08/2016",
+            "where": "Nandi Hills",
+            "people_going":"4",
+            "extra_space": "3",
+            "average_cost": "900",
+            "number_days": "2"
+        }
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /dashboard/21
+
+    + Body
+
+            {
+                "message": "Trip details successfully changed"
+            }
+
+### Delete the listing [DELETE]
++ Request (application/json)
+
+        {
+            "trip_id": "21"
+        }
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /dashboard/21
+
+    + Body
+
+            {
+                "message": "Trip deleted Successfully"
+            }
