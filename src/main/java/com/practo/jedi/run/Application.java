@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Application {
   @RequestMapping("/")
   String home() {
-    return "Hello World! y bro yolo";
+    return "Hello World!";
   }
 
   public static void main(String[] args) throws Exception {
@@ -29,4 +29,3 @@ public class Application {
     // chetan.logSimpleMessage();
   }
 }
-

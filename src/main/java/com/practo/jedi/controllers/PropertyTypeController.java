@@ -11,46 +11,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.dao.UserDao;
-import com.practo.jedi.entity.User;
+import com.practo.jedi.dao.PropertyTypeDao;
+import com.practo.jedi.entity.PropertyType;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/propertytype")
+public class PropertyTypeController {
   @Autowired
-  private UserDao userDao;
+  private PropertyTypeDao pTypeDao;
 
   @RequestMapping(method = RequestMethod.GET)
-  public ResponseEntity<Iterable<User>> get() {
-    Iterable<User> dto = userDao.findAll();
-    ResponseEntity<Iterable<User>> re = new ResponseEntity<Iterable<User>>(dto, HttpStatus.OK);
+  public ResponseEntity<Iterable<PropertyType>> get() {
+    Iterable<PropertyType> dto = pTypeDao.findAll();
+    ResponseEntity<Iterable<PropertyType>> re =
+        new ResponseEntity<Iterable<PropertyType>>(dto, HttpStatus.CREATED);
     return re;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public ResponseEntity<User> getUser(@PathVariable int id) {
-    User userobj = userDao.findOne(id);
-    ResponseEntity<User> re = new ResponseEntity<User>(userobj, HttpStatus.OK);
+  public ResponseEntity<PropertyType> getPropertyType(@PathVariable int id) {
+    PropertyType pTypeobj = pTypeDao.findOne(id);
+    ResponseEntity<PropertyType> re = new ResponseEntity<PropertyType>(pTypeobj, HttpStatus.OK);
     return re;
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<User> create(@RequestBody User obj) {
-    User userobj = userDao.save(obj);
-    ResponseEntity<User> re = new ResponseEntity<User>(userobj, HttpStatus.CREATED);
+  public ResponseEntity<PropertyType> create(@RequestBody PropertyType obj) {
+    PropertyType pTypeobj = pTypeDao.save(obj);
+    ResponseEntity<PropertyType> re =
+        new ResponseEntity<PropertyType>(pTypeobj, HttpStatus.CREATED);
     return re;
   }
 
   @RequestMapping(method = RequestMethod.PUT)
-  public ResponseEntity<User> update(@RequestBody User obj) {
-    User userobj = userDao.save(obj);
-    ResponseEntity<User> re = new ResponseEntity<User>(userobj, HttpStatus.OK);
+  public ResponseEntity<PropertyType> update(@RequestBody PropertyType obj) {
+    PropertyType pTypeobj = pTypeDao.save(obj);
+    ResponseEntity<PropertyType> re = new ResponseEntity<PropertyType>(pTypeobj, HttpStatus.OK);
     return re;
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpServletResponse response) {
-    userDao.delete(id);
+    pTypeDao.delete(id);
     ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return re;
   }

@@ -1,8 +1,15 @@
 package com.practo.jedi.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -10,79 +17,85 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="users")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name = "users")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Id
-	private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int id;
 
-	private String email;
+  private String email;
 
-	private String mobile;
+  private String mobile;
 
-	private String name;
+  private String name;
 
-	//bi-directional many-to-one association to Listing
-	@OneToMany(mappedBy="user")
-	private List<Listing> listings;
+  public User(String email, String name) {
+    super();
+    this.email = email;
+    this.name = name;
+  }
 
-	public User() {
-	}
+  // bi-directional many-to-one association to Listing
+  @OneToMany(mappedBy = "user")
+  private List<Listing> listings;
 
-	public int getId() {
-		return this.id;
-	}
+  public User() {}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public int getId() {
+    return this.id;
+  }
 
-	public String getEmail() {
-		return this.email;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  public String getEmail() {
+    return this.email;
+  }
 
-	public String getMobile() {
-		return this.mobile;
-	}
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+  public String getMobile() {
+    return this.mobile;
+  }
 
-	public String getName() {
-		return this.name;
-	}
+  public void setMobile(String mobile) {
+    this.mobile = mobile;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getName() {
+    return this.name;
+  }
 
-	public List<Listing> getListings() {
-		return this.listings;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public void setListings(List<Listing> listings) {
-		this.listings = listings;
-	}
+  public List<Listing> getListings() {
+    return this.listings;
+  }
 
-	public Listing addListing(Listing listing) {
-		getListings().add(listing);
-		listing.setUser(this);
+  public void setListings(List<Listing> listings) {
+    this.listings = listings;
+  }
 
-		return listing;
-	}
+  public Listing addListing(Listing listing) {
+    getListings().add(listing);
+    listing.setUser(this);
 
-	public Listing removeListing(Listing listing) {
-		getListings().remove(listing);
-		listing.setUser(null);
+    return listing;
+  }
 
-		return listing;
-	}
+  public Listing removeListing(Listing listing) {
+    getListings().remove(listing);
+    listing.setUser(null);
+
+    return listing;
+  }
 
 }
