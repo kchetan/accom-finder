@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="accomfinder">
-		<class>com.practo.jedi.entity.Address</class>
-		<class>com.practo.jedi.entity.Image</class>
-		<class>com.practo.jedi.entity.Listing</class>
-		<class>com.practo.jedi.entity.PropertyType</class>
-		<class>com.practo.jedi.entity.User</class>
+		<class>com.practo.jedi.entity.AddressEntity</class>
+		<class>com.practo.jedi.entity.ImageEntity</class>
+		<class>com.practo.jedi.entity.ListingEntity</class>
+		<class>com.practo.jedi.entity.UserEntity</class>
+		<class>com.practo.jedi.entity.PropertyTypeEntity</class>
 	</persistence-unit>
 </persistence>

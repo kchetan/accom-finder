@@ -5,11 +5,11 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.practo.jedi.entity.PropertyType;
+import com.practo.jedi.entity.PropertyTypeEntity;
 
 @Transactional
 @Repository
-public interface PropertyTypeDao extends CrudRepository<PropertyType, Integer> {
+public interface PropertyTypeDao extends CrudRepository<PropertyTypeEntity, Integer> {
 
   /**
    * This method will find an User instance in the database by its email. Note that this method is

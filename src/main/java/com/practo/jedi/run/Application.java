@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 // import log4j2test.MyClass;
 
-@ComponentScan(basePackages = {"com.practo.jedi.controllers"})
+@ComponentScan(basePackages = {"com.practo.jedi"})
 @EnableJpaRepositories(basePackages = {"com.practo.jedi.dao"})
 @EntityScan("com.practo.jedi.entity")
 @RestController
