@@ -5,13 +5,15 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import com.practo.jedi.entity.ListingEntity;
 
 @Transactional
 @Repository
-public interface ListingDao extends JpaRepository<ListingEntity, Integer> {
+public interface ListingDao
+    extends JpaRepository<ListingEntity, Integer>, QueryDslPredicateExecutor<ListingEntity> {
 
   /**
    * This method will find an User instance in the database by its email. Note that this method is

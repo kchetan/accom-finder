@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practo.jedi.models.Listing;
+import com.practo.jedi.models.ListingFilter;
 import com.practo.jedi.service.ListingService;
 
 @RestController
@@ -35,19 +36,13 @@ public class ListingController {
     return re;
   }
   
-  // @RequestMapping(value = {"/search/", "/search"}, method = RequestMethod.GET)
-  // public ResponseEntity<Iterable<Listing>> search(@RequestParam Map<String,String>
-  // allRequestParams) {
-  // Iterable<Listing> listingobj = service.search(allRequestParams);
-  //
-  // ResponseEntity<Iterable<Listing>> re = new ResponseEntity<Iterable<Listing>>(listingobj,
-  // HttpStatus.OK);
-  // return re;
-  // }
-  // @RequestMapping(value = "/search", method = RequestMethod.GET)
-  // public Listing search(Filter search) {
-  // return search;
-  // }
+  @RequestMapping(value = "/search", method = RequestMethod.GET)
+  public ResponseEntity<Iterable<Listing>> search(ListingFilter filterObj) {
+    Iterable<Listing> dto = service.search(filterObj);
+    ResponseEntity<Iterable<Listing>> re =
+        new ResponseEntity<Iterable<Listing>>(dto, HttpStatus.CREATED);
+    return re;
+  }
   
 
   @RequestMapping(method = RequestMethod.POST)

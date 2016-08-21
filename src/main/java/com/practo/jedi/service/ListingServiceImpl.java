@@ -18,6 +18,7 @@ import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.entity.PropertyTypeEntity;
 import com.practo.jedi.entity.UserEntity;
 import com.practo.jedi.models.Listing;
+import com.practo.jedi.models.ListingFilter;
 
 @Service
 public class ListingServiceImpl implements ListingService {
@@ -34,23 +35,16 @@ public class ListingServiceImpl implements ListingService {
   @Autowired
   private PropertyTypeDao pTypeDao;
 
-  // public Iterable<Listing> search(Map<String, String> allRequestParams) {
-  // Iterable<ListingEntity> entity = listingDao.findByRoomFor(allRequestParams.get("roomFor"));
-  // List<Listing> listings = new ArrayList<Listing>();
-  // for (ListingEntity listingObj : entity) {
-  // try {
-  // if (!listingObj.getDeleted()) {
-  // Listing dto = Listing.class.newInstance();
-  // dto.mergeEntity(listingObj);
-  // listings.add(dto);
-  // }
-  // } catch (InstantiationException | IllegalAccessException e) {
-  // System.out.printf("Exception while DAO get for ID :" + e);
-  // return null;
-  // }
-  // }
-  // return listings;
-  // }
+  public Iterable<Listing> search(ListingFilter filterObj) {
+    Iterable<ListingEntity> entities = listingDao.findAll(filterObj.toPredicate());
+    ArrayList<Listing> listings = new ArrayList<Listing>();
+    for (ListingEntity entity : entities) {
+      Listing listing = new Listing();
+      listing.mergeEntity(entity);
+      listings.add(listing);
+    }
+    return listings;
+  }
 
   public Iterable<Listing> getAll() {
     Iterable<ListingEntity> entity = listingDao.findAll();

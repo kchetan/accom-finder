@@ -4,6 +4,8 @@ import javax.transaction.Transactional;
 
 import com.practo.jedi.models.Listing;
 
+import com.practo.jedi.models.ListingFilter;
+
 public interface ListingService {
 
   Listing get(Integer id);
@@ -20,8 +22,8 @@ public interface ListingService {
   @Transactional
   Iterable<Listing> getAll();
 
-//  @Transactional
-//  Iterable<Listing> search(Map<String, String> allRequestParams);
+  @Transactional
+  Iterable<Listing> search(ListingFilter filterObj);
 
 }
 
