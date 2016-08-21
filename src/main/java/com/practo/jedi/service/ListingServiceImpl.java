@@ -34,6 +34,24 @@ public class ListingServiceImpl implements ListingService {
   @Autowired
   private PropertyTypeDao pTypeDao;
 
+  // public Iterable<Listing> search(Map<String, String> allRequestParams) {
+  // Iterable<ListingEntity> entity = listingDao.findByRoomFor(allRequestParams.get("roomFor"));
+  // List<Listing> listings = new ArrayList<Listing>();
+  // for (ListingEntity listingObj : entity) {
+  // try {
+  // if (!listingObj.getDeleted()) {
+  // Listing dto = Listing.class.newInstance();
+  // dto.mergeEntity(listingObj);
+  // listings.add(dto);
+  // }
+  // } catch (InstantiationException | IllegalAccessException e) {
+  // System.out.printf("Exception while DAO get for ID :" + e);
+  // return null;
+  // }
+  // }
+  // return listings;
+  // }
+
   public Iterable<Listing> getAll() {
     Iterable<ListingEntity> entity = listingDao.findAll();
     List<Listing> listings = new ArrayList<Listing>();
@@ -67,6 +85,7 @@ public class ListingServiceImpl implements ListingService {
   public Listing create(Listing d) {
     ListingEntity entity = d.EntityObj();
     Date date = new Date();
+    entity.setPostedOn(date);
     // ---------
     UserEntity user = userDao.findOne(d.getPostedById());
     entity.setUser(user);
@@ -80,7 +99,6 @@ public class ListingServiceImpl implements ListingService {
     entity.setPropertyType(pType);
     // ---------
     entity = listingDao.save(entity);
-    entity.setPostedOn(date);
     d.mergeEntity(entity);
     return d;
   }
@@ -93,6 +111,18 @@ public class ListingServiceImpl implements ListingService {
       Date date = new Date();
       ListingEntity entity = d.EntityObj();
       entity.setModifiedOn(date);
+      //----------
+      UserEntity user = userDao.findOne(d.getPostedById());
+      entity.setUser(user);
+      // ---------
+      // ---------
+      AddressEntity address = addressDao.findOne(d.getAddressId());
+      entity.setAddress(address);
+      // ---------
+      // ---------
+      PropertyTypeEntity pType = pTypeDao.findOne(d.getPropertyId());
+      entity.setPropertyType(pType);
+      // ---------
       entity = listingDao.save(entity);
       d.mergeEntity(entity);
       return d;

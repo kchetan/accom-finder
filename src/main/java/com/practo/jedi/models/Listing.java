@@ -1,9 +1,12 @@
 package com.practo.jedi.models;
 
 import java.beans.Transient;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.practo.jedi.entity.AddressEntity;
+import com.practo.jedi.entity.ImageEntity;
 import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.entity.PropertyTypeEntity;
 import com.practo.jedi.entity.UserEntity;
@@ -21,14 +24,38 @@ public class Listing {
   private int postedById;
   private int addressId;
   private int propertyId;
-  
 
-  //private UserEntity user;
+
+  // private UserEntity user;
   private UserEntity user;
-  
+
   private PropertyTypeEntity propertyType;
-  
+
   private AddressEntity address;
+
+  private List<ImageEntity> images;
+
+  @Transient
+  public List<ImageEntity> getImages() {
+    if (this.images != null) {
+      return this.images;
+    } else
+      return new ArrayList<ImageEntity>();
+  }
+
+  public void setImages(List<ImageEntity> images) {
+    this.images = images;
+  }
+
+  // @Transient
+  public List<Integer> getimagesId() {
+    List<ImageEntity> images = getImages();
+    List<Integer> imageIds = new ArrayList<Integer>();
+    for (ImageEntity each : images) {
+      imageIds.add(each.getId());
+    }
+    return imageIds;
+  }
 
   public Listing() {}
 
@@ -111,28 +138,29 @@ public class Listing {
 
   public int getPostedById() {
     if (this.user != null)
-    return this.user.getId();
-    else{
-      System.out.println(this.postedById + " -------");
+      return this.user.getId();
+    else {
+      
       return this.postedById;
     }
   }
-  
+
   public int getAddressId() {
     if (this.address != null)
-    return this.address.getId();
-    else{
+      return this.address.getId();
+    else {
       return this.addressId;
     }
   }
+
   public int getPropertyId() {
     if (this.propertyType != null)
-    return this.propertyType.getId();
-    else{
+      return this.propertyType.getId();
+    else {
       return this.propertyId;
     }
   }
-  
+
   public void setPostedById(int userId) {
     this.postedById = userId;
   }
@@ -141,14 +169,16 @@ public class Listing {
   public String getUserName() {
     return this.user.getName();
   }
-  
+
 
   public void setUser(UserEntity user) {
     this.user = user;
   }
+
   public void setAddress(AddressEntity address) {
     this.address = address;
   }
+
   public void setPropertyType(PropertyTypeEntity pType) {
     this.propertyType = pType;
   }
@@ -163,6 +193,7 @@ public class Listing {
     et.setRoomFor(getRoomFor());
     et.setTitle(getTitle());
     et.setVacancyFor(getVacancyFor());
+    et.setImages(getImages());
     if (new Integer(getId()) != null)
       et.setId(getId());
     return et;
@@ -182,6 +213,7 @@ public class Listing {
       setUser(e.getUser());
       setAddress(e.getAddress());
       setPropertyType(e.getPropertyType());
+      setImages(e.getImages());
     }
   }
 }

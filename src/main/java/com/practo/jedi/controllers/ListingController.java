@@ -1,7 +1,5 @@
 package com.practo.jedi.controllers;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.service.ListingService;
 
 @RestController
-@RequestMapping("/listing")
+@RequestMapping("/listings")
 public class ListingController {
   @Autowired
   private ListingService service;
@@ -38,14 +35,19 @@ public class ListingController {
     return re;
   }
   
-  @RequestMapping(value = {"/search/", "/search"}, method = RequestMethod.GET)
-  public String search(@RequestParam Map<String,String> allRequestParams) {
-      return allRequestParams.toString();
-//    Listing listingobj = service.get(id);
-//    ResponseEntity<Listing> re = new ResponseEntity<Listing>(listingobj, HttpStatus.OK);
-//    return re;
-  }
-  
+  // @RequestMapping(value = {"/search/", "/search"}, method = RequestMethod.GET)
+  // public ResponseEntity<Iterable<Listing>> search(@RequestParam Map<String,String>
+  // allRequestParams) {
+  // Iterable<Listing> listingobj = service.search(allRequestParams);
+  //
+  // ResponseEntity<Iterable<Listing>> re = new ResponseEntity<Iterable<Listing>>(listingobj,
+  // HttpStatus.OK);
+  // return re;
+  // }
+  // @RequestMapping(value = "/search", method = RequestMethod.GET)
+  // public Listing search(Filter search) {
+  // return search;
+  // }
   
 
   @RequestMapping(method = RequestMethod.POST)

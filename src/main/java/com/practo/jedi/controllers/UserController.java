@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.User;
 import com.practo.jedi.service.UserService;
 
@@ -27,14 +28,20 @@ public class UserController {
     ResponseEntity<User> re = new ResponseEntity<User>(dto, HttpStatus.CREATED);
     return re;
   }
+
+  @RequestMapping(value = "/{id}/listings", method = RequestMethod.GET)
+  public ResponseEntity<Iterable<Listing>> getUserListings(@PathVariable int id) {
+    Iterable<Listing> dto = service.getUserListings(id);
+    ResponseEntity<Iterable<Listing>> re = new ResponseEntity<Iterable<Listing>>(dto, HttpStatus.CREATED);
+    return re;
+  }
   
-//  @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
-//  public ResponseEntity<User> getPosts(@PathVariable int id) {
-//    User dto = service.get(id);
-//    ResponseEntity<User> re = new ResponseEntity<User>(dto, HttpStatus.CREATED);
-//    System.out.println("end service");
-//    return re;
-//  }
+  @RequestMapping(value = "/{id}/listings/{lId}", method = RequestMethod.GET)
+  public ResponseEntity<Listing> getUserListings(@PathVariable int id,@PathVariable int lId) {
+    Listing dto = service.getUserListingsId(id,lId);
+    ResponseEntity<Listing> re = new ResponseEntity<Listing>(dto, HttpStatus.CREATED);
+    return re;
+  }
 
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<User> create(@RequestBody User obj) {
@@ -44,7 +51,7 @@ public class UserController {
   }
 
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<User> update(@RequestBody User obj,@PathVariable int id) {
+  public ResponseEntity<User> update(@RequestBody User obj, @PathVariable int id) {
     User userobj = service.update(obj, id);
     ResponseEntity<User> re = new ResponseEntity<User>(userobj, HttpStatus.OK);
     return re;

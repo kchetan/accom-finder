@@ -20,8 +20,8 @@ public interface ListingService {
   @Transactional
   Iterable<Listing> getAll();
 
-
-  // Class<User> getDTOClass();
+//  @Transactional
+//  Iterable<Listing> search(Map<String, String> allRequestParams);
 
 }
 

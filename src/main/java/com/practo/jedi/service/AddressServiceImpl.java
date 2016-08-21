@@ -33,9 +33,9 @@ public class AddressServiceImpl implements AddressService {
 
   public Address create(Address d) {
     AddressEntity entity = d.EntityObj();
-    entity = addressDao.save(entity);
     Date date = new Date();
     entity.setCreatedOn(date);
+    entity = addressDao.save(entity);
     d.mergeEntity(entity);
     return d;
   }

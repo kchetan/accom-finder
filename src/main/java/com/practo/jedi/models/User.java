@@ -19,6 +19,7 @@ public class User {
     return listings;
   }
 
+  @Transient
   public List<Integer> getListingsId() {
     List<ListingEntity> listings = getListings();
     List<Integer> ListingIds = new ArrayList<Integer>();
