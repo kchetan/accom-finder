@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.practo.jedi.dao.AddressDao;
@@ -18,6 +19,7 @@ import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.entity.PropertyTypeEntity;
 import com.practo.jedi.entity.UserEntity;
 import com.practo.jedi.models.Listing;
+import com.practo.jedi.models.ListingFilter;
 
 @Service
 public class ListingServiceImpl implements ListingService {
@@ -34,26 +36,19 @@ public class ListingServiceImpl implements ListingService {
   @Autowired
   private PropertyTypeDao pTypeDao;
 
-  // public Iterable<Listing> search(Map<String, String> allRequestParams) {
-  // Iterable<ListingEntity> entity = listingDao.findByRoomFor(allRequestParams.get("roomFor"));
-  // List<Listing> listings = new ArrayList<Listing>();
-  // for (ListingEntity listingObj : entity) {
-  // try {
-  // if (!listingObj.getDeleted()) {
-  // Listing dto = Listing.class.newInstance();
-  // dto.mergeEntity(listingObj);
-  // listings.add(dto);
-  // }
-  // } catch (InstantiationException | IllegalAccessException e) {
-  // System.out.printf("Exception while DAO get for ID :" + e);
-  // return null;
-  // }
-  // }
-  // return listings;
-  // }
+  public Iterable<Listing> search(ListingFilter filterObj,Pageable pageable) {
+    Iterable<ListingEntity> entities = listingDao.findAll(filterObj.toPredicate(),pageable);
+    ArrayList<Listing> listings = new ArrayList<Listing>();
+    for (ListingEntity entity : entities) {
+      Listing listing = new Listing();
+      listing.mergeEntity(entity);
+      listings.add(listing);
+    }
+    return listings;
+  }
 
-  public Iterable<Listing> getAll() {
-    Iterable<ListingEntity> entity = listingDao.findAll();
+  public Iterable<Listing> getAll(Pageable pageable) {
+    Iterable<ListingEntity> entity = listingDao.findAll(pageable);
     List<Listing> listings = new ArrayList<Listing>();
     for (ListingEntity listingObj : entity) {
       try {

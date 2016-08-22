@@ -34,7 +34,7 @@ public class UserEntity implements Serializable {
   private int id;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "createdOn", nullable = false, length = 19)
+  @Column(name = "created_on", nullable = false, length = 19)
   private Date createdOn;
 
   @Column(columnDefinition = "TINYINT")
