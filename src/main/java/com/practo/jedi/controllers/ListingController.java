@@ -3,6 +3,8 @@ package com.practo.jedi.controllers;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +20,23 @@ import com.practo.jedi.service.ListingService;
 @RestController
 @RequestMapping("/listings")
 public class ListingController {
+  private int pageSize=3;
+
+  public int getPageSize() {
+    return pageSize;
+  }
+
+  public void setPageSize(int pageSize) {
+    this.pageSize = pageSize;
+  }
+
   @Autowired
   private ListingService service;
 
   @RequestMapping(method = RequestMethod.GET)
-  public ResponseEntity<Iterable<Listing>> getAll() {
-    Iterable<Listing> dto = service.getAll();
+  public ResponseEntity<Iterable<Listing>> getAll(Pageable pageable) {
+    
+    Iterable<Listing> dto = service.getAll(updatePageable(pageable, pageSize));
     ResponseEntity<Iterable<Listing>> re =
         new ResponseEntity<Iterable<Listing>>(dto, HttpStatus.CREATED);
     return re;
@@ -37,8 +50,8 @@ public class ListingController {
   }
   
   @RequestMapping(value = "/search", method = RequestMethod.GET)
-  public ResponseEntity<Iterable<Listing>> search(ListingFilter filterObj) {
-    Iterable<Listing> dto = service.search(filterObj);
+  public ResponseEntity<Iterable<Listing>> search(ListingFilter filterObj,Pageable pageable) {
+    Iterable<Listing> dto = service.search(filterObj,updatePageable(pageable, pageSize));
     ResponseEntity<Iterable<Listing>> re =
         new ResponseEntity<Iterable<Listing>>(dto, HttpStatus.CREATED);
     return re;
@@ -64,6 +77,11 @@ public class ListingController {
     service.delete(id);
     ResponseEntity<Boolean> re = new ResponseEntity<Boolean>(true, HttpStatus.NO_CONTENT);
     return re;
+  }
+  
+  public static Pageable updatePageable(final Pageable source, final int size)
+  {
+      return new PageRequest(source.getPageNumber(), size, source.getSort());
   }
 
 }

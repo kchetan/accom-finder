@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.practo.jedi.dao.AddressDao;
@@ -35,8 +36,8 @@ public class ListingServiceImpl implements ListingService {
   @Autowired
   private PropertyTypeDao pTypeDao;
 
-  public Iterable<Listing> search(ListingFilter filterObj) {
-    Iterable<ListingEntity> entities = listingDao.findAll(filterObj.toPredicate());
+  public Iterable<Listing> search(ListingFilter filterObj,Pageable pageable) {
+    Iterable<ListingEntity> entities = listingDao.findAll(filterObj.toPredicate(),pageable);
     ArrayList<Listing> listings = new ArrayList<Listing>();
     for (ListingEntity entity : entities) {
       Listing listing = new Listing();
@@ -46,8 +47,8 @@ public class ListingServiceImpl implements ListingService {
     return listings;
   }
 
-  public Iterable<Listing> getAll() {
-    Iterable<ListingEntity> entity = listingDao.findAll();
+  public Iterable<Listing> getAll(Pageable pageable) {
+    Iterable<ListingEntity> entity = listingDao.findAll(pageable);
     List<Listing> listings = new ArrayList<Listing>();
     for (ListingEntity listingObj : entity) {
       try {

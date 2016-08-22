@@ -2,8 +2,9 @@ package com.practo.jedi.service;
 
 import javax.transaction.Transactional;
 
-import com.practo.jedi.models.Listing;
+import org.springframework.data.domain.Pageable;
 
+import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.ListingFilter;
 
 public interface ListingService {
@@ -20,10 +21,10 @@ public interface ListingService {
   void delete(Integer id);
 
   @Transactional
-  Iterable<Listing> getAll();
+  Iterable<Listing> getAll(Pageable pagable);
 
   @Transactional
-  Iterable<Listing> search(ListingFilter filterObj);
+  Iterable<Listing> search(ListingFilter filterObj, Pageable pageable);
 
 }
 
