@@ -13,7 +13,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 
 
 public class ListingFilter {
-  PropertyType pType = null;
+  String pType = null;
   private String noBeds = null;
   private float min_area = 0;
   private float max_area = Float.MAX_VALUE;
@@ -25,11 +25,11 @@ public class ListingFilter {
   private String possessionDate = null;
   private String vacancyFor = null;
 
-  public PropertyType getpType() {
+  public String getpType() {
     return pType;
   }
 
-  public void setpType(PropertyType pType) {
+  public void setpType(String pType) {
     this.pType = pType;
   }
 
@@ -143,6 +143,21 @@ public class ListingFilter {
     predicate = predicate.and(b1.vacancyFor.in(collectionObj));
     return predicate;
   }
+  
+  public BooleanExpression pTypePredicate(BooleanExpression predicate){
+    QListingEntity b1 = QListingEntity.listingEntity;
+    String[] pTypes = pType.split("\\|");
+    List<String> collectionObj = new ArrayList<String>();
+    for (String each : pTypes) {
+      try {
+        collectionObj.add(each);
+      } catch (Exception e) {
+        ;
+      }
+    }
+    predicate = predicate.and(b1.propertyType.type.in(collectionObj));
+    return predicate;
+  }
 
   public Predicate toPredicate() {
     QListingEntity b1 = QListingEntity.listingEntity;
@@ -152,8 +167,9 @@ public class ListingFilter {
     if (noBeds != null && noBeds != "") {
       predicate = noBedsPredicate(predicate);
     }
-
-
+    if (pType != null && pType != "") {
+      predicate = pTypePredicate(predicate);
+    }
     if (vacancyFor != null && vacancyFor != "") {
       predicate = vacancyForPredicate(predicate);
     }
