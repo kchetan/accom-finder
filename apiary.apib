@@ -41,14 +41,12 @@ Accom-finder is an API made for Practeon for to find fellow practeons as roommat
 
 + Response 200 (application/json)
 
-        [
             {
                 "name": "chetan",
                 "email": "kasireddychetan@gmail.com",
                 "mobile": "9000979804",
                 "id": "1"
             }
-        ]
 
 ### Update User details[PUT]
 + Request (application/json)
@@ -130,7 +128,6 @@ Accom-finder is an API made for Practeon for to find fellow practeons as roommat
 
 + Response 200 (application/json)
 
-        [
             {
                 "id": 1,
                 "area": 1250,
@@ -146,7 +143,6 @@ Accom-finder is an API made for Practeon for to find fellow practeons as roommat
                 "propertyId": 1,
                 "imagesId": []
             }
-        ]
 
 ## Group PropertyType API's
 
@@ -196,12 +192,10 @@ Accom-finder is an API made for Practeon for to find fellow practeons as roommat
 
 + Response 200 (application/json)
 
-        [
             {
                 "type": "villa"
                 "id" : 1
             }
-        ]
 
 ### Update Propertytype details[PUT]
 + Request (application/json)
@@ -314,7 +308,6 @@ Accom-finder is an API made for Practeon for to find fellow practeons as roommat
 
 + Response 200 (application/json)
 
-        [
             {
               "id" : 14
               "area": 850,
@@ -330,7 +323,6 @@ Accom-finder is an API made for Practeon for to find fellow practeons as roommat
               "propertyId": 5,
               "imagesId" : []
             }
-        ]
 
 ### Update listing [PUT]
 + Request (application/json)
@@ -398,19 +390,33 @@ Search for houses based on filters such as
 
         [
             {
-                "id": "4",
-                "Title": "One room in 2bhk available" ,
-                "Price": "7000",
-                "locality": "Hsr layout",
-                "area": "1000 sqft",
-                "avalability_rooms": "1"
-            }
+                "id": 14,
+                "area": 850,
+                "furnished": "fully-furnished",
+                "noBeds": 1,
+                "possesionDate": 1472167400000,
+                "price": 12000,
+                "roomFor": "male",
+                "title": "1bhk available",
+                "vacancyFor": 2,
+                "postedById": 3,
+                "addressId": 2,
+                "propertyId": 5,
+                "imagesId": [ ]
+            },
             {
-                "id": "6",
-                "Title": "2 rooms in 3bhk" ,
-                "Price": "8500",
-                "locality": "koramangla",
-                "area": "1200 sqft",
-                "avalability_rooms": "2"
+                "id": 11,
+                "area": 1850,
+                "furnished": "unfurnished",
+                "noBeds": 4,
+                "possesionDate": 1472097400000,
+                "price": 10500,
+                "roomFor": "female",
+                "title": "1 room in 2bhk available",
+                "vacancyFor": 1,
+                "postedById": 3,
+                "addressId": 1,
+                "propertyId": 2,
+                "imagesId": [ ]
             }
         ]
