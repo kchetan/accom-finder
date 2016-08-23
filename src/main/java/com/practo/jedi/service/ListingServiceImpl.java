@@ -36,15 +36,16 @@ public class ListingServiceImpl implements ListingService {
   @Autowired
   private PropertyTypeDao pTypeDao;
 
-  public Iterable<Listing> search(ListingFilter filterObj,Pageable pageable) {
-    Iterable<ListingEntity> entities = listingDao.findAll(filterObj.toPredicate(),pageable);
-    ArrayList<Listing> listings = new ArrayList<Listing>();
-    for (ListingEntity entity : entities) {
-      Listing listing = new Listing();
-      listing.mergeEntity(entity);
-      listings.add(listing);
-    }
-    return listings;
+  public Iterable<Listing> search(ListingFilter filterObj, Pageable pageable) {
+    // Iterable<ListingEntity> entities = listingDao.findAll(filterObj.toPredicate(),pageable);
+    // ArrayList<Listing> listings = new ArrayList<Listing>();
+    // for (ListingEntity entity : entities) {
+    // Listing listing = new Listing();
+    // listing.mergeEntity(entity);
+    // listings.add(listing);
+    // }
+    // return listings;
+    return null;
   }
 
   public Iterable<Listing> getAll(Pageable pageable) {
@@ -106,7 +107,7 @@ public class ListingServiceImpl implements ListingService {
       Date date = new Date();
       ListingEntity entity = d.EntityObj();
       entity.setModifiedOn(date);
-      //----------
+      // ----------
       UserEntity user = userDao.findOne(d.getPostedById());
       entity.setUser(user);
       // ---------

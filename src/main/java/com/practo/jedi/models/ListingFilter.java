@@ -1,17 +1,5 @@
 package com.practo.jedi.models;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import com.practo.jedi.entity.QListingEntity;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.BooleanExpression;
-
-
 public class ListingFilter {
   private String noBeds = null;
   private float min_area = 0;
@@ -104,83 +92,83 @@ public class ListingFilter {
     this.possessionDate = possessionDate;
   }
 
-  public BooleanExpression noBedsPredicate(BooleanExpression predicate) {
-    QListingEntity b1 = QListingEntity.listingEntity;
-    String[] beds = noBeds.split("\\|");
-    // System.out.println(Arrays.toString(beds)+" - length");
-    List<Integer> collectionObj = new ArrayList<Integer>();
-    for (String each : beds) {
-      try {
-        collectionObj.add(Integer.parseInt(each));
-      } catch (Exception e) {
-        ;
-      }
-    }
-    predicate = predicate.and(b1.noBeds.in(collectionObj));
-    return predicate;
-  }
-  
-  public BooleanExpression vacancyForPredicate(BooleanExpression predicate){
-    QListingEntity b1 = QListingEntity.listingEntity;
-    String[] vacancies = vacancyFor.split("\\|");
-    List<Integer> collectionObj = new ArrayList<Integer>();
-    for (String each : vacancies) {
-      try {
-        collectionObj.add(Integer.parseInt(each));
-      } catch (Exception e) {
-        ;
-      }
-    }
-    predicate = predicate.and(b1.vacancyFor.in(collectionObj));
-    return predicate;
-  }
-  
-  public BooleanExpression propertyTypePredicate(BooleanExpression predicate){
-    QListingEntity b1 = QListingEntity.listingEntity;
-    String[] pTypes = propertyType.split("\\|");
-    List<String> collectionObj = new ArrayList<String>();
-    for (String each : pTypes) {
-      try {
-        collectionObj.add(each);
-      } catch (Exception e) {
-        ;
-      }
-    }
-    predicate = predicate.and(b1.propertyType.type.in(collectionObj));
-    return predicate;
-  }
+  // public BooleanExpression noBedsPredicate(BooleanExpression predicate) {
+  // QListingEntity b1 = QListingEntity.listingEntity;
+  // String[] beds = noBeds.split("\\|");
+  // // System.out.println(Arrays.toString(beds)+" - length");
+  // List<Integer> collectionObj = new ArrayList<Integer>();
+  // for (String each : beds) {
+  // try {
+  // collectionObj.add(Integer.parseInt(each));
+  // } catch (Exception e) {
+  // ;
+  // }
+  // }
+  // predicate = predicate.and(b1.noBeds.in(collectionObj));
+  // return predicate;
+  // }
 
-  public Predicate toPredicate() {
-    QListingEntity b1 = QListingEntity.listingEntity;
-    BooleanExpression predicate = b1.deleted.eq(false);
-    predicate = predicate.and(b1.area.between(min_area, max_area));
-    predicate = predicate.and(b1.price.between(min_price, max_price));
-    if (noBeds != null && noBeds != "") {
-      predicate = noBedsPredicate(predicate);
-    }
-    if (propertyType != null && propertyType != "") {
-      predicate = propertyTypePredicate(predicate);
-    }
-    if (vacancyFor != null && vacancyFor != "") {
-      predicate = vacancyForPredicate(predicate);
-    }
-    if (furnished != null && furnished != "") {
-      String[] furnish = furnished.split("\\|");
-      predicate = predicate.and(b1.furnished.in(furnish));
-    }
-    if (roomFor != null && roomFor != "") {
-      predicate = predicate.and(b1.roomFor.in(roomFor));
-    }
-    if (possessionDate != null && possessionDate != "") {
-      try {
-        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-        Date posDate = df.parse(possessionDate);
-        predicate = predicate.and(b1.possesionDate.loe(posDate));
-      } catch (ParseException e) {
-        ;
-      }
-    }
-    return predicate;
-  }
+  // public BooleanExpression vacancyForPredicate(BooleanExpression predicate){
+  // QListingEntity b1 = QListingEntity.listingEntity;
+  // String[] vacancies = vacancyFor.split("\\|");
+  // List<Integer> collectionObj = new ArrayList<Integer>();
+  // for (String each : vacancies) {
+  // try {
+  // collectionObj.add(Integer.parseInt(each));
+  // } catch (Exception e) {
+  // ;
+  // }
+  // }
+  // predicate = predicate.and(b1.vacancyFor.in(collectionObj));
+  // return predicate;
+  // }
+
+  // public BooleanExpression propertyTypePredicate(BooleanExpression predicate){
+  // QListingEntity b1 = QListingEntity.listingEntity;
+  // String[] pTypes = propertyType.split("\\|");
+  // List<String> collectionObj = new ArrayList<String>();
+  // for (String each : pTypes) {
+  // try {
+  // collectionObj.add(each);
+  // } catch (Exception e) {
+  // ;
+  // }
+  // }
+  // predicate = predicate.and(b1.propertyType.type.in(collectionObj));
+  // return predicate;
+  // }
+
+  // public Predicate toPredicate() {
+  // QListingEntity b1 = QListingEntity.listingEntity;
+  // BooleanExpression predicate = b1.deleted.eq(false);
+  // predicate = predicate.and(b1.area.between(min_area, max_area));
+  // predicate = predicate.and(b1.price.between(min_price, max_price));
+  // if (noBeds != null && noBeds != "") {
+  // predicate = noBedsPredicate(predicate);
+  // }
+  // if (propertyType != null && propertyType != "") {
+  // predicate = propertyTypePredicate(predicate);
+  // }
+  // if (vacancyFor != null && vacancyFor != "") {
+  // predicate = vacancyForPredicate(predicate);
+  // }
+  // if (furnished != null && furnished != "") {
+  // String[] furnish = furnished.split("\\|");
+  // predicate = predicate.and(b1.furnished.in(furnish));
+  // }
+  // if (roomFor != null && roomFor != "") {
+  // predicate = predicate.and(b1.roomFor.in(roomFor));
+  // }
+  // if (possessionDate != null && possessionDate != "") {
+  // try {
+  // DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+  // Date posDate = df.parse(possessionDate);
+  // predicate = predicate.and(b1.possesionDate.loe(posDate));
+  // } catch (ParseException e) {
+  // ;
+  // }
+  // }
+  // return predicate;
+  // }
 
 }

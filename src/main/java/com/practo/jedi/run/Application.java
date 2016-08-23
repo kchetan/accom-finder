@@ -4,15 +4,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.bind.annotation.RestController;
 
 // import log4j2test.MyClass;
 
 @ComponentScan(basePackages = {"com.practo.jedi"})
 @EnableJpaRepositories(basePackages = {"com.practo.jedi.dao"})
 @EntityScan("com.practo.jedi.entity")
-@RestController
+@ImportResource("classpath:hibernate.xml")
 @EnableAutoConfiguration
 public class Application {
 

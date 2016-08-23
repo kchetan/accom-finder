@@ -1,5 +1,7 @@
 package com.practo.jedi.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practo.jedi.dao.SimpleUserDao;
+import com.practo.jedi.entity.UserEntity;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.User;
 import com.practo.jedi.service.UserService;
@@ -21,9 +25,14 @@ public class UserController {
   @Autowired
   private UserService service;
 
+  @Autowired
+  private SimpleUserDao dao;
+
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public ResponseEntity<User> getUser(@PathVariable int id) {
+    List<UserEntity> user = dao.list();
+    System.out.println(user);
     User dto = service.get(id);
     ResponseEntity<User> re = new ResponseEntity<User>(dto, HttpStatus.CREATED);
     return re;
@@ -32,13 +41,14 @@ public class UserController {
   @RequestMapping(value = "/{id}/listings", method = RequestMethod.GET)
   public ResponseEntity<Iterable<Listing>> getUserListings(@PathVariable int id) {
     Iterable<Listing> dto = service.getUserListings(id);
-    ResponseEntity<Iterable<Listing>> re = new ResponseEntity<Iterable<Listing>>(dto, HttpStatus.CREATED);
+    ResponseEntity<Iterable<Listing>> re =
+        new ResponseEntity<Iterable<Listing>>(dto, HttpStatus.CREATED);
     return re;
   }
-  
+
   @RequestMapping(value = "/{id}/listings/{lId}", method = RequestMethod.GET)
-  public ResponseEntity<Listing> getUserListings(@PathVariable int id,@PathVariable int lId) {
-    Listing dto = service.getUserListingsId(id,lId);
+  public ResponseEntity<Listing> getUserListings(@PathVariable int id, @PathVariable int lId) {
+    Listing dto = service.getUserListingsId(id, lId);
     ResponseEntity<Listing> re = new ResponseEntity<Listing>(dto, HttpStatus.CREATED);
     return re;
   }
