@@ -21,7 +21,7 @@ public class ImageController {
   private ImageService service;
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-  public ResponseEntity<Image> getPropertyType(@PathVariable int id) {
+  public ResponseEntity<Image> getImage(@PathVariable int id) {
     Image imageobj = service.get(id);
     ResponseEntity<Image> re = new ResponseEntity<Image>(imageobj, HttpStatus.OK);
     return re;
