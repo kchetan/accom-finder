@@ -1,3 +1,4 @@
+[![Travis-ci Build Status](https://travis-ci.org/kchetan/accom-finder.svg?branch=master)](https://travis-ci.org/kchetan/accom-finder)
 # Accommodation Finder
 A webapp to find acommodation among the company employees. It is built in maven, Spring boot.
 
