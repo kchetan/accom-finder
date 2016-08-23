@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 // import log4j2test.MyClass;
 
@@ -14,6 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan("com.practo.jedi.entity")
 @ImportResource("classpath:hibernate.xml")
 @EnableAutoConfiguration
+@EnableTransactionManagement
 public class Application {
 
   public static void main(String[] args) throws Exception {

@@ -17,6 +17,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 
 /**
  * The persistent class for the listings database table.
@@ -30,7 +33,7 @@ public class ListingEntity implements Serializable {
 
 	@Id
 	@Column(unique=true, nullable=false)
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private float area;
@@ -68,21 +71,25 @@ public class ListingEntity implements Serializable {
 	@Column(name="vacancy_for")
 	private int vacancyFor;
 
+	@LazyCollection(LazyCollectionOption.FALSE)
 	//bi-directional many-to-one association to ImageEntity
 	@OneToMany(mappedBy="listing")
 	private List<ImageEntity> images;
 
 	//bi-directional many-to-one association to AddressEntity
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToOne
 	@JoinColumn(name="address_id", nullable=false)
 	private AddressEntity address;
 
 	//bi-directional many-to-one association to PropertyTypeEntity
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToOne
 	@JoinColumn(name="property_id", nullable=false)
 	private PropertyTypeEntity propertyType;
 
 	//bi-directional many-to-one association to UserEntity
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@ManyToOne
 	@JoinColumn(name="posted_by_id", nullable=false)
 	private UserEntity user;

@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 
 /**
  * The persistent class for the property_type database table.
@@ -28,7 +31,7 @@ public class PropertyTypeEntity implements Serializable {
 
     @Id
     @Column(unique=true, nullable=false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -45,6 +48,7 @@ public class PropertyTypeEntity implements Serializable {
     private String type;
 
     //bi-directional many-to-one association to ListingEntity
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy="propertyType")
     private List<ListingEntity> listings;
 

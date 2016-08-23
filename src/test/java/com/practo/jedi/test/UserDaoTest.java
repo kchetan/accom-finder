@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.practo.jedi.dao.SimpleUserDao;
+import com.practo.jedi.dao.UserDao;
 import com.practo.jedi.run.Application;
 
 @RunWith(SpringRunner.class)
@@ -14,8 +14,7 @@ import com.practo.jedi.run.Application;
 public class UserDaoTest {
 
   @Autowired
-  private SimpleUserDao userDao;
-
+  private UserDao userDao;
 
 
   @Test

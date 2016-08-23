@@ -1,8 +1,7 @@
 package com.practo.jedi.controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.dao.SimpleUserDao;
-import com.practo.jedi.entity.UserEntity;
+import com.practo.jedi.dao.UserDao;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.User;
 import com.practo.jedi.service.UserService;
@@ -26,13 +24,11 @@ public class UserController {
   private UserService service;
 
   @Autowired
-  private SimpleUserDao dao;
+  private UserDao dao;
 
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public ResponseEntity<User> getUser(@PathVariable int id) {
-    List<UserEntity> user = dao.list();
-    System.out.println(user);
     User dto = service.get(id);
     ResponseEntity<User> re = new ResponseEntity<User>(dto, HttpStatus.CREATED);
     return re;

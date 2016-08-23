@@ -36,7 +36,7 @@ public class ListingController {
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<Iterable<Listing>> getAll(Pageable pageable) {
     
-    Iterable<Listing> dto = service.getAll(updatePageable(pageable, pageSize));
+    Iterable<Listing> dto = service.getAll();
     ResponseEntity<Iterable<Listing>> re =
         new ResponseEntity<Iterable<Listing>>(dto, HttpStatus.CREATED);
     return re;

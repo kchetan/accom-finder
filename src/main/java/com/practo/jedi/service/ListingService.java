@@ -21,7 +21,7 @@ public interface ListingService {
   void delete(Integer id);
 
   @Transactional
-  Iterable<Listing> getAll(Pageable pagable);
+  Iterable<Listing> getAll();
 
   @Transactional
   Iterable<Listing> search(ListingFilter filterObj, Pageable pageable);

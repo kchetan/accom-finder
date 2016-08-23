@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.User;
 
 @Service
+
 public class UserServiceImpl implements UserService {
   private static final Logger logger = LogManager.getLogger(UserService.class);
   // private static final Marker MARKER = MarkerManager.getMarker("myMarker");
@@ -23,8 +26,9 @@ public class UserServiceImpl implements UserService {
   @Autowired
   private UserDao userDao;
 
+  @Transactional
   public Listing getUserListingsId(Integer id, Integer lId) {
-    UserEntity entity = userDao.findOne(id);
+    UserEntity entity = userDao.getUser(id);
     try {
       User dto = User.class.newInstance();
       dto.mergeEntity(entity);
@@ -41,8 +45,9 @@ public class UserServiceImpl implements UserService {
     return null;
   }
 
+  @Transactional
   public Iterable<Listing> getUserListings(Integer id) {
-    UserEntity entity = userDao.findOne(id);
+    UserEntity entity = userDao.getUser(id);
     try {
       User dto = User.class.newInstance();
       dto.mergeEntity(entity);
@@ -59,8 +64,9 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @Transactional
   public User get(Integer id) {
-    UserEntity entity = userDao.findOne(id);
+    UserEntity entity = userDao.getUser(id);
     try {
       User dto = User.class.newInstance();
       dto.mergeEntity(entity);
@@ -71,37 +77,40 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @Transactional
   public User create(User d) {
     UserEntity entity = d.EntityObj();
     Date date = new Date();
     entity.setCreatedOn(date);
-    entity = userDao.save(entity);
+    entity.setDeleted(false);
+    userDao.addUser(entity);
     d.mergeEntity(entity);
     return d;
   }
 
-
+  @Transactional
   public User update(User d, int id) {
-    UserEntity entity = userDao.findOne(id);
+    UserEntity entity = userDao.getUser(id);
     if (entity != null && !entity.getDeleted()) {
       d.setId(id);
       Date date = new Date();
-      UserEntity entityNew = d.EntityObj();
-      entityNew.setModifiedOn(date);
-      entityNew = userDao.save(entityNew);
-      d.mergeEntity(entityNew);
+      entity = d.UpdateEntity(entity);
+      entity.setModifiedOn(date);
+      userDao.updateUser(entity);
+      d.mergeEntity(entity);
       return d;
     }
     return null;
   }
 
+  @Transactional
   public void delete(Integer id) {
-    UserEntity entity = userDao.findOne(id);
+    UserEntity entity = userDao.getUser(id);
     if (entity != null && !entity.getDeleted()) {
       Date date = new Date();
       entity.setModifiedOn(date);
       entity.setDeleted(true);
-      userDao.save(entity);
+      userDao.updateUser(entity);
     }
   }
 
