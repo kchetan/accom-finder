@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,19 +38,22 @@ public class ListingServiceImpl implements ListingService {
   @Autowired
   private PropertyTypeDao pTypeDao;
 
-  public Iterable<Listing> search(ListingFilter filterObj,Pageable pageable) {
-    Iterable<ListingEntity> entities = listingDao.findAll(filterObj.toPredicate(),pageable);
-    ArrayList<Listing> listings = new ArrayList<Listing>();
-    for (ListingEntity entity : entities) {
-      Listing listing = new Listing();
-      listing.mergeEntity(entity);
-      listings.add(listing);
-    }
-    return listings;
+  @Transactional
+  public Iterable<Listing> search(ListingFilter filterObj, Pageable pageable) {
+    // Iterable<ListingEntity> entities = listingDao.getlistings(filterObj.toPredicate(),pageable);
+    // ArrayList<Listing> listings = new ArrayList<Listing>();
+    // for (ListingEntity entity : entities) {
+    // Listing listing = new Listing();
+    // listing.mergeEntity(entity);
+    // listings.add(listing);
+    // }
+    // return listings;
+    return null;
   }
 
-  public Iterable<Listing> getAll(Pageable pageable) {
-    Iterable<ListingEntity> entity = listingDao.findAll(pageable);
+  @Transactional
+  public Iterable<Listing> getAll() {
+    Iterable<ListingEntity> entity = listingDao.getListings();
     List<Listing> listings = new ArrayList<Listing>();
     for (ListingEntity listingObj : entity) {
       try {
@@ -65,8 +70,9 @@ public class ListingServiceImpl implements ListingService {
     return listings;
   }
 
+  @Transactional
   public Listing get(Integer id) {
-    ListingEntity entity = listingDao.findOne(id);
+    ListingEntity entity = listingDao.getListing(id);
     try {
       Listing dto = Listing.class.newInstance();
       dto.mergeEntity(entity);
@@ -77,61 +83,63 @@ public class ListingServiceImpl implements ListingService {
     }
   }
 
+  @Transactional
   public Listing create(Listing d) {
     ListingEntity entity = d.EntityObj();
     Date date = new Date();
     entity.setPostedOn(date);
     // ---------
-    UserEntity user = userDao.findOne(d.getPostedById());
+    UserEntity user = userDao.getUser(d.getPostedById());
     entity.setUser(user);
     // ---------
     // ---------
-    AddressEntity address = addressDao.findOne(d.getAddressId());
+    AddressEntity address = addressDao.getAddress(d.getAddressId());
     entity.setAddress(address);
     // ---------
     // ---------
-    PropertyTypeEntity pType = pTypeDao.findOne(d.getPropertyId());
+    PropertyTypeEntity pType = pTypeDao.getPropertyType(d.getPropertyId());
     entity.setPropertyType(pType);
     // ---------
-    entity = listingDao.save(entity);
+    listingDao.addListing(entity);
     d.mergeEntity(entity);
     return d;
   }
 
-
+  @Transactional
   public Listing update(Listing d, int id) {
-    ListingEntity entityold = listingDao.findOne(id);
-    if (entityold != null && !entityold.getDeleted()) {
+    ListingEntity entity = listingDao.getListing(id);
+    if (entity != null && !entity.getDeleted()) {
       d.setId(id);
       Date date = new Date();
-      ListingEntity entity = d.EntityObj();
+      entity = d.UpdateEntity(entity);
       entity.setModifiedOn(date);
-      //----------
-      UserEntity user = userDao.findOne(d.getPostedById());
+      // ----------
+      UserEntity user = userDao.getUser(d.getPostedById());
       entity.setUser(user);
       // ---------
       // ---------
-      AddressEntity address = addressDao.findOne(d.getAddressId());
+      AddressEntity address = addressDao.getAddress(d.getAddressId());
       entity.setAddress(address);
       // ---------
       // ---------
-      PropertyTypeEntity pType = pTypeDao.findOne(d.getPropertyId());
+      PropertyTypeEntity pType = pTypeDao.getPropertyType(d.getPropertyId());
       entity.setPropertyType(pType);
       // ---------
-      entity = listingDao.save(entity);
+      listingDao.updateListing(entity);
       d.mergeEntity(entity);
       return d;
     }
     return null;
   }
 
+  @Transactional
   public void delete(Integer id) {
-    ListingEntity entity = listingDao.findOne(id);
+    ListingEntity entity = listingDao.getListing(id);
     if (entity != null && !entity.getDeleted()) {
       Date date = new Date();
       entity.setDeleted(true);
       entity.setModifiedOn(date);
-      listingDao.save(entity);
+      listingDao.updateListing(entity);
     }
   }
 

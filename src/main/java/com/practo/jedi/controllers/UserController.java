@@ -1,6 +1,7 @@
 package com.practo.jedi.controllers;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practo.jedi.dao.UserDao;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.User;
 import com.practo.jedi.service.UserService;
@@ -20,6 +22,9 @@ import com.practo.jedi.service.UserService;
 public class UserController {
   @Autowired
   private UserService service;
+
+  @Autowired
+  private UserDao dao;
 
 
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -32,13 +37,14 @@ public class UserController {
   @RequestMapping(value = "/{id}/listings", method = RequestMethod.GET)
   public ResponseEntity<Iterable<Listing>> getUserListings(@PathVariable int id) {
     Iterable<Listing> dto = service.getUserListings(id);
-    ResponseEntity<Iterable<Listing>> re = new ResponseEntity<Iterable<Listing>>(dto, HttpStatus.CREATED);
+    ResponseEntity<Iterable<Listing>> re =
+        new ResponseEntity<Iterable<Listing>>(dto, HttpStatus.CREATED);
     return re;
   }
-  
+
   @RequestMapping(value = "/{id}/listings/{lId}", method = RequestMethod.GET)
-  public ResponseEntity<Listing> getUserListings(@PathVariable int id,@PathVariable int lId) {
-    Listing dto = service.getUserListingsId(id,lId);
+  public ResponseEntity<Listing> getUserListings(@PathVariable int id, @PathVariable int lId) {
+    Listing dto = service.getUserListingsId(id, lId);
     ResponseEntity<Listing> re = new ResponseEntity<Listing>(dto, HttpStatus.CREATED);
     return re;
   }

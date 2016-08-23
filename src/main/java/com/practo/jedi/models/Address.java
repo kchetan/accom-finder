@@ -1,5 +1,7 @@
 package com.practo.jedi.models;
 
+import javax.transaction.Transactional;
+
 import com.practo.jedi.entity.AddressEntity;
 
 public class Address {
@@ -58,6 +60,7 @@ public class Address {
     return "Address";
   }
 
+  @Transactional
   public AddressEntity EntityObj() {
     // System.out.println("came get");
     AddressEntity et = new AddressEntity();
@@ -69,6 +72,7 @@ public class Address {
     return et;
   }
 
+  @Transactional
   public void mergeEntity(AddressEntity e) {
     if (e != null) {
       setPlotNo(e.getPlotNo());
@@ -77,5 +81,17 @@ public class Address {
       setId(e.getId());
       // System.out.println("end merge");
     }
+  }
+
+  @Transactional
+  public AddressEntity UpdateEntity(AddressEntity et) {
+    if (getPlotNo() != null)
+      et.setPlotNo(getPlotNo());
+    if (getLocality() != null)
+      et.setLocality(getLocality());
+    if (getPropertyName() != null)
+      et.setPropertyName(getPropertyName());
+    et.setId(getId());
+    return et;
   }
 }

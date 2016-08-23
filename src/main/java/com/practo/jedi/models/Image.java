@@ -1,5 +1,7 @@
 package com.practo.jedi.models;
 
+import javax.transaction.Transactional;
+
 import com.practo.jedi.entity.ImageEntity;
 
 public class Image {
@@ -33,9 +35,10 @@ public class Image {
   public String toString() {
     return "Image [path=" + imagePath + "]";
   }
-  
+
+  @Transactional
   public ImageEntity EntityObj() {
-    //System.out.println("came get");
+    // System.out.println("came get");
     ImageEntity et = new ImageEntity();
     et.setImagePath(getImagePath());
     if (new Integer(getId()) != null)
@@ -43,11 +46,19 @@ public class Image {
     return et;
   }
 
+  @Transactional
   public void mergeEntity(ImageEntity e) {
     if (e != null) {
       setImagePath(e.getImagePath());
       setId(e.getId());
       // System.out.println("end merge");
     }
+  }
+
+  @Transactional
+  public ImageEntity UpdateEntity(ImageEntity et) {
+    et.setImagePath(getImagePath());
+    et.setId(getId());
+    return et;
   }
 }

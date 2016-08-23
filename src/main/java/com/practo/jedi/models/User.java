@@ -4,8 +4,11 @@ import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.entity.UserEntity;
+
 
 public class User {
   private String name;
@@ -83,6 +86,7 @@ public class User {
     return "User [name=" + name + ", email=" + email + "]";
   }
 
+  @Transactional
   public UserEntity EntityObj() {
     System.out.println("came get");
     UserEntity et = new UserEntity();
@@ -94,6 +98,7 @@ public class User {
     return et;
   }
 
+  @Transactional
   public void mergeEntity(UserEntity e) {
 
     if (e != null) {
@@ -105,4 +110,18 @@ public class User {
       // System.out.println("end merge");
     }
   }
+  
+  @Transactional
+  public UserEntity UpdateEntity(UserEntity e) {
+    if(getName()!=null)
+      e.setName(getName());
+    if(getEmail()!=null)
+      e.setEmail(getEmail());
+    if(getMobile()!=null)
+      e.setMobile(getMobile());
+    if(getListings()!=null)
+      e.setListings(getListings());
+      e.setId(getId());
+      return e;
+    }
 }

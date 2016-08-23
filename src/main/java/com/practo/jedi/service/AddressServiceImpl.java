@@ -2,6 +2,8 @@ package com.practo.jedi.service;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,9 @@ public class AddressServiceImpl implements AddressService {
   @Autowired
   private AddressDao addressDao;
 
+  @Transactional
   public Address get(Integer id) {
-    AddressEntity entity = addressDao.findOne(id);
+    AddressEntity entity = addressDao.getAddress(id);
     try {
       Address dto = Address.class.newInstance();
       dto.mergeEntity(entity);
@@ -30,38 +33,38 @@ public class AddressServiceImpl implements AddressService {
       return null;
     }
   }
-
+  
+  @Transactional
   public Address create(Address d) {
     AddressEntity entity = d.EntityObj();
     Date date = new Date();
     entity.setCreatedOn(date);
-    entity = addressDao.save(entity);
+    addressDao.addAddress(entity);
     d.mergeEntity(entity);
     return d;
   }
 
-
+  @Transactional
   public Address update(Address d, int id) {
-    AddressEntity entityold = addressDao.findOne(id);
-    if (entityold != null && !entityold.getDeleted()) {
+    AddressEntity entity = addressDao.getAddress(id);
+    if (entity != null && !entity.getDeleted()) {
       d.setId(id);
-      AddressEntity entity = d.EntityObj();
-      entity = addressDao.save(entity);
-      Date date = new Date();
-      entity.setModifiedOn(date);
+      entity = d.UpdateEntity(entity);
+      addressDao.updateAddress(entity);
       d.mergeEntity(entity);
       return d;
     }
     return null;
   }
 
+  @Transactional
   public void delete(Integer id) {
-    AddressEntity entity = addressDao.findOne(id);
+    AddressEntity entity = addressDao.getAddress(id);
     if (entity != null && !entity.getDeleted()) {
       Date date = new Date();
       entity.setModifiedOn(date);
       entity.setDeleted(true);
-      addressDao.save(entity);
+      addressDao.updateAddress(entity);
     }
   }
 

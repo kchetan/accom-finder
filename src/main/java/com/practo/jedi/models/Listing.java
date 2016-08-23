@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import com.practo.jedi.entity.AddressEntity;
 import com.practo.jedi.entity.ImageEntity;
 import com.practo.jedi.entity.ListingEntity;
@@ -140,7 +142,7 @@ public class Listing {
     if (this.user != null)
       return this.user.getId();
     else {
-      
+
       return this.postedById;
     }
   }
@@ -183,6 +185,7 @@ public class Listing {
     this.propertyType = pType;
   }
 
+  @Transactional
   public ListingEntity EntityObj() {
     ListingEntity et = new ListingEntity();
     et.setArea(getArea());
@@ -199,6 +202,7 @@ public class Listing {
     return et;
   }
 
+  @Transactional
   public void mergeEntity(ListingEntity e) {
     if (e != null) {
       setArea(e.getArea());
@@ -215,5 +219,29 @@ public class Listing {
       setPropertyType(e.getPropertyType());
       setImages(e.getImages());
     }
+  }
+
+  @Transactional
+  public ListingEntity UpdateEntity(ListingEntity e) {
+    if (getArea() != 0)
+      e.setArea(getArea());
+    if (getFurnished() != null)
+      e.setFurnished(getFurnished());
+    if (getNoBeds() != 0)
+      e.setNoBeds(getNoBeds());
+    if (getPossesionDate() != null)
+      e.setPossesionDate(getPossesionDate());
+    if (getPrice() != 0)
+      e.setPrice(getPrice());
+    if (getRoomFor() != null)
+      e.setRoomFor(getRoomFor());
+    if (getTitle() != null)
+      e.setTitle(getTitle());
+    if (getVacancyFor() != 0)
+      e.setVacancyFor(getVacancyFor());
+    if (getImages() != null)
+      e.setImages(getImages());
+    e.setId(getId());
+    return e;
   }
 }

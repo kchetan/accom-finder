@@ -2,6 +2,8 @@ package com.practo.jedi.service;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,9 @@ public class ImageServiceImpl implements ImageService {
   @Autowired
   private ImageDao imageDao;
 
+  @Transactional
   public Image get(Integer id) {
-    ImageEntity entity = imageDao.findOne(id);
+    ImageEntity entity = imageDao.getImage(id);
     try {
       Image dto = Image.class.newInstance();
       dto.mergeEntity(entity);
@@ -30,38 +33,40 @@ public class ImageServiceImpl implements ImageService {
       return null;
     }
   }
-
+  
+  @Transactional
   public Image create(Image d) {
     ImageEntity entity = d.EntityObj();
-    entity = imageDao.save(entity);
     Date date = new Date();
     entity.setCreatedOn(date);
+    imageDao.addImage(entity);
     d.mergeEntity(entity);
     return d;
   }
 
-
+  @Transactional
   public Image update(Image d, int id) {
-    ImageEntity entityold = imageDao.findOne(id);
-    if (entityold != null && !entityold.getDeleted()) {
+    ImageEntity entity = imageDao.getImage(id);
+    if (entity != null && !entity.getDeleted()) {
       d.setId(id);
-      ImageEntity entity = d.EntityObj();
-      entity = imageDao.save(entity);
+      entity = d.UpdateEntity(entity);
       Date date = new Date();
       entity.setModifiedOn(date);
+      imageDao.updateImage(entity);
       d.mergeEntity(entity);
       return d;
     }
     return null;
   }
 
+  @Transactional
   public void delete(Integer id) {
-    ImageEntity entity = imageDao.findOne(id);
+    ImageEntity entity = imageDao.getImage(id);
     if (entity != null && !entity.getDeleted()) {
       Date date = new Date();
       entity.setModifiedOn(date);
       entity.setDeleted(true);
-      imageDao.save(entity);
+      imageDao.updateImage(entity);
     }
   }
 

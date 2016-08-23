@@ -1,20 +1,19 @@
 package com.practo.jedi.dao;
 
-import javax.transaction.Transactional;
-
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 import com.practo.jedi.entity.PropertyTypeEntity;
 
-@Transactional
-@Repository
-public interface PropertyTypeDao extends CrudRepository<PropertyTypeEntity, Integer> {
+public interface PropertyTypeDao {
 
-  /**
-   * This method will find an User instance in the database by its email. Note that this method is
-   * not implemented and its working code will be automatically generated from its signature by
-   * Spring Data JPA.
-   */
+  public PropertyTypeEntity getPropertyType(int id);
+
+  public void addPropertyType(PropertyTypeEntity pType);
+
+  public void updatePropertyType(PropertyTypeEntity pType);
+
+  public void deletePropertyType(PropertyTypeEntity pType);
+
+  public List<PropertyTypeEntity> getPropertyTypes();
 
 }

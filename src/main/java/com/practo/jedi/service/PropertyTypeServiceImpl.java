@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,9 @@ public class PropertyTypeServiceImpl implements PropertyTypeService {
   @Autowired
   private PropertyTypeDao pTypeDao;
 
+  @Transactional
   public Iterable<PropertyType> getAll() {
-    Iterable<PropertyTypeEntity> entity = pTypeDao.findAll();
+    Iterable<PropertyTypeEntity> entity = pTypeDao.getPropertyTypes();
     List<PropertyType> ptypelist = new ArrayList<PropertyType>();
     for (PropertyTypeEntity pTypeObj : entity) {
       try {
@@ -40,8 +43,9 @@ public class PropertyTypeServiceImpl implements PropertyTypeService {
     return ptypelist;
   }
 
+  @Transactional
   public PropertyType get(Integer id) {
-    PropertyTypeEntity entity = pTypeDao.findOne(id);
+    PropertyTypeEntity entity = pTypeDao.getPropertyType(id);
     try {
       PropertyType dto = PropertyType.class.newInstance();
       dto.mergeEntity(entity);
@@ -52,35 +56,40 @@ public class PropertyTypeServiceImpl implements PropertyTypeService {
     }
   }
 
+  @Transactional
   public PropertyType create(PropertyType d) {
     PropertyTypeEntity entity = d.EntityObj();
-    entity = pTypeDao.save(entity);
+    Date date = new Date();
+    entity.setCreatedOn(date);
+    entity.setDeleted(false);
+    pTypeDao.addPropertyType(entity);
     d.mergeEntity(entity);
     return d;
   }
-
-
+  
+  @Transactional
   public PropertyType update(PropertyType d, int id) {
-    PropertyTypeEntity entity = pTypeDao.findOne(id);
+    PropertyTypeEntity entity = pTypeDao.getPropertyType(id);
     if (entity != null && !entity.getDeleted()) {
       d.setId(id);
       Date date = new Date();
-      PropertyTypeEntity entityNew = d.EntityObj();
-      entityNew.setCreatedOn(date);
-      entityNew = pTypeDao.save(entityNew);
-      d.mergeEntity(entityNew);
+      entity = d.UpdateEntity(entity);
+      entity.setModifiedOn(date);
+      pTypeDao.updatePropertyType(entity);
+      d.mergeEntity(entity);
       return d;
     } else
       return null;
   }
 
+  @Transactional
   public void delete(Integer id) {
-    PropertyTypeEntity entity = pTypeDao.findOne(id);
+    PropertyTypeEntity entity = pTypeDao.getPropertyType(id);
     if (entity != null && !entity.getDeleted()) {
       Date date = new Date();
-      entity.setCreatedOn(date);
+      entity.setModifiedOn(date);
       entity.setDeleted(true);
-      pTypeDao.save(entity);
+      pTypeDao.updatePropertyType(entity);
     }
   }
 }

@@ -1,6 +1,9 @@
 package com.practo.jedi.models;
 
+import javax.transaction.Transactional;
+
 import com.practo.jedi.entity.PropertyTypeEntity;
+import com.practo.jedi.entity.UserEntity;
 
 public class PropertyType {
   private String type;
@@ -34,6 +37,7 @@ public class PropertyType {
     return "Ptype [name=" + type + "]";
   }
   
+  @Transactional
   public PropertyTypeEntity EntityObj() {
     //System.out.println("came get");
     PropertyTypeEntity et = new PropertyTypeEntity();
@@ -43,6 +47,7 @@ public class PropertyType {
     return et;
   }
 
+  @Transactional
   public void mergeEntity(PropertyTypeEntity e) {
     if (e != null) {
       setType(e.getType());
@@ -50,4 +55,12 @@ public class PropertyType {
       // System.out.println("end merge");
     }
   }
+  
+  @Transactional
+  public PropertyTypeEntity UpdateEntity(PropertyTypeEntity e) {
+    if(getType()!=null)
+      e.setType(getType());
+      e.setId(getId());
+      return e;
+    }
 }
