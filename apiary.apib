@@ -4,8 +4,367 @@ HOST: http://52.43.52.91/accom-finder/
 # Accom-finder
 
 Accom-finder is an API made for Practeon for to find fellow practeons as roommates, or help the other practeons to find accommodation
+## Group User API's
 
-## Search Houses [/search{?locality,bhk,min_price,max_price,furnished,orderby,order,page}]
+## Create User [/users]
+
+### Create a User [POST]
+
++ Request (application/json)
+
+        [
+            {
+                "name": "chetan",
+                "email": "kasireddychetan@gmail.com",
+                "mobile": "9000979804",
+            }
+        ]
++ Response 201 (application/json)
+
+    + Body
+    
+            [
+                {
+                    "name": "chetan",
+                    "email": "kasireddychetan@gmail.com",
+                    "mobile": "9000979804",
+                    "id": 5
+                }
+            ]
+
+## Get/Put/Delete User [/users/{id}]
+
++ Parameters
+    + id (required, number, `1`)
+
+### Get a User [GET]
+
++ Response 200 (application/json)
+
+            {
+                "name": "chetan",
+                "email": "kasireddychetan@gmail.com",
+                "mobile": "9000979804",
+                "id": "1"
+            }
+
+### Update User details[PUT]
++ Request (application/json)
+
+        {
+            "name": "chetan",
+            "email": "kasireddychetan@gmail.com",
+            "mobile": "9000979804",
+        }
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "name": "chetan",
+                "email": "kasireddychetan@gmail.com",
+                "mobile": "9000979804",
+                "id" : {id}
+            }
+
+### Delete User [DELETE]
++ Response 204 (application/json)
+
+
+## User Listings [/users/{id}/listings]
+
++ Parameters
+    + id (required, number, `1`)
+
+### Get all listing [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "area": 1250,
+                "furnished": "semi-furnished",
+                "noBeds": 3,
+                "possesionDate": 1472063400000,
+                "price": 7500,
+                "roomFor": "male",
+                "title": "1 room in 2bhk available",
+                "vacancyFor": 1,
+                "postedById": 1,
+                "addressId": 1,
+                "propertyId": 1,
+                "imagesId": []
+            }
+            {
+                "id": 3,
+                "area": 1350,
+                "furnished": "unfurnished",
+                "noBeds": 2,
+                "possesionDate": 1472067400000,
+                "price": 9500,
+                "roomFor": "male",
+                "title": "1 room in 2bhk available",
+                "vacancyFor": 1,
+                "postedById": 1,
+                "addressId": 2,
+                "propertyId": 3,
+                "imagesId": []
+              }
+        ]
+
+## User Listing [/users/{id}/listings/{lId}]
+
++ Parameters
+    + id (required, number, `1`)
+    + lId (required, number, `1`)
+    
++ Attributes
+    + question: `Favourite programming language?` (string, required)
+    + published_at: `2014-11-11T08:40:51.620Z` (string) - An ISO8601 date when the question was published
+    
+
+### Get listing [GET]
+
++ Response 200 (application/json)
+
+            {
+                "id": 1,
+                "area": 1250,
+                "furnished": "semi-furnished",
+                "noBeds": 3,
+                "possesionDate": 1472063400000,
+                "price": 7500,
+                "roomFor": "male",
+                "title": "1 room in 2bhk available",
+                "vacancyFor": 1,
+                "postedById": 1,
+                "addressId": 1,
+                "propertyId": 1,
+                "imagesId": []
+            }
+
+## Group PropertyType API's
+
+## PropertyType [/propertytype]
+
+### Create Propertytype [POST]
+
++ Request (application/json)
+
+        [
+            {
+                "type" : "apartment"
+            }
+        ]
++ Response 201 (application/json)
+
+    + Body
+    
+            [
+                {
+                    "type" : "apartment",
+                    id: 1
+                }
+            ]
+            
+### All Propertytype [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "type": "villa"
+                "id" : 1
+            },
+            {
+                "type": "apartment"
+                "id" : 2
+            }
+        ]
+
+## Get/Put/Delete PropertyType [/propertytype/{id}]
+
++ Parameters
+    + id (required, number, `1`)
+
+### Get a Propertytype [GET]
+
++ Response 200 (application/json)
+
+            {
+                "type": "villa"
+                "id" : 1
+            }
+
+### Update Propertytype details[PUT]
++ Request (application/json)
+
+        {
+            "type": "villa",
+            
+        }
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                "type": "villa",
+                "id": 1
+            }
+
+### Delete User [DELETE]
++ Response 204 (application/json)
+
+## Group Listing API's
+
+## Create Lisiting [/listings]
+
+### Get all listing [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "area": 1250,
+                "furnished": "semi-furnished",
+                "noBeds": 3,
+                "possesionDate": 1472063400000,
+                "price": 7500,
+                "roomFor": "male",
+                "title": "1 room in 2bhk available",
+                "vacancyFor": 1,
+                "postedById": 1,
+                "addressId": 1,
+                "propertyId": 1,
+                "imagesId": []
+            }
+            {
+                "id": 3,
+                "area": 1350,
+                "furnished": "unfurnished",
+                "noBeds": 2,
+                "possesionDate": 1472067400000,
+                "price": 9500,
+                "roomFor": "male",
+                "title": "1 room in 2bhk available",
+                "vacancyFor": 1,
+                "postedById": 1,
+                "addressId": 2,
+                "propertyId": 3,
+                "imagesId": []
+              }
+        ]
+
+### Create Listing [POST]
+
++ Request (application/json)
+
+        [
+            {
+                "area": 850,
+                "furnished": "fully-furnished",
+                "noBeds": 1,
+                "possesionDate": 1472167400000,
+                "price": 12000,
+                "roomFor": "male",
+                "title": "1bhk available",
+                "postedById": 3,
+                "propertyId": 5,
+                "addressId": 2
+            }
+        ]
+
++ Response 201 (application/json)
+
+    + Body
+    
+            [
+                {
+                  "id": 14,
+                  "area": 850,
+                  "furnished": "fully-furnished",
+                  "noBeds": 1,
+                  "possesionDate": 1472167400000,
+                  "price": 12000,
+                  "roomFor": "male",
+                  "title": "1bhk available",
+                  "vacancyFor": null,
+                  "postedById": 3,
+                  "addressId": 2,
+                  "propertyId": 5,
+                  "imagesId": []
+                }
+            ]
+
+
+## GET/Modify/Delete listings [/listing/{listing_id}]
+
+### Get a listing [GET]
+
++ Parameters
+    + listing_id (number)
+
++ Response 200 (application/json)
+
+            {
+              "id" : 14
+              "area": 850,
+              "furnished": "fully-furnished",
+              "noBeds": 1,
+              "possesionDate": 1472167400000,
+              "price": 12000,
+              "roomFor": "male",
+              "title": "1bhk available",
+              "vacancyFor": 2,
+              "postedById": 3,
+              "addressId": 2,
+              "propertyId": 5,
+              "imagesId" : []
+            }
+
+### Update listing [PUT]
++ Request (application/json)
+
+        {
+          "area": 850,
+          "furnished": "fully-furnished",
+          "noBeds": 1,
+          "possesionDate": 1472167400000,
+          "price": 12000,
+          "roomFor": "male",
+          "title": "1bhk available",
+          "vacancyFor": 2,
+          "postedById": 3,
+          "addressId": 2,
+          "propertyId": 5
+        }
++ Response 201 (application/json)
+
+    + Body
+
+            {
+              "id": 14,
+              "area": 850,
+              "furnished": "fully-furnished",
+              "noBeds": 1,
+              "possesionDate": 1472167400000,
+              "price": 12000,
+              "roomFor": "male",
+              "title": "1bhk available",
+              "vacancyFor": 2,
+              "postedById": 3,
+              "addressId": 2,
+              "propertyId": 5,
+              "imagesId": []
+            }
+
+### Delete the listing [DELETE]
+
++ Response 204 (application/json)
+
+## Search Listing [/search{?locality,noBeds,min_price,max_price,furnished,orderby,order,page,}]
 
 Search for houses based on filters such as 
 * locality
@@ -15,11 +374,11 @@ Search for houses based on filters such as
 * orderby
 * order
 
-### List all the posts [GET]
+### All Listings [GET]
 
 + Parameters
     + locality (optional, string, `Hsr layout`)
-    + bhk (optional,number,`2`)
+    + noBeds (optional,number,`2`)
     + min_price (optional,number,`1000`)
     + max_price (optional,number,`10000`)
     + furnished (optional,string,`semi-furnished`)
@@ -31,101 +390,33 @@ Search for houses based on filters such as
 
         [
             {
-                "id": "4",
-                "Title": "One room in 2bhk available" ,
-                "Price": "7000",
-                "locality": "Hsr layout",
-                "area": "1000 sqft",
-                "avalability_rooms": "1"
-            }
+                "id": 14,
+                "area": 850,
+                "furnished": "fully-furnished",
+                "noBeds": 1,
+                "possesionDate": 1472167400000,
+                "price": 12000,
+                "roomFor": "male",
+                "title": "1bhk available",
+                "vacancyFor": 2,
+                "postedById": 3,
+                "addressId": 2,
+                "propertyId": 5,
+                "imagesId": [ ]
+            },
             {
-                "id": "6",
-                "Title": "2 rooms in 3bhk" ,
-                "Price": "8500",
-                "locality": "koramangla",
-                "area": "1200 sqft",
-                "avalability_rooms": "2"
+                "id": 11,
+                "area": 1850,
+                "furnished": "unfurnished",
+                "noBeds": 4,
+                "possesionDate": 1472097400000,
+                "price": 10500,
+                "roomFor": "female",
+                "title": "1 room in 2bhk available",
+                "vacancyFor": 1,
+                "postedById": 3,
+                "addressId": 1,
+                "propertyId": 2,
+                "imagesId": [ ]
             }
         ]
-
-## GET/POST/Modify/Delete listings [/listing/{listing_id}]
-
-### Get a listing [GET]
-
-+ Parameters
-    + listing_id (number,1)
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "id": "4",
-                "Title": "One room in 2bhk available" ,
-                "Price": "7000",
-                "locality": "Hsr layout",
-                "area": "1000 sqft",
-                "avalability_rooms": "1"
-            }
-        ]
-
-### Post a listing [POST]
-
-+ Request (application/json)
-
-        {
-            
-        }
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /dashboard/21
-
-    + Body
-
-            {
-                "message": "Trip posted succesfully"
-            }
-
-### Change the listing details[PUT]
-+ Request (application/json)
-
-        {
-            "trip_id": "21",
-            "user": "xyz@gmail.com",
-            "when": "28/08/2016",
-            "where": "Nandi Hills",
-            "people_going":"4",
-            "extra_space": "3",
-            "average_cost": "900",
-            "number_days": "2"
-        }
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /dashboard/21
-
-    + Body
-
-            {
-                "message": "Trip details successfully changed"
-            }
-
-### Delete the listing [DELETE]
-+ Request (application/json)
-
-        {
-            "trip_id": "21"
-        }
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /dashboard/21
-
-    + Body
-
-            {
-                "message": "Trip deleted Successfully"
-            }
