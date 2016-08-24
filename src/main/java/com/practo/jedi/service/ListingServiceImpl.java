@@ -40,20 +40,19 @@ public class ListingServiceImpl implements ListingService {
 
   @Transactional
   public Iterable<Listing> search(ListingFilter filterObj, Pageable pageable) {
-    // Iterable<ListingEntity> entities = listingDao.getlistings(filterObj.toPredicate(),pageable);
-    // ArrayList<Listing> listings = new ArrayList<Listing>();
-    // for (ListingEntity entity : entities) {
-    // Listing listing = new Listing();
-    // listing.mergeEntity(entity);
-    // listings.add(listing);
-    // }
-    // return listings;
-    return null;
+    Iterable<ListingEntity> entities = listingDao.filter(filterObj, pageable);
+    ArrayList<Listing> listings = new ArrayList<Listing>();
+    for (ListingEntity entity : entities) {
+      Listing listing = new Listing();
+      listing.mergeEntity(entity);
+      listings.add(listing);
+    }
+    return listings;
   }
 
   @Transactional
-  public Iterable<Listing> getAll() {
-    Iterable<ListingEntity> entity = listingDao.getListings();
+  public Iterable<Listing> getAll(Pageable pageable) {
+    Iterable<ListingEntity> entity = listingDao.getListings(pageable);
     List<Listing> listings = new ArrayList<Listing>();
     for (ListingEntity listingObj : entity) {
       try {
