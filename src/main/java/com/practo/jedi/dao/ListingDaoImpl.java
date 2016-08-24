@@ -1,13 +1,7 @@
 package com.practo.jedi.dao;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.transaction.Transactional;
+import com.practo.jedi.entity.ListingEntity;
+import com.practo.jedi.models.ListingFilter;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -16,8 +10,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.practo.jedi.entity.ListingEntity;
-import com.practo.jedi.models.ListingFilter;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.transaction.Transactional;
 
 @Repository
 public class ListingDaoImpl implements ListingDao {
@@ -28,8 +29,6 @@ public class ListingDaoImpl implements ListingDao {
   @Autowired
   private HibernateTemplate template;
   
-  @Autowired
-  private PropertyTypeDao ptypeDao;
 
   @Transactional
   public ListingEntity getListing(int id) {
@@ -52,6 +51,7 @@ public class ListingDaoImpl implements ListingDao {
   public void deleteListing(ListingEntity listing) {
     template.delete(listing);
   }
+
 
   @Transactional
   public Iterable<ListingEntity> getListings(Pageable pageable) {
@@ -92,7 +92,7 @@ public class ListingDaoImpl implements ListingDao {
         DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         Date posDate = df.parse(filter.getPossessionDate());
         criteria = criteria.add(Restrictions.le("possesionDate", posDate));
-      } catch (ParseException e) {
+      } catch (ParseException exp) {
         ;
       }
     }
@@ -101,6 +101,12 @@ public class ListingDaoImpl implements ListingDao {
   }
 
 
+  /**
+   * Criteria for noBeds.
+   * @param filter {@link ListingFilter}
+   * @param criteria {@link DetachedCriteria}
+   * @return {@link DetachedCriteria}
+   */
   @Transactional
   public DetachedCriteria noBedsCriteria(ListingFilter filter, DetachedCriteria criteria) {
     String[] beds = filter.getNoBeds().split("\\|");
@@ -109,7 +115,7 @@ public class ListingDaoImpl implements ListingDao {
     for (String each : beds) {
       try {
         collectionObj.add(Integer.parseInt(each));
-      } catch (Exception e) {
+      } catch (Exception exp) {
         ;
       }
     }
@@ -117,6 +123,12 @@ public class ListingDaoImpl implements ListingDao {
     return criteria;
   }
 
+  /**
+   * Criteria for vacancyFor.
+   * @param filter {@link ListingFilter}
+   * @param criteria {@link DetachedCriteria}
+   * @return {@link DetachedCriteria}
+   */
   @Transactional
   public DetachedCriteria vacancyForCriteria(ListingFilter filter, DetachedCriteria criteria) {
     String[] vacancies = filter.getVacancyFor().split("\\|");
@@ -124,7 +136,7 @@ public class ListingDaoImpl implements ListingDao {
     for (String each : vacancies) {
       try {
         collectionObj.add(Integer.parseInt(each));
-      } catch (Exception e) {
+      } catch (Exception exp) {
         ;
       }
     }
@@ -132,14 +144,20 @@ public class ListingDaoImpl implements ListingDao {
     return criteria;
   }
 
+  /**
+   * Criteria for PropertType.
+   * @param filter {@link ListingFilter}
+   * @param criteria {@link DetachedCriteria}
+   * @return {@link DetachedCriteria}
+   */
   @Transactional
   public DetachedCriteria propertyTypeCriteria(ListingFilter filter,DetachedCriteria criteria) {
-    String[] pTypes = filter.getPropertyType().split("\\|");
+    String[] propType = filter.getPropertyType().split("\\|");
     List<Integer> collectionObj = new ArrayList<Integer>();
-    for (String each : pTypes) {
+    for (String each : propType) {
       try {
         collectionObj.add(Integer.parseInt(each));
-      } catch (Exception e) {
+      } catch (Exception exp) {
         ;
       }
     }

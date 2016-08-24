@@ -1,6 +1,7 @@
 package com.practo.jedi.controllers;
 
-import javax.servlet.http.HttpServletResponse;
+import com.practo.jedi.models.Image;
+import com.practo.jedi.service.ImageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practo.jedi.models.Image;
-import com.practo.jedi.service.ImageService;
+
+import javax.servlet.http.HttpServletResponse;
+
 
 @RestController
 @RequestMapping("/image")
@@ -20,6 +22,11 @@ public class ImageController {
   @Autowired
   private ImageService service;
 
+  /**
+   * Get image controller.
+   * @param id {@link Integer}
+   * @return {@link ResponseEntity}
+   */
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public ResponseEntity<Image> getImage(@PathVariable int id) {
     Image imageobj = service.get(id);
@@ -27,6 +34,11 @@ public class ImageController {
     return re;
   }
 
+  /**
+   * Create Image from response body.
+   * @param obj {@link Image}
+   * @return {@link ResponseEntity}
+   */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<Image> create(@RequestBody Image obj) {
     Image imageobj = service.create(obj);
@@ -34,6 +46,12 @@ public class ImageController {
     return re;
   }
 
+  /**
+   * Update Image object.
+   * @param obj (Image)
+   * @param id (int)
+   * @return (ResponseEntity< Image >)
+   */
   @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
   public ResponseEntity<Image> update(@RequestBody Image obj,@PathVariable int id) {
     Image imageobj = service.update(obj,id);
@@ -41,6 +59,12 @@ public class ImageController {
     return re;
   }
 
+  /**
+   * Delete.
+   * @param id (int)
+   * @param response (HttpServletResponse)
+   * @return (ResponseEntity< Boolean >)
+   */
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpServletResponse response) {
     service.delete(id);

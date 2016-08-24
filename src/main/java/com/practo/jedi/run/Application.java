@@ -18,13 +18,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ImportResource("classpath:hibernate.xml")
 @EnableAutoConfiguration
 @EnableTransactionManagement
-public class Application extends SpringBootServletInitializer{
-  
-  @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-      return application.sources(Application.class);
-    }
+public class Application extends SpringBootServletInitializer {
 
+  @Override
+  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+    return application.sources(Application.class);
+  }
+
+  /**
+   * Spring Boot Main application.
+   * @param args (String array)
+   * @throws Exception ()
+   */
   public static void main(String[] args) throws Exception {
     SpringApplication.run(Application.class, args);
     // MyClass chetan = new MyClass();
