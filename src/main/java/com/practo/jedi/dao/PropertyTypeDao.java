@@ -15,5 +15,7 @@ public interface PropertyTypeDao {
   public void deletePropertyType(PropertyTypeEntity pType);
 
   public List<PropertyTypeEntity> getPropertyTypes();
+  
+  public List<PropertyTypeEntity> getPropertyTypeByType(String[] type);
 
 }

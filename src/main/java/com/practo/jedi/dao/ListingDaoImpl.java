@@ -27,6 +27,9 @@ public class ListingDaoImpl implements ListingDao {
 
   @Autowired
   private HibernateTemplate template;
+  
+  @Autowired
+  private PropertyTypeDao ptypeDao;
 
   @Transactional
   public ListingEntity getListing(int id) {
@@ -88,7 +91,7 @@ public class ListingDaoImpl implements ListingDao {
       try {
         DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         Date posDate = df.parse(filter.getPossessionDate());
-        criteria = criteria.add(Restrictions.le("possessionDate", posDate));
+        criteria = criteria.add(Restrictions.le("possesionDate", posDate));
       } catch (ParseException e) {
         ;
       }
@@ -132,16 +135,18 @@ public class ListingDaoImpl implements ListingDao {
   @Transactional
   public DetachedCriteria propertyTypeCriteria(ListingFilter filter,DetachedCriteria criteria) {
     String[] pTypes = filter.getPropertyType().split("\\|");
-    List<String> collectionObj = new ArrayList<String>();
+    List<Integer> collectionObj = new ArrayList<Integer>();
     for (String each : pTypes) {
       try {
-        collectionObj.add(each);
+        collectionObj.add(Integer.parseInt(each));
       } catch (Exception e) {
         ;
       }
     }
-    criteria = criteria.add(Restrictions.eq("propertyType.type", "Apartment"));
+    criteria = criteria.add(Restrictions.in("propertyType.id", collectionObj));
     return criteria;
   }
+  
+  
 
 }
