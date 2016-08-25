@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 @RestController
-@RequestMapping("/propertytype")
+@RequestMapping("/api/propertytype")
 public class PropertyTypeController {
   @Autowired
   private PropertyTypeService service;

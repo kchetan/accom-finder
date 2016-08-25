@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/listings")
+@RequestMapping("/api/listings")
 public class ListingController {
   private int pageSize = 3;
 

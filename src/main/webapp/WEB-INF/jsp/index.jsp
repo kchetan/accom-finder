@@ -1,35 +1,161 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id"
-	content="163874478634-vg4h5dd1gc03uglno5ofob8ilatqqvv8.apps.googleusercontent.com">
-<script type="text/javascript">
-	function onSignIn(googleUser) {
-		var profile = googleUser.getBasicProfile();
-		console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-		console.log('Name: ' + profile.getName());
-		console.log('Image URL: ' + profile.getImageUrl());
-		console.log('Email: ' + profile.getEmail());
-	}
-	function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function() {
-			console.log('User signed out.');
-		});
-	}
-</script>
-<title>Accom finder</title>
-</head>
-<body>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html lang="en">
 
-	<h1>Hello world</h1>
-	<div class="g-signin2" data-onsuccess="onSignIn"></div>
-	<a href="#" onclick="signOut();">Sign out</a>
+<head>
+<meta charset="UTF-8">
+<title>AccomFinder</title>
+<!-- 
+<link href="css/googlefont.css" rel="stylesheet" type="text/css"> -->
+<link id="main-style-file-css" rel="stylesheet" href="css/style.css" />
+
+</head>
+<body class="home-page-4">
+	<header id="main-header">
+		<div class="main-header-cont container">
+			<!-- Top Logo -->
+			<div class="logo-main-box col-xs-4 col-sm-4 col-md-3">
+				<div class="logo"></div>
+				<span> Finder</span>
+			</div>
+			<!-- End of Top Logo -->
+			<!-- Main Menu -->
+			<div class="menu-container col-xs-3 col-sm-4 col-md-6">
+				<!-- Main Menu -->
+				<nav id="main-menu" class="hidden-xs hidden-sm">
+					<ul class="main-menu list-inline">
+				</nav>
+				<!-- END of Main Menu -->
+
+			</div>
+			<div id="main-menu-handle" class="hidden-md hidden-lg">
+				<i class="fa fa-bars"></i>
+			</div>
+			<!-- Mobile Menu handle -->
+			<ul class="main-menu list-inline">
+				<li><a id="submit-property-link" class="btn"
+					href="pages/submit-property.html"><span>Submit Your
+							Property</span></a></li>
+				<li><a id="login" class="btn" href="pages/submit-property.html"><span>Login</span></a>
+				</li>
+			</ul>
+
+			<!-- End of Main Menu -->
+		</div>
+		<div id="mobile-menu-container" class="hidden-md hidden-lg"></div>
+	</header>
+
+	<!-- Main Slider -->
+	<section id="main-slider-fullscreen">
+		<div class="items">
+			<div class="img-container" data-bg-img="img/slider/1.jpg"></div>
+			<!-- Change the URL section based on your image\'s name -->
+		</div>
+		<div class="items">
+			<div class="img-container" data-bg-img="img/slider/2.jpg"></div>
+		</div>
+		<div class="items">
+			<div class="img-container" data-bg-img="img/slider/3.jpg"></div>
+		</div>
+		<div class="items">
+			<div class="img-container" data-bg-img="img/slider/4.jpg"></div>
+		</div>
+	</section>
+	<!-- End of Main Slider -->
+
+	<!-- Property Search Box -->
+	<form method="GET" action="search">
+		<section id="property-search-container" class="container">
+
+			<div class="property-search-form horizontal">
+				<div class="main-search-sec">
+					<div class="col-xs-4 col-sm-3 search-field">
+						<input type="text" name="locality" placeholder="Location"
+							id="location-search-box">
+					</div>
+					<!-- <div class="col-xs-4 col-sm-2 search-field">
+                    <select id="proeprty-status">
+                        <option value="0">Property Status</option>
+                        <option value="1">For Sale</option>
+                        <option value="2">For Rent</option>
+                    </select>
+                </div> -->
+					<div class="col-xs-4 col-sm-2 search-field">
+						<select id="property-type" name="propertyType">
+							<option value="">Property Type</option>
+							<c:forEach var="ptype" items="${propertyType}">
+								<option value="${ptype.getId()}">${ptype.getType()}</option>
+							</c:forEach>
+
+						</select>
+					</div>
+					<div class="col-xs-4 col-sm-2 search-field">
+						<select id="bedroom" name="noBeds">
+							<option value="">Bedrooms</option>
+							<c:forEach var="nobed" items="${noBeds}">
+								<option value="${nobed}"><b>${nobed}</b> Bedroom
+								</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="col-xs-4 col-sm-2 search-field">
+						<select id="bathroom" name="vacancyFor">
+							<option value="">Vacancy</option>
+							<c:forEach var="vacancy" items="${vacancyFor}">
+								<option value="${vacancy}"><b>${vacancy}</b> Vacant
+								</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="col-xs-4 col-sm-1 search-field">
+						<button class="btn" href="search">Search</button>
+					</div>
+				</div>
+				<div class="advanced-search-sec">
+					<div class="col-xs-3 col-sm-3 col-md-2 search-field">
+						<div class="hsq-checkbox check-box-container">
+							<label for="field-1"> <input type="checkbox" value="81"
+								id="field-1"> <span></span> Parking
+							</label>
+						</div>
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-2 search-field">
+						<div class="hsq-checkbox check-box-container">
+							<label for="field-2"> <input type="checkbox" value="81"
+								id="field-2"> <span></span> Balcony
+							</label>
+						</div>
+					</div>
+					<div class="col-xs-3 col-sm-3 col-md-2 search-field">
+						<div class="hsq-checkbox check-box-container">
+							<label for="field-3"> <input type="checkbox" value="81"
+								id="field-3"> <span></span> Gym
+							</label>
+						</div>
+					</div>
+
+
+				</div>
+				<button class="more-options btn">
+					<i class="fa fa-chevron-down"></i>
+				</button>
+			</div>
+		</section>
+	</form>
+	<!-- End of Property Search Box -->
+
+
+	<!-- JS Include Section -->
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="js/helper.js"></script>
+	<script type="text/javascript" src="js/select2.min.js"></script>
+	<script type="text/javascript" src="js/ion.rangeSlider.min.js"></script>
+	<script type="text/javascript" src="js/owl.carousel.min.js"></script>
+	<!-- <script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
+	<script type="text/javascript" src="js/template.js"></script>
+	<!-- End of JS Include Section -->
 
 </body>
+
 </html>

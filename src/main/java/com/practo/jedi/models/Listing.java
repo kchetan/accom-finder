@@ -26,10 +26,24 @@ public class Listing {
   private int postedById;
   private int addressId;
   private int propertyId;
+  private Date postedOn;
 
+
+  public Date getPostedOn() {
+    return postedOn;
+  }
+
+  public void setPostedOn(Date postedOn) {
+    this.postedOn = postedOn;
+  }
 
   // private UserEntity user;
   private UserEntity user;
+
+  @Transient
+  public UserEntity getUser() {
+    return user;
+  }
 
   private PropertyTypeEntity propertyType;
 
@@ -146,6 +160,11 @@ public class Listing {
       return this.postedById;
     }
   }
+  
+  @Transient
+  public AddressEntity getAddress() {
+      return this.address;
+    }
 
   public int getAddressId() {
     if (this.address != null)
@@ -153,6 +172,11 @@ public class Listing {
     else {
       return this.addressId;
     }
+  }
+  
+  @Transient
+  public PropertyTypeEntity getPropertyType() {
+      return this.propertyType;
   }
 
   public int getPropertyId() {
@@ -218,6 +242,7 @@ public class Listing {
       setAddress(e.getAddress());
       setPropertyType(e.getPropertyType());
       setImages(e.getImages());
+      setPostedOn(e.getPostedOn());
     }
   }
 
