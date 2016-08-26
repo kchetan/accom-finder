@@ -1,11 +1,17 @@
 package com.practo.jedi.web.controllers;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.practo.jedi.models.Address;
+import com.practo.jedi.models.Listing;
+import com.practo.jedi.models.ListingFilter;
+import com.practo.jedi.models.PropertyType;
+import com.practo.jedi.models.User;
+import com.practo.jedi.service.AddressService;
+import com.practo.jedi.service.ListingService;
+import com.practo.jedi.service.MailerService;
+import com.practo.jedi.service.PropertyTypeService;
+import com.practo.jedi.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -16,18 +22,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.practo.jedi.models.Address;
-import com.practo.jedi.models.Listing;
-import com.practo.jedi.models.ListingFilter;
-import com.practo.jedi.models.PropertyType;
-import com.practo.jedi.models.User;
-import com.practo.jedi.service.AddressService;
-import com.practo.jedi.service.ListingService;
-import com.practo.jedi.service.PropertyTypeService;
-import com.practo.jedi.service.UserService;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class JspController {
+
+  @Autowired
+  private MailerService smtpMailSender;
 
   @Autowired
   private PropertyTypeService propService;
@@ -154,6 +161,22 @@ public class JspController {
     return "redirect:/";
   }
 
+  @RequestMapping(value = "/contactOwner", method = RequestMethod.POST)
+  public String contactOwner(Model model, String name, String email, String mobile, String body,
+      String listingId, HttpSession session) throws MessagingException{
+    // if (session.getAttribute("id") != null) {
+    // return "redirect:./";
+    // }
+    try {
+      smtpMailSender.send("chetan.kasireddy@practo.com", "Regarding Listing on Accom finder",
+          "test mail" + " -chetan-\n<br>mail sent from: " + email+mobile);
+    } catch (Exception err) {
+      err.printStackTrace();
+    }
+
+    return "";
+  }
+
   @RequestMapping(value = "/loginUser", method = RequestMethod.POST)
   public void loginUser(Model model, String id, String email, String name, HttpSession session) {
     session.setAttribute("id", id);
@@ -163,7 +186,7 @@ public class JspController {
 
   @RequestMapping(value = "/logoutUser", method = RequestMethod.POST)
   public void logoutUser(Model model, HttpSession session) {
-    
+
     session.invalidate();
   }
 

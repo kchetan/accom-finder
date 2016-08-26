@@ -15,11 +15,11 @@
 
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
-			<a href="/" >
-			<div  class="logo-main-box col-xs-4 col-sm-4 col-md-6">
-				<div class="logo"></div>
-				<span> Finder</span>
-			</div>
+			<a href="/">
+				<div class="logo-main-box col-xs-4 col-sm-4 col-md-6">
+					<div class="logo"></div>
+					<span> Finder</span>
+				</div>
 			</a>
 			<!-- End of Top Logo -->
 			<!-- Main Menu -->
@@ -29,10 +29,9 @@
 					<ul class="main-menu list-inline">
 				</nav>
 				<ul class="main-menu list-inline">
-				
-				<%@include
-								file="googleSignIn.jsp"%>
-			</ul>
+
+					<%@include file="googleSignIn.jsp"%>
+				</ul>
 				<!-- END of Main Menu -->
 
 			</div>
@@ -40,7 +39,7 @@
 				<i class="fa fa-bars"></i>
 			</div>
 			<!-- Mobile Menu handle -->
-			
+
 			<!-- End of Main Menu -->
 		</div>
 		<div id="mobile-menu-container" class="hidden-md hidden-lg"></div>
@@ -179,32 +178,34 @@
 								reiciendis repudiandae sapiente sit, soluta sunt voluptas?</div> -->
 						</div>
 					</div>
+					<form action="../contactOwner" id="submit" method="POST">
+						<div class="information-box">
+							<div class="property-agent-container">
+								<h3>Contact Owner - ${listing.getUser().getName()}</h3>
 
-					<div class="information-box">
-						<div class="property-agent-container">
-							<h3>Contact Owner - ${listing.getUser().getName()}</h3>
-							
-							<div class="box-content clearfix">
+								<div class="box-content clearfix">
 
-								<div class="col-md-12 contact-form-container">
-									<div class="contact-form">
-										<div class="field-box">
-											<input type="text" placeholder="Name *">
+									<div class="col-md-12 contact-form-container">
+										<div class="contact-form">
+											<div class="field-box">
+												<input name="name" type="text" placeholder="Name *">
+											</div>
+											<div class="field-box">
+												<input name="email" type="email" placeholder="Email *">
+											</div>
+											<div class="field-box">
+												<input name="mobile" type="text" placeholder="Phone">
+											</div>
+											<input name="listingId" type="text" style="display:none" value="{listing.getId()}">
+											<textarea name="body" id="message">Your Message *</textarea>
+											<button class="btn btn-lg submit">Submit</button>
 										</div>
-										<div class="field-box">
-											<input type="email" placeholder="Email *">
-										</div>
-										<div class="field-box">
-											<input type="text" placeholder="Phone">
-										</div>
-										<textarea id="message">Your Message *</textarea>
-										<button class="btn btn-lg submit">Submit</button>
 									</div>
 								</div>
 							</div>
-						</div>
 
-					</div>
+						</div>
+					</form>
 
 				</div>
 			</div>
@@ -449,6 +450,6 @@
 
 		google.maps.event.addDomListener(window, 'load', initialize); */
 	</script>
-	
+
 </body>
 </html>
