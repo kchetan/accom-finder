@@ -1,10 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<script src="js/jquery-1.11.1.min.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>Accomfinder</title>
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
+	async defer></script>
 
 <link href="css/googlefont.css" rel="stylesheet" type="text/css">
 <link id="main-style-file-css" rel="stylesheet" href="css/style.css" />
@@ -14,17 +17,24 @@
 	<header id="main-header">
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
-			<div class="logo-main-box col-xs-4 col-sm-4 col-md-3">
+			<a href="/" >
+			<div  class="logo-main-box col-xs-4 col-sm-4 col-md-6">
 				<div class="logo"></div>
 				<span> Finder</span>
 			</div>
+			</a>
 			<!-- End of Top Logo -->
 			<!-- Main Menu -->
-			<div class="menu-container col-xs-3 col-sm-4 col-md-6">
+			<div class="menu-container col-xs-8 col-sm-6 col-md-6">
 				<!-- Main Menu -->
 				<nav id="main-menu" class="hidden-xs hidden-sm">
 					<ul class="main-menu list-inline">
 				</nav>
+				<ul class="main-menu list-inline">
+				
+				<%@include
+								file="googleSignIn.jsp"%>
+			</ul>
 				<!-- END of Main Menu -->
 
 			</div>
@@ -32,13 +42,7 @@
 				<i class="fa fa-bars"></i>
 			</div>
 			<!-- Mobile Menu handle -->
-			<ul class="main-menu list-inline">
-				<li><a id="submit-property-link" class="btn"
-					href="pages/submit-property.html"><span>Submit Your
-							Property</span></a></li>
-				<li><a id="login" class="btn" href="pages/submit-property.html"><span>Login</span></a>
-				</li>
-			</ul>
+			
 			<!-- End of Main Menu -->
 		</div>
 		<div id="mobile-menu-container" class="hidden-md hidden-lg"></div>
@@ -208,6 +212,11 @@
 									</select>
 								</div> --%>
 								<div class="search-field">
+									<input name="locality" type="text" placeholder="Location" id="autocomplete">
+								</div>
+								<hr>
+								<div class="search-field">
+								
 									<select id="property-type" name="propertyType">
 										<option value="">Property Type</option>
 										<c:forEach var="ptype" items="${propertyType}">
@@ -273,6 +282,14 @@
 									</select>
 								</div>
 								<hr>
+								<div class="search-field">
+									<select id="roomfor" name="roomFor">
+										<option value="">Room For</option>
+										<option value="male"><b>Male</b></option>
+										<option value="female"><b>Female</b></option>
+									</select>
+								</div>
+								<hr>
 
 								<div class="search-field"
 									style="color: #BFA249; font-size: 1.6em;">
@@ -289,18 +306,22 @@
 
 							</div>
 							<div class="advanced-search-sec clearfix">
-								<div class="search-field">
-									<select id="roomfor" name="roomFor">
-										<option value="">Room For</option>
-										<option value="male"><b>Male</b></option>
-										<option value="female"><b>Female</b></option>
-									</select>
-								</div>
-								<hr>
+								
 								<div class="search-field">
 									<span style="color: #BFA249; font-size: 1.3em">Possession
-										Date </span><br /> <input id="pdate" name="possessionDate"
-										type="date" value=${activeFilters.getPossessionDate() } } />
+										Date </span><br /> 
+										<c:choose>
+												<c:when test="${activeFilters.getPossessionDate()!= \"\"}">
+													<input id="pdate" name="possessionDate"
+										type="date" value=${activeFilters.getPossessionDate()} />
+														Vacant
+													
+												</c:when>
+												<c:otherwise>
+													<input id="pdate" name="possessionDate"
+										type="date" />
+												</c:otherwise>
+											</c:choose>
 								</div>
 
 								<!-- <div class="col-xs-6 search-field">
@@ -328,5 +349,31 @@
 		src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
 	<script type="text/javascript" src="js/template.js"></script>
 	<!-- End of JS Include Section -->
+	<script type="text/javascript">
+		var placeSearch, autocomplete;
+
+		function initAutocomplete() {
+			var options = {
+				types : [ 'geocode' ],
+				componentRestrictions : {
+					country : 'In'
+				}
+			};
+			autocomplete = new google.maps.places.Autocomplete((document
+					.getElementById('autocomplete')), options);
+
+			autocomplete.addListener('place_changed', fillInAddress);
+		}
+
+		function fillInAddress() {
+
+			var place = autocomplete.getPlace();
+			console.log(place);
+			document.getElementById('autocomplete').value = autocomplete
+					.getPlace().vicinity;
+
+		}
+	</script>
+
 </body>
 </html>

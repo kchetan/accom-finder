@@ -14967,3 +14967,12 @@ body.submit-property .b-sec {
             background-color: #007A20; }
       .demo-styler .preset-container ul li:hover, .demo-styler .preset-container ul li.active {
         border-color: rgba(0, 0, 0, 0.6); }
+
+#submit-property-link .logout:before {
+    display: block;
+    font: 1em/1.1em "FontAwesome";
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    /* content: "\f067"; */
+}

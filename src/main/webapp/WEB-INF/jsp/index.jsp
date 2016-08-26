@@ -1,12 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<script src="js/jquery-1.11.1.min.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>AccomFinder</title>
 <!-- 
 <link href="css/googlefont.css" rel="stylesheet" type="text/css"> -->
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
+	async defer></script>
 <link id="main-style-file-css" rel="stylesheet" href="css/style.css" />
 
 </head>
@@ -14,17 +17,24 @@
 	<header id="main-header">
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
-			<div class="logo-main-box col-xs-4 col-sm-4 col-md-3">
+			<a href="/" >
+			<div  class="logo-main-box col-xs-4 col-sm-4 col-md-6">
 				<div class="logo"></div>
 				<span> Finder</span>
 			</div>
+			</a>
 			<!-- End of Top Logo -->
 			<!-- Main Menu -->
-			<div class="menu-container col-xs-3 col-sm-4 col-md-6">
+			<div class="menu-container col-xs-8 col-sm-6 col-md-6">
 				<!-- Main Menu -->
 				<nav id="main-menu" class="hidden-xs hidden-sm">
 					<ul class="main-menu list-inline">
 				</nav>
+				<ul class="main-menu list-inline">
+				
+				<%@include
+								file="googleSignIn.jsp"%>
+			</ul>
 				<!-- END of Main Menu -->
 
 			</div>
@@ -32,13 +42,7 @@
 				<i class="fa fa-bars"></i>
 			</div>
 			<!-- Mobile Menu handle -->
-			<ul class="main-menu list-inline">
-				<li><a id="submit-property-link" class="btn"
-					href="pages/submit-property.html"><span>Submit Your
-							Property</span></a></li>
-				<li><a id="login" class="btn" href="pages/submit-property.html"><span>Login</span></a>
-				</li>
-			</ul>
+			
 
 			<!-- End of Main Menu -->
 		</div>
@@ -70,8 +74,8 @@
 			<div class="property-search-form horizontal">
 				<div class="main-search-sec">
 					<div class="col-xs-4 col-sm-3 search-field">
-						<input type="text" name="locality" placeholder="Location"
-							id="location-search-box">
+						<input type="text" placeholder="Location" id="autocomplete">
+
 					</div>
 					<!-- <div class="col-xs-4 col-sm-2 search-field">
                     <select id="proeprty-status">
@@ -155,6 +159,31 @@
 		src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
 	<script type="text/javascript" src="js/template.js"></script>
 	<!-- End of JS Include Section -->
+	<script type="text/javascript">
+		var placeSearch, autocomplete;
+
+		function initAutocomplete() {
+			var options = {
+				types : [ 'geocode' ],
+				componentRestrictions : {
+					country : 'In'
+				}
+			};
+			autocomplete = new google.maps.places.Autocomplete((document
+					.getElementById('autocomplete')), options);
+
+			autocomplete.addListener('place_changed', fillInAddress);
+		}
+
+		function fillInAddress() {
+
+			var place = autocomplete.getPlace();
+			console.log(place);
+			document.getElementById('autocomplete').value = autocomplete
+					.getPlace().vicinity;
+
+		}
+	</script>
 
 </body>
 

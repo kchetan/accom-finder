@@ -21,8 +21,6 @@ public class UserController {
   @Autowired
   private UserService service;
 
-
-
   /**
    * Get a user.
    * 

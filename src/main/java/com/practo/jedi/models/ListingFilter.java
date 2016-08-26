@@ -14,6 +14,45 @@ public class ListingFilter {
   private String area;
   private String price;
   private String sortby;
+  private String locality;
+  private String plotNo;
+  private String title;
+  private String propertyName;
+  
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getPlotNo() {
+    return plotNo;
+  }
+
+  public void setPlotNo(String plotNo) {
+    this.plotNo = plotNo;
+  }
+
+  public String getPropertyName() {
+    return propertyName;
+  }
+
+  public void setPropertyName(String propertyName) {
+    this.propertyName = propertyName;
+  }
+
+ 
+  
+
+  public String getLocality() {
+    return locality;
+  }
+
+  public void setLocality(String locality) {
+    this.locality = locality;
+  }
 
   public String getSortby() {
     return sortby;

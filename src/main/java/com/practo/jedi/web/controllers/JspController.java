@@ -1,22 +1,30 @@
 package com.practo.jedi.web.controllers;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.practo.jedi.models.Address;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.ListingFilter;
+import com.practo.jedi.models.PropertyType;
+import com.practo.jedi.models.User;
+import com.practo.jedi.service.AddressService;
 import com.practo.jedi.service.ListingService;
 import com.practo.jedi.service.PropertyTypeService;
+import com.practo.jedi.service.UserService;
 
 @Controller
 public class JspController {
@@ -26,10 +34,16 @@ public class JspController {
   @Autowired
   private ListingService listingService;
 
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private AddressService addressService;
+
   String[] noBeds = {"1", "2", "3", "4"};
   String[] vacancyFor = {"1", "2", "3", "4"};
 
-  String[] sortby = {"posted on - asc","posted on - desc","price - asc","price - desc"};
+  String[] sortby = {"posted on - asc", "posted on - desc", "price - asc", "price - desc"};
 
   private int pageSize = 3;
 
@@ -46,9 +60,9 @@ public class JspController {
   }
 
 
-  @RequestMapping(value = {"/index","/"})
-  public String test(Model model) {
-
+  @RequestMapping(value = {"/index", "/"})
+  public String index(Model model, HttpSession session) {
+    model.addAttribute("session", session.getAttribute("id"));
     model.addAttribute("propertyType", propService.getAll());
     model.addAttribute("noBeds", noBeds);
     model.addAttribute("vacancyFor", vacancyFor);
@@ -58,20 +72,19 @@ public class JspController {
   @RequestMapping(value = "/search", method = RequestMethod.GET)
   public String search(Model model, ListingFilter filterObj, Pageable pageable) {
     pageable = updatePageable(pageable, pageSize);
-    model.addAttribute("listings",
-        listingService.search(filterObj, pageable));
+    model.addAttribute("listings", listingService.search(filterObj, pageable));
     model.addAttribute("vacancyFor", vacancyFor);
     model.addAttribute("noBeds", noBeds);
     model.addAttribute("propertyType", propService.getAll());
     model.addAttribute("activeFilters", filterObj);
     model.addAttribute("sortby", sortby);
-    
-    //System.out.println(pageable.getPageNumber() + " " + pageable.getPageSize());
+
+    // System.out.println(pageable.getPageNumber() + " " + pageable.getPageSize());
     return "listings";
   }
-  
+
   @RequestMapping(value = "/listing/{id}", method = RequestMethod.GET)
-  public String getListing(Model model,@PathVariable int id) {
+  public String getListing(Model model, @PathVariable int id) {
     Listing listingobj = listingService.get(id);
     model.addAttribute("listing", listingobj);
     model.addAttribute("propertyType", propService.getAll());
@@ -84,5 +97,82 @@ public class JspController {
   public String method(HttpServletResponse httpServletResponse) {
     return "redirect:" + "http://docs.accommodationfinder.apiary.io/";
   }
+
+  @RequestMapping(value = "/newproperty", method = RequestMethod.GET)
+  public String newproperty(Model model, HttpSession session) {
+    if (session.getAttribute("id") != null) {
+      return "redirect:/";
+    }
+    model.addAttribute("propertyType", propService.getAll());
+    model.addAttribute("noBeds", noBeds);
+    model.addAttribute("vacancyFor", vacancyFor);
+    return "newproperty";
+  }
+
+  @RequestMapping(value = "/submitProperty", method = RequestMethod.POST)
+  public String submitproperty(Model model, ListingFilter listingObj, HttpSession session) {
+    if (session.getAttribute("id") != null) {
+      return "redirect:/";
+    }
+    try {
+      Listing listing = new Listing();
+      listing.setTitle(listingObj.getTitle());
+      listing.setNoBeds(Integer.parseInt(listingObj.getNoBeds()));
+      listing.setFurnished(listingObj.getFurnished());
+      listing.setRoomFor(listingObj.getRoomFor());
+      listing.setVacancyFor(Integer.parseInt(listingObj.getVacancyFor()));
+      listing.setArea(Float.parseFloat(listingObj.getArea()));
+      listing.setPrice(Integer.parseInt(listingObj.getPrice()));
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+      Date posDate = df.parse(listingObj.getPossessionDate());
+      listing.setPossesionDate(posDate);
+      ///// -------------------------
+      User user = userService.get(1);
+      listing.setUser(user.EntityObj());
+
+      PropertyType ptype = propService.get(Integer.parseInt(listingObj.getPropertyType()));
+      listing.setPropertyType(ptype.EntityObj());
+
+
+      Address addr = new Address();
+      addr.setPropertyName(listingObj.getPropertyName());
+      addr.setPlotNo(listingObj.getPlotNo());
+      addr.setLocality(listingObj.getLocality());
+
+      addressService.create(addr);
+
+      listing.setAddress(addr.EntityObj());
+
+      listing.setPropertyType(ptype.EntityObj());
+
+
+      listingService.create(listing);
+    } catch (Exception err) {
+      err.printStackTrace();
+    }
+
+    return "redirect:/";
+  }
+
+  @RequestMapping(value = "/loginUser", method = RequestMethod.POST)
+  public void loginUser(Model model, String id, String email, String name, HttpSession session) {
+    session.setAttribute("id", id);
+    session.setAttribute("email", email);
+    session.setAttribute("name", name);
+  }
+
+  @RequestMapping(value = "/logoutUser", method = RequestMethod.POST)
+  public void logoutUser(Model model, HttpSession session) {
+    
+    session.invalidate();
+  }
+
+  // @RequestMapping(value = "/s3image",method = RequestMethod.GET)
+  // @RequestMapping(value = "/test", method = RequestMethod.GET)
+  // public String test(Model model) {
+  //
+  // return "googleSignIn";
+  // }
+
 
 }

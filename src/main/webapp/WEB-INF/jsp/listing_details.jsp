@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<script src="../js/jquery-1.11.1.min.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>Accomfinder</title>
@@ -15,17 +15,24 @@
 
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
-			<div class="logo-main-box col-xs-4 col-sm-4 col-md-3">
+			<a href="/" >
+			<div  class="logo-main-box col-xs-4 col-sm-4 col-md-6">
 				<div class="logo"></div>
 				<span> Finder</span>
 			</div>
+			</a>
 			<!-- End of Top Logo -->
 			<!-- Main Menu -->
-			<div class="menu-container col-xs-3 col-sm-4 col-md-6">
+			<div class="menu-container col-xs-8 col-sm-6 col-md-6">
 				<!-- Main Menu -->
 				<nav id="main-menu" class="hidden-xs hidden-sm">
 					<ul class="main-menu list-inline">
 				</nav>
+				<ul class="main-menu list-inline">
+				
+				<%@include
+								file="googleSignIn.jsp"%>
+			</ul>
 				<!-- END of Main Menu -->
 
 			</div>
@@ -33,13 +40,7 @@
 				<i class="fa fa-bars"></i>
 			</div>
 			<!-- Mobile Menu handle -->
-			<ul class="main-menu list-inline">
-				<li><a id="submit-property-link" class="btn"
-					href="pages/submit-property.html"><span>Submit Your
-							Property</span></a></li>
-				<li><a id="login" class="btn" href="pages/submit-property.html"><span>Login</span></a>
-				</li>
-			</ul>
+			
 			<!-- End of Main Menu -->
 		</div>
 		<div id="mobile-menu-container" class="hidden-md hidden-lg"></div>
@@ -332,7 +333,7 @@
 	<!-- End of JS Include Section -->
 
 	<script type="text/javascript">
-		function initialize() {
+		/* function initialize() {
 			var myLatLng = new google.maps.LatLng(40.6700, -73.9400);
 			var mapOptions = {
 				zoom : 12,
@@ -446,7 +447,7 @@
 			});
 		}
 
-		google.maps.event.addDomListener(window, 'load', initialize);
+		google.maps.event.addDomListener(window, 'load', initialize); */
 	</script>
 	
 </body>

@@ -114,6 +114,11 @@ public class ListingDaoImpl implements ListingDao {
     DetachedCriteria criteria = DetachedCriteria.forClass(ListingEntity.class);
     criteria = criteria.add(Restrictions.eq("deleted", false));
 
+    if (filter.getLocality() != null && filter.getLocality() != "") {
+
+      criteria = criteria.createAlias("address", "addr")
+          .add(Restrictions.ilike("addr.locality", filter.getLocality()));
+    }
     if (filter.getArea() != null && filter.getArea() != "") {
       criteria = areaCriteria(filter, criteria);
     }
@@ -136,7 +141,7 @@ public class ListingDaoImpl implements ListingDao {
     }
     if (filter.getRoomFor() != null && filter.getRoomFor() != "") {
       String[] roomFor = filter.getRoomFor().split("\\|");
-      criteria = criteria.add(Restrictions.in("furnished", roomFor));
+      criteria = criteria.add(Restrictions.in("roomFor", roomFor));
     }
     if (filter.getPossessionDate() != null && filter.getPossessionDate() != "") {
       try {
