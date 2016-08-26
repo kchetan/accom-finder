@@ -15,7 +15,7 @@
 
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
-			<a href="/">
+			<a href="/accomfinder">
 				<div class="logo-main-box col-xs-4 col-sm-4 col-md-6">
 					<div class="logo"></div>
 					<span> Finder</span>
@@ -178,7 +178,7 @@
 								reiciendis repudiandae sapiente sit, soluta sunt voluptas?</div> -->
 						</div>
 					</div>
-					<form action="../contactOwner" id="submit" method="POST">
+					<form action="" id="form" method="POST">
 						<div class="information-box">
 							<div class="property-agent-container">
 								<h3>Contact Owner - ${listing.getUser().getName()}</h3>
@@ -196,9 +196,10 @@
 											<div class="field-box">
 												<input name="mobile" type="text" placeholder="Phone">
 											</div>
-											<input name="listingId" type="text" style="display:none" value="{listing.getId()}">
+											<input name="listingId" type="text" style="display: none"
+												value="${listing.getId()}">
 											<textarea name="body" id="message">Your Message *</textarea>
-											<button class="btn btn-lg submit">Submit</button>
+											<button type="submit"  class="btn btn-lg submit">Submit</button>
 										</div>
 									</div>
 								</div>
@@ -334,121 +335,18 @@
 	<!-- End of JS Include Section -->
 
 	<script type="text/javascript">
-		/* function initialize() {
-			var myLatLng = new google.maps.LatLng(40.6700, -73.9400);
-			var mapOptions = {
-				zoom : 12,
-				center : myLatLng,
-				// This is where you would paste any style found on Snazzy Maps.
-				styles : [ {
-					featureType : "landscape",
-					stylers : [ {
-						saturation : -100
-					}, {
-						lightness : 65
-					}, {
-						visibility : "on"
-					} ]
-				}, {
-					featureType : "poi",
-					stylers : [ {
-						saturation : -100
-					}, {
-						lightness : 51
-					}, {
-						visibility : "simplified"
-					} ]
-				}, {
-					featureType : "road.highway",
-					stylers : [ {
-						saturation : -100
-					}, {
-						visibility : "simplified"
-					} ]
-				}, {
-					featureType : "road.arterial",
-					stylers : [ {
-						saturation : -100
-					}, {
-						lightness : 30
-					}, {
-						visibility : "on"
-					} ]
-				}, {
-					featureType : "road.local",
-					stylers : [ {
-						saturation : -100
-					}, {
-						lightness : 40
-					}, {
-						visibility : "on"
-					} ]
-				}, {
-					featureType : "transit",
-					stylers : [ {
-						saturation : -100
-					}, {
-						visibility : "simplified"
-					} ]
-				}, {
-					featureType : "administrative.province",
-					stylers : [ {
-						visibility : "off"
-					} ]
-				}, {
-					featureType : "administrative.locality",
-					stylers : [ {
-						visibility : "off"
-					} ]
-				}, {
-					featureType : "administrative.neighborhood",
-					stylers : [ {
-						visibility : "on"
-					} ]
-				}, {
-					featureType : "water",
-					elementType : "labels",
-					stylers : [ {
-						visibility : "off"
-					}, {
-						lightness : -25
-					}, {
-						saturation : -100
-					} ]
-				}, {
-					featureType : "water",
-					elementType : "geometry",
-					stylers : [ {
-						hue : "#ffff00"
-					}, {
-						lightness : -25
-					}, {
-						saturation : -97
-					} ]
-				} ],
-
-				// Extra options
-				scrollwheel : false,
-				mapTypeControl : false,
-				panControl : false,
-				zoomControlOptions : {
-					style : google.maps.ZoomControlStyle.SMALL,
-					position : google.maps.ControlPosition.LEFT_BOTTOM
-				}
-			}
-			var map = new google.maps.Map(document
-					.getElementById('property-details-map'), mapOptions);
-
-			var image = '../img/marker.png';
-
-			var beachMarker = new google.maps.Marker({
-				position : myLatLng,
-				map : map,
-				icon : image
-			});
-		}
-
-		google.maps.event.addDomListener(window, 'load', initialize); */
+	$('#form').submit(function(e) {
+	    $.ajax({
+	    	type: "POST",
+	        url: '../contactOwner',
+	        data:$('#form').serialize(),
+	        beforeSend: function() { $('#loading').show(); },
+	        complete: function(response) { $('#loading').hide();window.location.href = './'; }
+	    });
+	    e.preventDefault();
+	    return false;
+	});
+		
 	</script>
 
 </body>

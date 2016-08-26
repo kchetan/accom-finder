@@ -107,7 +107,7 @@ public class JspController {
 
   @RequestMapping(value = "/newproperty", method = RequestMethod.GET)
   public String newproperty(Model model, HttpSession session) {
-    if (session.getAttribute("id") != null) {
+    if (session.getAttribute("id") == null) {
       return "redirect:/";
     }
     model.addAttribute("propertyType", propService.getAll());
@@ -118,7 +118,7 @@ public class JspController {
 
   @RequestMapping(value = "/submitProperty", method = RequestMethod.POST)
   public String submitproperty(Model model, ListingFilter listingObj, HttpSession session) {
-    if (session.getAttribute("id") != null) {
+    if (session.getAttribute("id") == null) {
       return "redirect:/";
     }
     try {
@@ -163,18 +163,16 @@ public class JspController {
 
   @RequestMapping(value = "/contactOwner", method = RequestMethod.POST)
   public String contactOwner(Model model, String name, String email, String mobile, String body,
-      String listingId, HttpSession session) throws MessagingException{
-    // if (session.getAttribute("id") != null) {
-    // return "redirect:./";
-    // }
-    try {
-      smtpMailSender.send("chetan.kasireddy@practo.com", "Regarding Listing on Accom finder",
-          "test mail" + " -chetan-\n<br>mail sent from: " + email+mobile);
-    } catch (Exception err) {
-      err.printStackTrace();
-    }
+      String listingId, HttpSession session) throws MessagingException {
+    Listing listingObj = listingService.get(Integer.parseInt(listingId));
+    smtpMailSender.send(listingObj.getUser().getEmail(), "Regarding Listing on Accom finder",
+        body + listingId + "Contacted By" + email + mobile);
+    smtpMailSender.send(email, "Greetings From AccomFinder",
+        "You have requested an interest on a Listing:" + listingId + "Contacted Owner"
+            + listingObj.getUser().getName() + listingObj.getUser().getMobile());
+    model.addAttribute("message", "Contacted By Email");
 
-    return "";
+    return "redirect:./";
   }
 
   @RequestMapping(value = "/loginUser", method = RequestMethod.POST)

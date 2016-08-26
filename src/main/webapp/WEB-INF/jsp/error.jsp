@@ -3,8 +3,9 @@
 
 <!-- Mirrored from ravistheme.com/home-square/html/pages/404.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 24 Aug 2016 17:37:29 GMT -->
 <head>
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 	<meta charset="UTF-8">
-	<title>Page Not Found - Responsive RealEstate template</title>
+	<title>Page Not Found </title>
 	<meta name="description" content="Home Square is a responsive realestate template."><!-- Add your Company short description -->
 	<meta name="keywords" content="Responsive,HTML5,CSS3,XML,JavaScript"><!-- Add some Keywords based on your Company and your business and separate them by comma -->
 	<meta name="author" content="Joseph a, QodeArk@gmail.com">
@@ -20,7 +21,7 @@
 			
 		</div>
 		<div class="main-header-cont container">
-			<!-- Top Logo --><a href="/">
+			<!-- Top Logo --><a href="/accomfinder">
 			<div class="logo-main-box col-xs-6 col-sm-4 col-md-3">
 				
 				<div class="logo"></div>
@@ -200,7 +201,6 @@
 	</footer>
 
 	<!-- JS Include Section -->
-	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="js/helper.js"></script>
 	<script type="text/javascript" src="js/template.js"></script>
 	<script type="text/javascript" src="js/style-selector.js"></script>

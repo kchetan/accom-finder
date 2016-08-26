@@ -5,9 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Accomfinder</title>
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
-	async defer></script>
+
 
 <link href="css/googlefont.css" rel="stylesheet" type="text/css">
 <link id="main-style-file-css" rel="stylesheet" href="css/style.css" />
@@ -17,7 +15,7 @@
 	<header id="main-header">
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
-			<a href="/" >
+			<a href="/accomfinder" >
 			<div  class="logo-main-box col-xs-4 col-sm-4 col-md-6">
 				<div class="logo"></div>
 				<span> Finder</span>
@@ -82,28 +80,27 @@
 									<div class="location">${listing.getAddress().getPlotNo()},
 										${listing.getAddress().getPropertyName()},${listing.getAddress().getLocality()}</div>
 									<div class="desc">
-										<!-- <div class="t-sec clearfix">
-											<div class="left-sec col-md-7">
+										 <div class="t-sec clearfix">
+											<div class="left-sec col-md-12">
 												<ul class="main-info-li">
 													<li>
-														<div class="title">Property ID :</div>
-														<div class="value">#2158799</div>
+														<div class="">Property Type :<span style="color:black">${listing.getPropertyType().getType()}</span></div>
+														
 													</li>
 													<li>
-														<div class="title">Property Status :</div>
-														<div class="value">For Rent</div>
+														<div class="">Vacancy :<span style="color:black"> ${listing.getVacancyFor()}</span></div>
+														
 													</li>
 													<li>
-														<div class="title">Property Type :</div>
-														<div class="value">Apartment</div>
+														<div class="">Furnished :<span style="color:black"> ${listing.getFurnished()}</span></div>
+														
 													</li>
+													
+													
 												</ul>
 											</div>
-											<div class="right-sec col-md-5">
-												<div href="#" class="price">$610,500</div>
-												<div class="price-type">Per Month</div>
-											</div>
-										</div> -->
+											
+										</div> 
 									</div>
 									<div class="extra-info clearfix">
 										<div class="area col-xs-8">
@@ -211,13 +208,13 @@
 										</c:forEach>
 									</select>
 								</div> --%>
-								<div class="search-field">
-									<input name="locality" type="text" placeholder="Location" id="autocomplete">
+								<div class="search-field" style="color: #B31717; font-size: 1em;">
+									Locality <input value="${activeFilters.getLocality()}" name="locality" type="text" placeholder="Location" id="autocomplete">
 								</div>
 								<hr>
-								<div class="search-field">
-								
-									<select id="property-type" name="propertyType">
+								<div class="search-field" style="color: #B31717; font-size: 1em;">
+								Property Type
+									<select id="property-type" name="propertyType" >
 										<option value="">Property Type</option>
 										<c:forEach var="ptype" items="${propertyType}">
 											<c:choose>
@@ -234,7 +231,8 @@
 									</select>
 								</div>
 								<hr>
-								<div class="search-field">
+								<div class="search-field" style="color: #B31717; font-size: 1em;">
+								Bedrooms
 									<select id="bedroom" name="noBeds">
 										<option value="">Bedrooms</option>
 										<c:forEach var="nobed" items="${noBeds}">
@@ -253,7 +251,44 @@
 									</select>
 								</div>
 								<hr>
-								<div class="search-field">
+								
+								<div class="search-field" style="color: #B31717; font-size: 1em;">
+								Furnished
+									<select id="furnished" name="furnished">
+										<option value="">Furnished Type</option>
+										<option value="fully-furnished"><b>Furnished</b></option>
+										<option value="semi-furnished"><b>Semi Furnished</b></option>
+										<option value="unfurnished"><b>Un Furnished</b></option>
+									</select>
+								</div>
+								<hr>
+								<div class="search-field" style="color: #B31717; font-size: 1em;">
+								Room For
+									<select id="roomfor" name="roomFor">
+										<option value="">Room For</option>
+										<option value="male"><b>Male</b></option>
+										<option value="female"><b>Female</b></option>
+									</select>
+								</div>
+								<hr>
+
+								<div class="search-field"
+									style="color: #B31717; font-size: 1em;">
+									Price <input type="text" id="price_range" class="range-slider"
+										name="price" value="" data-min="1000" data-max="40000" />
+								</div>
+								<hr>
+								<div class="search-field "
+									style="color: #B31717; font-size: 1em;">
+									Area <input type="text" id="area_range" class="range-slider"
+										name="area" value="" data-min="400" data-max="5000" />
+								</div>
+								<hr>
+
+							</div>
+							<div class="advanced-search-sec clearfix">
+								<div class="search-field" style="color: #B31717; font-size: 1em;">
+								Vacancy
 									<select id="vacancy" name="vacancyFor">
 										<option value="">Vacancy</option>
 										<c:forEach var="vacancy" items="${noBeds}">
@@ -273,49 +308,13 @@
 									</select>
 								</div>
 								<hr>
-								<div class="search-field">
-									<select id="furnished" name="furnished">
-										<option value="">Furnished Type</option>
-										<option value="fully-furnished"><b>Furnished</b></option>
-										<option value="semi-furnished"><b>Semi Furnished</b></option>
-										<option value="unfurnished"><b>Un Furnished</b></option>
-									</select>
-								</div>
-								<hr>
-								<div class="search-field">
-									<select id="roomfor" name="roomFor">
-										<option value="">Room For</option>
-										<option value="male"><b>Male</b></option>
-										<option value="female"><b>Female</b></option>
-									</select>
-								</div>
-								<hr>
-
-								<div class="search-field"
-									style="color: #BFA249; font-size: 1.6em;">
-									Price <input type="text" id="price_range" class="range-slider"
-										name="price" value="" data-min="500" data-max="40000" />
-								</div>
-								<hr>
-								<div class="search-field "
-									style="color: #BFA249; font-size: 1.6em;">
-									Area <input type="text" id="area_range" class="range-slider"
-										name="area" value="" data-min="500" data-max="40000" />
-								</div>
-								<hr>
-
-							</div>
-							<div class="advanced-search-sec clearfix">
-								
-								<div class="search-field">
-									<span style="color: #BFA249; font-size: 1.3em">Possession
+								<div class="search-field" >
+									<span style="color: #B31717; font-size: 1em;">Possession
 										Date </span><br /> 
 										<c:choose>
 												<c:when test="${activeFilters.getPossessionDate()!= \"\"}">
 													<input id="pdate" name="possessionDate"
-										type="date" value=${activeFilters.getPossessionDate()} />
-														Vacant
-													
+										type="date" value="${activeFilters.getPossessionDate()}" />	
 												</c:when>
 												<c:otherwise>
 													<input id="pdate" name="possessionDate"
@@ -324,13 +323,16 @@
 											</c:choose>
 								</div>
 
-								<!-- <div class="col-xs-6 search-field">
+								<div class="col-xs-6 search-field">
 									<div class="hsq-checkbox check-box-container">
-										<label for="field-1"> <input type="checkbox"
+										<label for="field-1"> <input name="yolo" type="checkbox"
 											value="81" id="field-1"> <span></span> Parking
 										</label>
+										<label for="field-2"> <input name="yolo" type="checkbox"
+											value="84" id="field-2"> <span></span> gym
+										</label>
 									</div>
-								</div> -->
+								</div> 
 							</div>
 						</div>
 					</div>
@@ -374,6 +376,9 @@
 
 		}
 	</script>
+	<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
+	async defer></script>
 
 </body>
 </html>

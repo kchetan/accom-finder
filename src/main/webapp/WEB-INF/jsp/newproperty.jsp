@@ -5,9 +5,7 @@
 <script src="js/jquery-1.11.1.min.js"></script>
 <meta charset="UTF-8">
 <title>Accomfinder</title>
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
-	async defer></script>
+
 <link href="css/googlefont.css" rel="stylesheet" type="text/css">
 <link id="main-style-file-css" rel="stylesheet" href="css/style.css" />
 
@@ -16,7 +14,7 @@
 	<header id="main-header">
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
-			<a href="/" >
+			<a href="/accomfinder" >
 			<div  class="logo-main-box col-xs-4 col-sm-4 col-md-6">
 				<div class="logo"></div>
 				<span> Finder</span>
@@ -60,7 +58,7 @@
 			<div class="content"></div>
 		</div>
 		<div class="submit-main-box clearfix">
-			<form action="submitProperty" id="submit" method="POST">
+			<form action="submitProperty" id="form" method="POST">
 				<div class="row t-sec">
 					<div class="col-md-offset-2 col-md-8 l-sec">
 						<div class="information-box">
@@ -267,117 +265,9 @@
 					.getPlace().vicinity;
 
 		}
-
-		/* var myLatLng = new google.maps.LatLng(40.6700, -73.9400);
-		var mapOptions = {
-			zoom : 12,
-			center : myLatLng,
-			// This is where you would paste any style found on Snazzy Maps.
-			styles : [ {
-				featureType : "landscape",
-				stylers : [ {
-					saturation : -100
-				}, {
-					lightness : 65
-				}, {
-					visibility : "on"
-				} ]
-			}, {
-				featureType : "poi",
-				stylers : [ {
-					saturation : -100
-				}, {
-					lightness : 51
-				}, {
-					visibility : "simplified"
-				} ]
-			}, {
-				featureType : "road.highway",
-				stylers : [ {
-					saturation : -100
-				}, {
-					visibility : "simplified"
-				} ]
-			}, {
-				featureType : "road.arterial",
-				stylers : [ {
-					saturation : -100
-				}, {
-					lightness : 30
-				}, {
-					visibility : "on"
-				} ]
-			}, {
-				featureType : "road.local",
-				stylers : [ {
-					saturation : -100
-				}, {
-					lightness : 40
-				}, {
-					visibility : "on"
-				} ]
-			}, {
-				featureType : "transit",
-				stylers : [ {
-					saturation : -100
-				}, {
-					visibility : "simplified"
-				} ]
-			}, {
-				featureType : "administrative.province",
-				stylers : [ {
-					visibility : "off"
-				} ]
-			}, {
-				featureType : "administrative.locality",
-				stylers : [ {
-					visibility : "off"
-				} ]
-			}, {
-				featureType : "administrative.neighborhood",
-				stylers : [ {
-					visibility : "on"
-				} ]
-			}, {
-				featureType : "water",
-				elementType : "labels",
-				stylers : [ {
-					visibility : "off"
-				}, {
-					lightness : -25
-				}, {
-					saturation : -100
-				} ]
-			}, {
-				featureType : "water",
-				elementType : "geometry",
-				stylers : [ {
-					hue : "#ffff00"
-				}, {
-					lightness : -25
-				}, {
-					saturation : -97
-				} ]
-			} ],
-
-			// Extra options
-			mapTypeControl : false,
-			panControl : false,
-			zoomControlOptions : {
-				style : google.maps.ZoomControlStyle.SMALL,
-				position : google.maps.ControlPosition.LEFT_BOTTOM
-			}
-		};
-		var map = new google.maps.Map(document.getElementById('p-map'),
-				mapOptions);
-		var image = 'img/marker-1.png';
-
-		var marker = new google.maps.Marker({
-			position : myLatLng,
-			map : map,
-			draggable : true,
-			icon : image
-		}); */
 	</script>
+	<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
+	async defer></script>
 </body>
 </html>

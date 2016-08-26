@@ -1,15 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
-<script src="js/jquery-1.11.1.min.js"></script>
+
 <head>
 <meta charset="UTF-8">
 <title>AccomFinder</title>
+
+	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <!-- 
 <link href="css/googlefont.css" rel="stylesheet" type="text/css"> -->
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
-	async defer></script>
+
 <link id="main-style-file-css" rel="stylesheet" href="css/style.css" />
 
 </head>
@@ -17,11 +17,11 @@
 	<header id="main-header">
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
-			<a href="/" >
-			<div  class="logo-main-box col-xs-4 col-sm-4 col-md-6">
-				<div class="logo"></div>
-				<span> Finder</span>
-			</div>
+			<a href="./">
+				<div class="logo-main-box col-xs-4 col-sm-4 col-md-6">
+					<div class="logo"></div>
+					<span> Finder</span>
+				</div>
 			</a>
 			<!-- End of Top Logo -->
 			<!-- Main Menu -->
@@ -31,10 +31,9 @@
 					<ul class="main-menu list-inline">
 				</nav>
 				<ul class="main-menu list-inline">
-				
-				<%@include
-								file="googleSignIn.jsp"%>
-			</ul>
+<jsp:include page="googleSignIn.jsp" />  
+					<%-- <%@include file="googleSignIn.jsp"%> --%>
+				</ul>
 				<!-- END of Main Menu -->
 
 			</div>
@@ -42,7 +41,7 @@
 				<i class="fa fa-bars"></i>
 			</div>
 			<!-- Mobile Menu handle -->
-			
+
 
 			<!-- End of Main Menu -->
 		</div>
@@ -150,7 +149,6 @@
 
 
 	<!-- JS Include Section -->
-	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript" src="js/helper.js"></script>
 	<script type="text/javascript" src="js/select2.min.js"></script>
 	<script type="text/javascript" src="js/ion.rangeSlider.min.js"></script>
@@ -183,7 +181,13 @@
 					.getPlace().vicinity;
 
 		}
+		
 	</script>
+	
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
+		async defer></script>
+		
 
 </body>
 

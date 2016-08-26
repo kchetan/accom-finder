@@ -5,15 +5,17 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.entity.UserEntity;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-  
+
   // @Autowired
   // private SessionFactory sessionFactory;
 
@@ -21,29 +23,38 @@ public class UserDaoImpl implements UserDao {
   private HibernateTemplate template;
 
   @Transactional
-  public UserEntity getUser(int id) {
-    UserEntity res = template.load(UserEntity.class, id);
-    //System.out.println(res.getEmail());
+  public UserEntity getUserByEmail(String email) {
+    DetachedCriteria criteria = DetachedCriteria.forClass(UserEntity.class);
+    UserEntity res =
+        (UserEntity) template.findByCriteria(criteria.add(Restrictions.eq("email", email)));
+    // System.out.println(res.getEmail());
     return res;
   }
-  
+
   @Transactional
-  public void addUser(UserEntity user){
+  public UserEntity getUser(int id) {
+    UserEntity res = template.load(UserEntity.class, id);
+    // System.out.println(res.getEmail());
+    return res;
+  }
+
+  @Transactional
+  public void addUser(UserEntity user) {
     template.save(user);
   }
 
   @Transactional
-  public void updateUser(UserEntity user){
+  public void updateUser(UserEntity user) {
     template.update(user);
   }
 
   @Transactional
-  public void deleteUser(UserEntity user){
+  public void deleteUser(UserEntity user) {
     template.delete(user);
   }
 
   @Transactional
-  public List<UserEntity> getUsers(){
+  public List<UserEntity> getUsers() {
     return template.loadAll(UserEntity.class);
   }
 
