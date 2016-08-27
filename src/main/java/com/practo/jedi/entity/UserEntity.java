@@ -127,18 +127,18 @@ public class UserEntity implements Serializable {
     this.listings = listings;
   }
 
-  public ListingEntity addListing(ListingEntity listing) {
-    getListings().add(listing);
-    listing.setUser(this);
-
-    return listing;
-  }
-
-  public ListingEntity removeListing(ListingEntity listing) {
-    getListings().remove(listing);
-    listing.setUser(null);
-
-    return listing;
-  }
+//  public ListingEntity addListing(ListingEntity listing) {
+//    getListings().add(listing);
+//    listing.setUser(this);
+//
+//    return listing;
+//  }
+//
+//  public ListingEntity removeListing(ListingEntity listing) {
+//    getListings().remove(listing);
+//    listing.setUser(null);
+//
+//    return listing;
+//  }
 
 }

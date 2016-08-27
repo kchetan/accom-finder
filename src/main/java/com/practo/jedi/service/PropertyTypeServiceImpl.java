@@ -92,7 +92,7 @@ public class PropertyTypeServiceImpl implements PropertyTypeService {
       Date date = new Date();
       entity.setModifiedOn(date);
       entity.setDeleted(true);
-      pTypeDao.updatePropertyType(entity);
+      pTypeDao.deletePropertyType(entity);
     }
   }
 }

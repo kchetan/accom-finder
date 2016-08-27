@@ -2,7 +2,7 @@
 INSERT INTO users (id, name, email, mobile, created_on, modified_on,deleted) VALUES (1,'chetan','kasireddychetan@gmail.com','9000979804','2016-08-19 09:58:22',null,0)
 INSERT INTO users (id, name, email, mobile, created_on, modified_on,deleted) VALUES (2,'prashant Baisla','prashant.baisla@practo.com','2016-08-19 09:58:22','2016-08-19 10:28:22',null,0)
 INSERT INTO users (id, name, email, mobile, created_on, modified_on,deleted) VALUES (3,'Aditya Bhatia','aditya.bhatia@practo.com','999999999','2016-08-19 10:48:22',null,0);
-INSERT INTO users(id, name, email, mobile, created_on, modified_on,deleted) VALUES (4, 'Obi-wan Kenobi', 'ben@jedi.org', '1111111111', '2016-08-18 14:56:55', '2016-08-18 14:56:55', 0);
+INSERT INTO users(id, name, email, mobile, created_on, modified_on,deleted) VALUES (4, 'Test User', 'Testuser@mail.com', '1111111111', '2016-08-18 14:56:55', '2016-08-18 14:56:55', 0);
 
 INSERT INTO property_type (id, type, created_on, modified_on, deleted) VALUES (1,'Apartment','2016-08-19 10:20:26','2016-08-23 21:00:38',0);
 INSERT INTO property_type (id, type, created_on, modified_on, deleted) VALUES (2,'Villa','2016-08-19 10:20:26','2016-08-25 16:01:17',0);

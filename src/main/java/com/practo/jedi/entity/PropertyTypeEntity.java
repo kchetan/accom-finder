@@ -24,97 +24,96 @@ import org.hibernate.annotations.LazyCollectionOption;
  * 
  */
 @Entity
-@Table(name="property_type")
-@NamedQuery(name="PropertyTypeEntity.findAll", query="SELECT p FROM PropertyTypeEntity p")
+@Table(name = "property_type")
+@NamedQuery(name = "PropertyTypeEntity.findAll", query = "SELECT p FROM PropertyTypeEntity p")
 public class PropertyTypeEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(unique=true, nullable=false)
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id;
+  @Id
+  @Column(unique = true, nullable = false)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="created_on")
-    private Date createdOn;
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "created_on")
+  private Date createdOn;
 
-    private boolean deleted;
+  private boolean deleted;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="modified_on")
-    private Date modifiedOn;
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "modified_on")
+  private Date modifiedOn;
 
-    @Column(nullable=false, length=45)
-    private String type;
+  @Column(nullable = false, length = 45)
+  private String type;
 
-    //bi-directional many-to-one association to ListingEntity
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany(mappedBy="propertyType")
-    private List<ListingEntity> listings;
+  // bi-directional many-to-one association to ListingEntity
+  @LazyCollection(LazyCollectionOption.FALSE)
+  @OneToMany(mappedBy = "propertyType")
+  private List<ListingEntity> listings;
 
-    public PropertyTypeEntity() {
-    }
+  public PropertyTypeEntity() {}
 
-    public int getId() {
-        return this.id;
-    }
+  public int getId() {
+    return this.id;
+  }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+  public void setId(int id) {
+    this.id = id;
+  }
 
-    public Date getCreatedOn() {
-        return this.createdOn;
-    }
+  public Date getCreatedOn() {
+    return this.createdOn;
+  }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
+  public void setCreatedOn(Date createdOn) {
+    this.createdOn = createdOn;
+  }
 
-    public boolean getDeleted() {
-        return this.deleted;
-    }
+  public boolean getDeleted() {
+    return this.deleted;
+  }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
+  public void setDeleted(boolean deleted) {
+    this.deleted = deleted;
+  }
 
-    public Date getModifiedOn() {
-        return this.modifiedOn;
-    }
+  public Date getModifiedOn() {
+    return this.modifiedOn;
+  }
 
-    public void setModifiedOn(Date modifiedOn) {
-        this.modifiedOn = modifiedOn;
-    }
+  public void setModifiedOn(Date modifiedOn) {
+    this.modifiedOn = modifiedOn;
+  }
 
-    public String getType() {
-        return this.type;
-    }
+  public String getType() {
+    return this.type;
+  }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public List<ListingEntity> getListings() {
-        return this.listings;
-    }
+  public List<ListingEntity> getListings() {
+    return this.listings;
+  }
 
-    public void setListings(List<ListingEntity> listings) {
-        this.listings = listings;
-    }
+  public void setListings(List<ListingEntity> listings) {
+    this.listings = listings;
+  }
 
-    public ListingEntity addListing(ListingEntity listing) {
-        getListings().add(listing);
-        listing.setPropertyType(this);
-
-        return listing;
-    }
-
-    public ListingEntity removeListing(ListingEntity listing) {
-        getListings().remove(listing);
-        listing.setPropertyType(null);
-
-        return listing;
-    }
+//  public ListingEntity addListing(ListingEntity listing) {
+//    getListings().add(listing);
+//    listing.setPropertyType(this);
+//
+//    return listing;
+//  }
+//
+//  public ListingEntity removeListing(ListingEntity listing) {
+//    getListings().remove(listing);
+//    listing.setPropertyType(null);
+//
+//    return listing;
+//  }
 
 }

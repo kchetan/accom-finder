@@ -141,7 +141,7 @@ public class ListingServiceImpl implements ListingService {
       Date date = new Date();
       entity.setDeleted(true);
       entity.setModifiedOn(date);
-      listingDao.updateListing(entity);
+      listingDao.deleteListing(entity);
     }
   }
 

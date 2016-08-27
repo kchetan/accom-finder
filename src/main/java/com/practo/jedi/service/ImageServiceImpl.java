@@ -77,7 +77,7 @@ public class ImageServiceImpl implements ImageService {
       Date date = new Date();
       entity.setModifiedOn(date);
       entity.setDeleted(true);
-      imageDao.updateImage(entity);
+      imageDao.deleteImage(entity);
     }
   }
 

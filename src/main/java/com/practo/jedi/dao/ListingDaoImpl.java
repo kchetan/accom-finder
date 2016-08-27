@@ -57,7 +57,7 @@ public class ListingDaoImpl implements ListingDao {
 
   @Transactional
   public void deleteListing(ListingEntity listing) {
-    template.delete(listing);
+    template.update(listing);
   }
 
 

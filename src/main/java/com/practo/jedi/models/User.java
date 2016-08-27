@@ -36,11 +36,6 @@ public class User {
     this.listings = listings;
   }
 
-  public User(String name, String email, String mobile) {
-    this.name = name;
-    this.email = email;
-    this.mobile = mobile;
-  }
 
   public User() {}
 
@@ -76,10 +71,6 @@ public class User {
     this.mobile = mobile;
   }
 
-  @Override
-  public String toString() {
-    return "User [name=" + name + ", email=" + email + "]";
-  }
 
   @Transactional
   public UserEntity EntityObj() {

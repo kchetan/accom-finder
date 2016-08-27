@@ -200,19 +200,19 @@ public class ListingEntity implements Serializable {
     this.images = images;
   }
 
-  public ImageEntity addImage(ImageEntity image) {
-    getImages().add(image);
-    image.setListing(this);
-
-    return image;
-  }
-
-  public ImageEntity removeImage(ImageEntity image) {
-    getImages().remove(image);
-    image.setListing(null);
-
-    return image;
-  }
+//  public ImageEntity addImage(ImageEntity image) {
+//    getImages().add(image);
+//    image.setListing(this);
+//
+//    return image;
+//  }
+//
+//  public ImageEntity removeImage(ImageEntity image) {
+//    getImages().remove(image);
+//    image.setListing(null);
+//
+//    return image;
+//  }
 
   public AddressEntity getAddress() {
     return this.address;

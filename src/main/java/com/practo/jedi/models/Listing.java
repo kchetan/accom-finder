@@ -157,11 +157,6 @@ public class Listing {
     this.vacancyFor = vacancyFor;
   }
 
-  @Override
-  public String toString() {
-    return "Listing";
-  }
-
   public int getPostedById() {
     if (this.user != null) {
       return this.user.getId();

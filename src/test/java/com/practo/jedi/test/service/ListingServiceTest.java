@@ -111,7 +111,7 @@ public class ListingServiceTest {
     filterObj.setPrice("6000;9000;");
     filterObj.setVacancyFor("1|2");
     filterObj.setRoomFor("male|female");
-    filterObj.setPropertyName("2|1");
+    filterObj.setPropertyType("2|1");
 
     ArrayList<Listing> trips =
         (ArrayList<Listing>) service.search(filterObj, new PageRequest(0, 2));

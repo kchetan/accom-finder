@@ -44,7 +44,7 @@ public class ImageDaoImpl implements ImageDao {
 
   @Transactional
   public void deleteImage(ImageEntity image) {
-    template.delete(image);
+    template.update(image);
   }
 
 }
