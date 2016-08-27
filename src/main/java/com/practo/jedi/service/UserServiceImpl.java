@@ -76,6 +76,19 @@ public class UserServiceImpl implements UserService {
       return null;
     }
   }
+  
+  @Transactional
+  public User getUserByEmail(String email) {
+    UserEntity entity = userDao.getUserByEmail(email);
+    try {
+      User dto = User.class.newInstance();
+      dto.mergeEntity(entity);
+      return dto;
+    } catch (InstantiationException | IllegalAccessException e) {
+      logger.error("Exception while DAO get for Email :" + email, e);
+      return null;
+    }
+  }
 
   @Transactional
   public User create(User d) {

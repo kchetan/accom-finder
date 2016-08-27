@@ -73,7 +73,7 @@
 			<div class="property-search-form horizontal">
 				<div class="main-search-sec">
 					<div class="col-xs-4 col-sm-3 search-field">
-						<input type="text" placeholder="Location" id="autocomplete">
+						<input name="locality" type="text" placeholder="Location" id="autocomplete">
 
 					</div>
 					<!-- <div class="col-xs-4 col-sm-2 search-field">
@@ -114,7 +114,7 @@
 						<button class="btn" href="search">Search</button>
 					</div>
 				</div>
-				<div class="advanced-search-sec">
+				<!-- <div class="advanced-search-sec">
 					<div class="col-xs-3 col-sm-3 col-md-2 search-field">
 						<div class="hsq-checkbox check-box-container">
 							<label for="field-1"> <input type="checkbox" value="81"
@@ -138,7 +138,7 @@
 					</div>
 
 
-				</div>
+				</div> -->
 				<button class="more-options btn">
 					<i class="fa fa-chevron-down"></i>
 				</button>

@@ -117,11 +117,15 @@ public class JspController {
   }
 
   @RequestMapping(value = "/submitProperty", method = RequestMethod.POST)
-  public String submitproperty(Model model, ListingFilter listingObj, HttpSession session) {
+  public String submitproperty(Model model, ListingFilter listingObj, String[] images,
+      HttpSession session) {
     if (session.getAttribute("id") == null) {
       return "redirect:/";
     }
     try {
+
+      // ------ IMAge upload to S3
+      // --------
       Listing listing = new Listing();
       listing.setTitle(listingObj.getTitle());
       listing.setNoBeds(Integer.parseInt(listingObj.getNoBeds()));
@@ -134,7 +138,7 @@ public class JspController {
       Date posDate = df.parse(listingObj.getPossessionDate());
       listing.setPossesionDate(posDate);
       ///// -------------------------
-      User user = userService.get(1);
+      User user = userService.getUserByEmail((String) session.getAttribute("email"));
       listing.setUser(user.EntityObj());
 
       PropertyType ptype = propService.get(Integer.parseInt(listingObj.getPropertyType()));
@@ -180,6 +184,13 @@ public class JspController {
     session.setAttribute("id", id);
     session.setAttribute("email", email);
     session.setAttribute("name", name);
+    User user = userService.getUserByEmail((String) session.getAttribute("email"));
+    if (user.getEmail() == null) {
+      User createuser = new User();
+      createuser.setEmail((String) session.getAttribute("email"));
+      createuser.setName((String) session.getAttribute("name"));
+      userService.create(createuser);
+    }
   }
 
   @RequestMapping(value = "/logoutUser", method = RequestMethod.POST)
@@ -194,6 +205,11 @@ public class JspController {
   //
   // return "googleSignIn";
   // }
+  @RequestMapping(value = "/test", method = RequestMethod.POST)
+  public void dummy(Model model) {
+
+  }
+
 
 
 }

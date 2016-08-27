@@ -25,10 +25,13 @@ public class UserDaoImpl implements UserDao {
   @Transactional
   public UserEntity getUserByEmail(String email) {
     DetachedCriteria criteria = DetachedCriteria.forClass(UserEntity.class);
-    UserEntity res =
-        (UserEntity) template.findByCriteria(criteria.add(Restrictions.eq("email", email)));
+    Iterable<UserEntity> res = (Iterable<UserEntity>) template
+        .findByCriteria(criteria.add(Restrictions.eq("email", email)));
     // System.out.println(res.getEmail());
-    return res;
+    for (UserEntity iter : res) {
+      return iter;
+    }
+    return null;
   }
 
   @Transactional

@@ -3,6 +3,15 @@
 <html lang="en">
 <head>
 <script src="js/jquery-1.11.1.min.js"></script>
+<style type="text/css">
+.thumb-image {
+	float: left;
+	width: 155px;
+	height: 100px;
+	position: relative;
+	padding: 5px;
+}
+</style>
 <meta charset="UTF-8">
 <title>Accomfinder</title>
 
@@ -14,11 +23,11 @@
 	<header id="main-header">
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
-			<a href="/accomfinder" >
-			<div  class="logo-main-box col-xs-4 col-sm-4 col-md-6">
-				<div class="logo"></div>
-				<span> Finder</span>
-			</div>
+			<a href="/accomfinder">
+				<div class="logo-main-box col-xs-4 col-sm-4 col-md-6">
+					<div class="logo"></div>
+					<span> Finder</span>
+				</div>
 			</a>
 			<!-- End of Top Logo -->
 			<!-- Main Menu -->
@@ -28,10 +37,9 @@
 					<ul class="main-menu list-inline">
 				</nav>
 				<ul class="main-menu list-inline">
-				
-				<%@include
-								file="googleSignIn.jsp"%>
-			</ul>
+
+					<%@include file="googleSignIn.jsp"%>
+				</ul>
 				<!-- END of Main Menu -->
 
 			</div>
@@ -42,7 +50,7 @@
 			<ul class="main-menu list-inline">
 				<!-- <li><a id="submit-property-link" class="btn" href="newproperty"><span>Submit
 							Your Property</span></a></li> -->
-				
+
 			</ul>
 
 			<!-- End of Main Menu -->
@@ -60,7 +68,7 @@
 		<div class="submit-main-box clearfix">
 			<form action="submitProperty" id="form" method="POST">
 				<div class="row t-sec">
-					<div class="col-md-offset-2 col-md-8 l-sec">
+					<div class=" col-md-8 l-sec">
 						<div class="information-box">
 							<h3>
 								Basic Details <i class="fa fa-info"></i>
@@ -120,9 +128,9 @@
 								<div class="field-row clearfix">
 									<div class="col-xs-6">
 										<div class="input-group l-icon">
-											<span class="input-group-addon">Rs.</span> <input type="number"
-												class="" id="p-price"
-												placeholder="Price" name="price">
+											<span class="input-group-addon">Rs.</span> <input
+												type="number" class="" id="p-price" placeholder="Price"
+												name="price">
 										</div>
 									</div>
 									<div class="col-xs-6">
@@ -142,7 +150,7 @@
 										<div class="input-group l-icon">
 											<span class="input-group-addon">Vacant</span> <select
 												id="vacancy" name="vacancyFor">
-												<c:forEach var="vacancy" items="${noBeds}">
+												<c:forEach var="vacancy" items="${vacancyFor}">
 													<option value="${vacancy}"><b>${vacancy}</b>
 														Vacant
 													</option>
@@ -165,9 +173,8 @@
 								<div class="field-row clearfix">
 									<div class="col-xs-6">
 										<div class="input-group r-icon">
-											<input type="number" name="area" class=""
-												id="p-land" placeholder="Area"> <span
-												class="input-group-addon">sq.ft</span>
+											<input type="number" name="area" class="" id="p-land"
+												placeholder="Area"> <span class="input-group-addon">sq.ft</span>
 										</div>
 									</div>
 
@@ -204,9 +211,29 @@
 						</div>
 
 					</div>
-					<div class="col-md-2 r-sec"></div>
+
+					<!-- <div class="col-md-4 r-sec">
+						<div class="information-box">
+							<h3>
+								Images Upload <i class="fa fa-info"></i>
+							</h3>
+							<div class="box-content">
+								<div class="uploader-container">
+
+
+									
+										<div id="wrapper">
+											<input name="images" class=""
+												id="fileUpload" multiple="multiple" type="file" />
+											<div id="image-holder"></div>
+										</div>
+									
+								</div>
+							</div>
+						</div>
+					</div> -->
 				</div>
-				<div class="row b-sec"></div>
+				<div class="row b-sec "></div>
 			</form>
 		</div>
 	</section>
@@ -224,13 +251,7 @@
 					Copyright by <a href="" target="_blank">practo.com</a>
 				</div>
 				<div class="col-md-6 social-icons">
-					<!-- <ul class="list-inline">
-						<li><a href="#" class="fa fa-facebook"></a></li>
-						<li><a href="#" class="fa fa-twitter"></a></li>
-						<li><a href="#" class="fa fa-skype"></a></li>
-						<li><a href="#" class="fa fa-google-plus"></a></li>
-						<li><a href="#" class="fa fa-youtube"></a></li>
-					</ul> -->
+					
 				</div>
 			</div>
 		</div>
@@ -265,9 +286,60 @@
 					.getPlace().vicinity;
 
 		}
+		$(document)
+				.ready(
+						function() {
+							$("#fileUpload")
+									.on(
+											'change',
+											function() {
+												//Get count of selected files
+												var countFiles = $(this)[0].files.length;
+												var imgPath = $(this)[0].value;
+												console.log($(this)[0].files.mozFullPath);
+												
+												var extn = imgPath
+														.substring(
+																imgPath
+																		.lastIndexOf('.') + 1)
+														.toLowerCase();
+												var image_holder = $("#image-holder");
+												image_holder.empty();
+												if (extn == "gif"
+														|| extn == "png"
+														|| extn == "jpg"
+														|| extn == "jpeg") {
+													if (typeof (FileReader) != "undefined") {
+														//loop for each file selected for uploaded.
+														for (var i = 0; i < countFiles; i++) {
+															var reader = new FileReader();
+															reader.onload = function(
+																	e) {
+																$(
+																		"<img />",
+																		{
+																			"src" : e.target.result,
+																			"class" : "thumb-image"
+																		})
+																		.appendTo(
+																				image_holder);
+															}
+															image_holder.show();
+															reader
+																	.readAsDataURL($(this)[0].files[i]);
+														}
+													} else {
+														//alert("This browser does not support FileReader.");
+													}
+												} else {
+													//alert("Pls select only images");
+												}
+											});
+
+						});
 	</script>
 	<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
-	async defer></script>
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
+		async defer></script>
 </body>
 </html>

@@ -18,7 +18,16 @@ public class ListingFilter {
   private String plotNo;
   private String title;
   private String propertyName;
+  private String[] images;
   
+  public String[] getImages() {
+    return images;
+  }
+
+  public void setImages(String[] images) {
+    this.images = images;
+  }
+
   public String getTitle() {
     return title;
   }

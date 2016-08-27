@@ -7,7 +7,11 @@ import com.practo.jedi.models.User;
 
 public interface UserService {
 
+  @Transactional
   User get(Integer id);
+ 
+  @Transactional
+  User getUserByEmail(String email);
 
   @Transactional
   User create(User d);

@@ -199,7 +199,7 @@
 											<input name="listingId" type="text" style="display: none"
 												value="${listing.getId()}">
 											<textarea name="body" id="message">Your Message *</textarea>
-											<button type="submit"  class="btn btn-lg submit">Submit</button>
+											<button type="submit" class="btn btn-lg submit">Submit</button>
 										</div>
 									</div>
 								</div>
@@ -221,6 +221,11 @@
 					<div class="box-content">
 						<div class="property-search-form vertical">
 							<div class="main-search-sec">
+								<div class="col-xs-4 col-sm-3 search-field">
+									<input name="locality" type="text" placeholder="Location"
+										id="autocomplete">
+
+								</div>
 								<div class="search-field">
 									<select id="property-type" name="propertyType">
 										<option value="">Property Type</option>
@@ -335,18 +340,22 @@
 	<!-- End of JS Include Section -->
 
 	<script type="text/javascript">
-	$('#form').submit(function(e) {
-	    $.ajax({
-	    	type: "POST",
-	        url: '../contactOwner',
-	        data:$('#form').serialize(),
-	        beforeSend: function() { $('#loading').show(); },
-	        complete: function(response) { $('#loading').hide();window.location.href = './'; }
-	    });
-	    e.preventDefault();
-	    return false;
-	});
-		
+		$('#form').submit(function(e) {
+			$.ajax({
+				type : "POST",
+				url : '../contactOwner',
+				data : $('#form').serialize(),
+				beforeSend : function() {
+					$('#loading').show();
+				},
+				complete : function(response) {
+					$('#loading').hide();
+					window.location.href = './';
+				}
+			});
+			e.preventDefault();
+			return false;
+		});
 	</script>
 
 </body>

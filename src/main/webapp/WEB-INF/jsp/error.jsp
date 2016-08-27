@@ -101,7 +101,7 @@
 			<div class="breadcrumb">
 				<ul class="list-inline">
 					<li class="home"><a href="../index-2.html">Home</a></li>
-					<li><a href="#">Page Not Found</a></li>
+					<li><a href="#">Page Not Found - ${message} </a></li>
 				</ul>
 			</div>
 		</div>
@@ -111,7 +111,7 @@
 	<section class="main-container container">
 		<div class="not-found-container">
 			<h2 class="hsq-heading type-2">Page Not Found</h2>
-			<div class="subtitle">It looks like that page no longer exists.</div>
+			<div class="subtitle">Bad Request</div>
 			<div class="searchbox-container">
 				<form class="search-form">
 					<label>

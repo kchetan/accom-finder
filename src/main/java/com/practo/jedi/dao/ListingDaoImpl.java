@@ -4,6 +4,7 @@ import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.models.ListingFilter;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -117,7 +118,7 @@ public class ListingDaoImpl implements ListingDao {
     if (filter.getLocality() != null && filter.getLocality() != "") {
 
       criteria = criteria.createAlias("address", "addr")
-          .add(Restrictions.ilike("addr.locality", filter.getLocality()));
+          .add(Restrictions.ilike("addr.locality", filter.getLocality(), MatchMode.ANYWHERE));
     }
     if (filter.getArea() != null && filter.getArea() != "") {
       criteria = areaCriteria(filter, criteria);
