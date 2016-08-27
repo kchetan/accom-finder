@@ -46,6 +46,9 @@ public class PropertyTypeServiceImpl implements PropertyTypeService {
   @Transactional
   public PropertyType get(Integer id) {
     PropertyTypeEntity entity = pTypeDao.getPropertyType(id);
+    if (entity == null) {
+      return null;
+    }
     try {
       PropertyType dto = PropertyType.class.newInstance();
       dto.mergeEntity(entity);
@@ -66,7 +69,7 @@ public class PropertyTypeServiceImpl implements PropertyTypeService {
     d.mergeEntity(entity);
     return d;
   }
-  
+
   @Transactional
   public PropertyType update(PropertyType d, int id) {
     PropertyTypeEntity entity = pTypeDao.getPropertyType(id);

@@ -1,6 +1,7 @@
 package com.practo.jedi.dao;
 
 import com.practo.jedi.entity.ListingEntity;
+import com.practo.jedi.entity.UserEntity;
 import com.practo.jedi.models.ListingFilter;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -32,8 +33,15 @@ public class ListingDaoImpl implements ListingDao {
 
   @Transactional
   public ListingEntity getListing(int id) {
-    ListingEntity res = template.load(ListingEntity.class, id);
-    return res;
+    DetachedCriteria criteria = DetachedCriteria.forClass(ListingEntity.class);
+    criteria = criteria.add(Restrictions.eq("deleted", false));
+    Iterable<ListingEntity> res = (Iterable<ListingEntity>) template
+        .findByCriteria(criteria.add(Restrictions.eq("id", id)));
+    // System.out.println(res.getEmail());
+    for (ListingEntity iter : res) {
+      return iter;
+    }
+    return null;
   }
 
 

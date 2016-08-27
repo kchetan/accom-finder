@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.practo.jedi.dao.ImageDao;
+import com.practo.jedi.dao.ListingDao;
 import com.practo.jedi.entity.ImageEntity;
+import com.practo.jedi.entity.ListingEntity;
+import com.practo.jedi.entity.UserEntity;
 import com.practo.jedi.models.Image;
 
 @Service
@@ -20,10 +23,16 @@ public class ImageServiceImpl implements ImageService {
 
   @Autowired
   private ImageDao imageDao;
+  
+  @Autowired
+  private ListingDao listingDao;
 
   @Transactional
   public Image get(Integer id) {
     ImageEntity entity = imageDao.getImage(id);
+    if (entity == null) {
+      return null;
+    }
     try {
       Image dto = Image.class.newInstance();
       dto.mergeEntity(entity);
@@ -36,9 +45,11 @@ public class ImageServiceImpl implements ImageService {
   
   @Transactional
   public Image create(Image d) {
-    ImageEntity entity = d.EntityObj();
+    ImageEntity entity = d.entityObj();
     Date date = new Date();
     entity.setCreatedOn(date);
+    ListingEntity listing = listingDao.getListing(d.getlistingId());
+    entity.setListing(listing);
     imageDao.addImage(entity);
     d.mergeEntity(entity);
     return d;
@@ -49,7 +60,7 @@ public class ImageServiceImpl implements ImageService {
     ImageEntity entity = imageDao.getImage(id);
     if (entity != null && !entity.getDeleted()) {
       d.setId(id);
-      entity = d.UpdateEntity(entity);
+      entity = d.updateEntity(entity);
       Date date = new Date();
       entity.setModifiedOn(date);
       imageDao.updateImage(entity);

@@ -72,6 +72,9 @@ public class ListingServiceImpl implements ListingService {
   @Transactional
   public Listing get(Integer id) {
     ListingEntity entity = listingDao.getListing(id);
+    if (entity == null) {
+      return null;
+    }
     try {
       Listing dto = Listing.class.newInstance();
       dto.mergeEntity(entity);
@@ -110,7 +113,7 @@ public class ListingServiceImpl implements ListingService {
     if (entity != null && !entity.getDeleted()) {
       d.setId(id);
       Date date = new Date();
-      entity = d.UpdateEntity(entity);
+      entity = d.updateEntity(entity);
       entity.setModifiedOn(date);
       // ----------
       UserEntity user = userDao.getUser(d.getPostedById());

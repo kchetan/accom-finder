@@ -41,7 +41,7 @@ public class ListingEntity implements Serializable {
   @Column(nullable = false)
   private boolean deleted;
 
-  @Column(nullable = false, length = 1)
+  @Column(nullable = false, length = 50)
   private String furnished;
 
   @Temporal(TemporalType.TIMESTAMP)
@@ -62,7 +62,7 @@ public class ListingEntity implements Serializable {
   @Column(nullable = false)
   private int price;
 
-  @Column(name = "room_for", length = 1)
+  @Column(name = "room_for", length = 50)
   private String roomFor;
 
   @Column(nullable = false, length = 100)

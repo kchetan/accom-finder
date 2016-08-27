@@ -67,6 +67,9 @@ public class UserServiceImpl implements UserService {
   @Transactional
   public User get(Integer id) {
     UserEntity entity = userDao.getUser(id);
+    if (entity == null) {
+      return null;
+    }
     try {
       User dto = User.class.newInstance();
       dto.mergeEntity(entity);
@@ -76,7 +79,7 @@ public class UserServiceImpl implements UserService {
       return null;
     }
   }
-  
+
   @Transactional
   public User getUserByEmail(String email) {
     UserEntity entity = userDao.getUserByEmail(email);
@@ -123,7 +126,7 @@ public class UserServiceImpl implements UserService {
       Date date = new Date();
       entity.setModifiedOn(date);
       entity.setDeleted(true);
-      userDao.updateUser(entity);
+      userDao.deleteUser(entity);
     }
   }
 

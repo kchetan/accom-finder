@@ -153,30 +153,30 @@ public class Listing {
   }
 
   public int getPostedById() {
-    if (this.user != null)
+    if (this.user != null) {
       return this.user.getId();
-    else {
+    } else {
 
       return this.postedById;
     }
   }
-  
+
   @Transient
   public AddressEntity getAddress() {
-      return this.address;
-    }
+    return this.address;
+  }
 
   public int getAddressId() {
-    if (this.address != null)
+    if (this.address != null) {
       return this.address.getId();
-    else {
+    } else {
       return this.addressId;
     }
   }
-  
+
   @Transient
   public PropertyTypeEntity getPropertyType() {
-      return this.propertyType;
+    return this.propertyType;
   }
 
   public int getPropertyId() {
@@ -247,25 +247,34 @@ public class Listing {
   }
 
   @Transactional
-  public ListingEntity UpdateEntity(ListingEntity e) {
-    if (getArea() != 0)
+  public ListingEntity updateEntity(ListingEntity e) {
+    if (getArea() != 0) {
       e.setArea(getArea());
-    if (getFurnished() != null)
+    }
+    if (getFurnished() != null) {
       e.setFurnished(getFurnished());
-    if (getNoBeds() != 0)
+    }
+    if (getNoBeds() != 0) {
       e.setNoBeds(getNoBeds());
-    if (getPossesionDate() != null)
+    }
+    if (getPossesionDate() != null) {
       e.setPossesionDate(getPossesionDate());
-    if (getPrice() != 0)
+    }
+    if (getPrice() != 0) {
       e.setPrice(getPrice());
-    if (getRoomFor() != null)
+    }
+    if (getRoomFor() != null) {
       e.setRoomFor(getRoomFor());
-    if (getTitle() != null)
+    }
+    if (getTitle() != null) {
       e.setTitle(getTitle());
-    if (getVacancyFor() != 0)
+    }
+    if (getVacancyFor() != 0) {
       e.setVacancyFor(getVacancyFor());
-    if (getImages() != null)
+    }
+    if (getImages() != null) {
       e.setImages(getImages());
+    }
     e.setId(getId());
     return e;
   }

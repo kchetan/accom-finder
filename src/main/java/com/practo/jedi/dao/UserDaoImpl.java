@@ -36,9 +36,14 @@ public class UserDaoImpl implements UserDao {
 
   @Transactional
   public UserEntity getUser(int id) {
-    UserEntity res = template.load(UserEntity.class, id);
-    // System.out.println(res.getEmail());
-    return res;
+    DetachedCriteria criteria = DetachedCriteria.forClass(UserEntity.class);
+    criteria = criteria.add(Restrictions.eq("deleted", false));
+    criteria = criteria.add(Restrictions.eq("id", id));
+    Iterable<UserEntity> result = (Iterable<UserEntity>) template.findByCriteria(criteria);
+    for (UserEntity iter : result){
+      return iter;
+    }
+    return null;
   }
 
   @Transactional
@@ -53,7 +58,7 @@ public class UserDaoImpl implements UserDao {
 
   @Transactional
   public void deleteUser(UserEntity user) {
-    template.delete(user);
+    template.update(user);
   }
 
   @Transactional

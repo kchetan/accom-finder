@@ -24,6 +24,9 @@ public class AddressServiceImpl implements AddressService {
   @Transactional
   public Address get(Integer id) {
     AddressEntity entity = addressDao.getAddress(id);
+    if (entity == null) {
+      return null;
+    }
     try {
       Address dto = Address.class.newInstance();
       dto.mergeEntity(entity);

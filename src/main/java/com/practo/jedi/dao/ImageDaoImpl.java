@@ -1,12 +1,17 @@
 package com.practo.jedi.dao;
 
-import javax.transaction.Transactional;
+import com.practo.jedi.entity.ImageEntity;
+import com.practo.jedi.entity.ImageEntity;
 
+
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.practo.jedi.entity.ImageEntity;
+
+import javax.transaction.Transactional;
 
 @Repository
 public class ImageDaoImpl implements ImageDao {
@@ -19,8 +24,14 @@ public class ImageDaoImpl implements ImageDao {
 
   @Transactional
   public ImageEntity getImage(int id) {
-    ImageEntity res = template.load(ImageEntity.class, id);
-    return res;
+    DetachedCriteria criteria = DetachedCriteria.forClass(ImageEntity.class);
+    criteria = criteria.add(Restrictions.eq("deleted", false));
+    criteria = criteria.add(Restrictions.eq("id", id));
+    Iterable<ImageEntity> result = (Iterable<ImageEntity>) template.findByCriteria(criteria);
+    for (ImageEntity iter : result) {
+      return iter;
+    }
+    return null;
   }
 
   @Transactional

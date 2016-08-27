@@ -2,6 +2,8 @@ package com.practo.jedi.dao;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -19,8 +21,14 @@ public class AddressDaoImpl implements AddressDao {
 
   @Transactional
   public AddressEntity getAddress(int id) {
-    AddressEntity res = template.load(AddressEntity.class, id);
-    return res;
+    DetachedCriteria criteria = DetachedCriteria.forClass(AddressEntity.class);
+    criteria = criteria.add(Restrictions.eq("deleted", false));
+    criteria = criteria.add(Restrictions.eq("id", id));
+    Iterable<AddressEntity> result = (Iterable<AddressEntity>) template.findByCriteria(criteria);
+    for (AddressEntity iter : result) {
+      return iter;
+    }
+    return null;
   }
 
 
