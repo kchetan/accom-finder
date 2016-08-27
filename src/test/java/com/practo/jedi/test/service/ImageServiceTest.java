@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import com.practo.jedi.models.Image;
+import com.practo.jedi.models.PropertyType;
 import com.practo.jedi.run.Application;
 import com.practo.jedi.service.ImageService;
 
@@ -41,6 +42,18 @@ public class ImageServiceTest {
     assertEquals("http://google.com/abd/asd.jpg", dbImageObj.getImagePath());
   }
 
+  @Test
+  public void testUpdate() {
+    Image propType = service.get(3);
+    propType.setImagePath("update");
+
+    service.update(propType, 3);
+
+    Image dbPropertyType = service.get(3);
+    assertNotNull(dbPropertyType);
+    assertEquals("update", dbPropertyType.getImagePath());
+  }
+  
   @Test
   public void testDelete() {
     service.delete(2);

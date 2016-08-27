@@ -199,12 +199,6 @@ public class JspController {
     session.invalidate();
   }
 
-  // @RequestMapping(value = "/s3image",method = RequestMethod.GET)
-  // @RequestMapping(value = "/test", method = RequestMethod.GET)
-  // public String test(Model model) {
-  //
-  // return "googleSignIn";
-  // }
   @RequestMapping(value = "/test", method = RequestMethod.POST)
   public void dummy(Model model) {
 

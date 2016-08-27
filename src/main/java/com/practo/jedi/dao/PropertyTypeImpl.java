@@ -58,10 +58,5 @@ public class PropertyTypeImpl implements PropertyTypeDao {
     return template.loadAll(PropertyTypeEntity.class);
   }
 
-  @Transactional
-  public List<PropertyTypeEntity> getPropertyTypeByType(String[] type) {
-
-    return null;
-  }
 
 }

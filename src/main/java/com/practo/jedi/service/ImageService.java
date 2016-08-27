@@ -17,7 +17,5 @@ public interface ImageService {
   @Transactional
   void delete(Integer id);
 
-  // Class<User> getDTOClass();
-
 }
 

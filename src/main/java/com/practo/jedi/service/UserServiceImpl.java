@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
       Date date = new Date();
       entity.setModifiedOn(date);
       entity.setDeleted(true);
-      userDao.deleteUser(entity);
+      userDao.updateUser(entity);
     }
   }
 

@@ -11,11 +11,6 @@ public class PropertyType {
 
   public PropertyType() {}
 
-  public PropertyType(String type) {
-    this.type = type;
-  }
-
-
   public int getId() {
     return id;
   }

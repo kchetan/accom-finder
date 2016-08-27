@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.User;
 import com.practo.jedi.run.Application;
 import com.practo.jedi.service.UserService;
@@ -31,6 +32,22 @@ public class UserServiceTest {
     assertEquals("chetan", user.getName());
     assertEquals("kasireddychetan@gmail.com", user.getEmail());
     assertEquals("9000979804", user.getMobile());
+  }
+  
+  @Test
+  public void testGetUserListing() {
+    // Get One
+    Iterable<Listing> listing = service.getUserListings(1);
+    assertNotNull(listing);
+    
+  }
+  
+  @Test
+  public void testGetUserListingId() {
+    // Get One
+    Listing listing = service.getUserListingsId(1,1);
+    assertNotNull(listing);
+    
   }
 
   @Test
@@ -72,6 +89,13 @@ public class UserServiceTest {
 
   @Test
   public void testDelete() {
+    service.delete(2);
+    User user = service.get(2);
+    assertNull(user);
+  }
+  
+  @Test
+  public void testgetUserListings() {
     service.delete(2);
     User user = service.get(2);
     assertNull(user);

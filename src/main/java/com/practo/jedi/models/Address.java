@@ -11,14 +11,6 @@ public class Address {
 
   public Address() {}
 
-
-  public Address(String locality, String plotNo, String propertyName) {
-    super();
-    this.locality = locality;
-    this.plotNo = plotNo;
-    this.propertyName = propertyName;
-  }
-
   public String getLocality() {
     return locality;
   }

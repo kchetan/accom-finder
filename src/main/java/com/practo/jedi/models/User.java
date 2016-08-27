@@ -36,18 +36,13 @@ public class User {
     this.listings = listings;
   }
 
-  public User() {}
-
-  public User(String name, String email) {
-    this.name = name;
-    this.email = email;
-  }
-
   public User(String name, String email, String mobile) {
     this.name = name;
     this.email = email;
     this.mobile = mobile;
   }
+
+  public User() {}
 
   public int getId() {
     return id;
@@ -110,18 +105,18 @@ public class User {
       // System.out.println("end merge");
     }
   }
-  
+
   @Transactional
   public UserEntity UpdateEntity(UserEntity e) {
-    if(getName()!=null)
+    if (getName() != null)
       e.setName(getName());
-    if(getEmail()!=null)
+    if (getEmail() != null)
       e.setEmail(getEmail());
-    if(getMobile()!=null)
+    if (getMobile() != null)
       e.setMobile(getMobile());
-    if(getListings()!=null)
+    if (getListings() != null)
       e.setListings(getListings());
-      e.setId(getId());
-      return e;
-    }
+    e.setId(getId());
+    return e;
+  }
 }

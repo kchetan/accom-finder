@@ -107,32 +107,18 @@ public class ListingFilter {
     return min_area;
   }
 
-  public void setMin_area(float min_area) {
-    this.min_area = min_area;
-  }
-
   public float getMax_area() {
     return max_area;
   }
 
-  public void setMax_area(float max_area) {
-    this.max_area = max_area;
-  }
 
   public Integer getMin_price() {
     return min_price;
   }
 
-  public void setMin_price(Integer min_price) {
-    this.min_price = min_price;
-  }
 
   public Integer getMax_price() {
     return max_price;
-  }
-
-  public void setMax_price(Integer max_price) {
-    this.max_price = max_price;
   }
 
   public String getFurnished() {

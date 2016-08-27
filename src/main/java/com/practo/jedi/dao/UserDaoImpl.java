@@ -56,19 +56,19 @@ public class UserDaoImpl implements UserDao {
     template.update(user);
   }
 
-  @Transactional
-  public void deleteUser(UserEntity user) {
-    template.update(user);
-  }
+//  @Transactional
+//  public void deleteUser(UserEntity user) {
+//    template.update(user);
+//  }
 
-  @Transactional
-  public List<UserEntity> getUsers() {
-    return template.loadAll(UserEntity.class);
-  }
-
-  @Transactional
-  public List<UserEntity> list() {
-    return template.loadAll(UserEntity.class);
-  }
+//  @Transactional
+//  public List<UserEntity> getUsers() {
+//    return template.loadAll(UserEntity.class);
+//  }
+//
+//  @Transactional
+//  public List<UserEntity> list() {
+//    return template.loadAll(UserEntity.class);
+//  }
 
 }

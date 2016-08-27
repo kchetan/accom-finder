@@ -16,6 +16,4 @@ public interface PropertyTypeDao {
 
   public List<PropertyTypeEntity> getPropertyTypes();
   
-  public List<PropertyTypeEntity> getPropertyTypeByType(String[] type);
-
 }

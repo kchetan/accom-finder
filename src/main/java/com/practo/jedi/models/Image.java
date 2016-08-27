@@ -39,11 +39,6 @@ public class Image {
 
   public Image() {}
 
-  public Image(String imagePath) {
-    this.imagePath = imagePath;
-  }
-
-
   public int getId() {
     return id;
   }

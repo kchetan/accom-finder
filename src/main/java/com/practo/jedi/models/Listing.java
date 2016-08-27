@@ -13,6 +13,7 @@ import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.entity.PropertyTypeEntity;
 import com.practo.jedi.entity.UserEntity;
 
+@Transactional
 public class Listing {
   private int id;
   private float area;
@@ -26,6 +27,15 @@ public class Listing {
   private int postedById;
   private int addressId;
   private int propertyId;
+
+  public void setAddressId(int addressId) {
+    this.addressId = addressId;
+  }
+
+  public void setPropertyId(int propertyId) {
+    this.propertyId = propertyId;
+  }
+
   private Date postedOn;
 
 
@@ -174,10 +184,6 @@ public class Listing {
     }
   }
 
-  @Transient
-  public PropertyTypeEntity getPropertyType() {
-    return this.propertyType;
-  }
 
   public int getPropertyId() {
     if (this.propertyType != null)
@@ -191,22 +197,19 @@ public class Listing {
     this.postedById = userId;
   }
 
-  @Transient
-  public String getUserName() {
-    return this.user.getName();
-  }
-
-
   public void setUser(UserEntity user) {
     this.user = user;
+    setPostedById(this.user.getId());
   }
 
   public void setAddress(AddressEntity address) {
     this.address = address;
+    setAddressId(this.address.getId());
   }
 
   public void setPropertyType(PropertyTypeEntity pType) {
     this.propertyType = pType;
+    setPropertyId(this.propertyType.getId());
   }
 
   @Transactional

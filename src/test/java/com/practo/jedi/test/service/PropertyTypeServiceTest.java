@@ -31,6 +31,11 @@ public class PropertyTypeServiceTest {
     assertEquals("Apartment", propType.getType());
   }
 
+  @Test
+  public void testGetAll() {
+    Iterable<PropertyType> propType = service.getAll();
+    assertNotNull(propType);
+  }
 
   @Test
   public void testCreate() {
