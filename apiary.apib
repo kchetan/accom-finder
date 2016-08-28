@@ -119,10 +119,7 @@ Accom-finder is an API made for Practeon for to find fellow practeons as roommat
     + id (required, number, `1`)
     + lId (required, number, `1`)
     
-+ Attributes
-    + question: `Favourite programming language?` (string, required)
-    + published_at: `2014-11-11T08:40:51.620Z` (string) - An ISO8601 date when the question was published
-    
+   
 
 ### Get listing [GET]
 
@@ -308,21 +305,22 @@ Accom-finder is an API made for Practeon for to find fellow practeons as roommat
 
 + Response 200 (application/json)
 
-            {
-              "id" : 14
-              "area": 850,
-              "furnished": "fully-furnished",
-              "noBeds": 1,
-              "possesionDate": 1472167400000,
-              "price": 12000,
-              "roomFor": "male",
-              "title": "1bhk available",
-              "vacancyFor": 2,
-              "postedById": 3,
-              "addressId": 2,
-              "propertyId": 5,
-              "imagesId" : []
-            }
+        {
+          "id": 1,
+          "area": 1250,
+          "furnished": "semi-furnished",
+          "noBeds": 3,
+          "possesionDate": 1472083200000,
+          "price": 7500,
+          "roomFor": "male",
+          "title": "1 room in 2bhk available",
+          "vacancyFor": 1,
+          "postedById": 1,
+          "addressId": 1,
+          "propertyId": 1,
+          "postedOn": 1471616714000,
+          "imagesId": []
+        }
 
 ### Update listing [PUT]
 + Request (application/json)
@@ -389,7 +387,6 @@ Search for houses based on filters such as
 + Parameters
     + locality (optional, string, `Hsr layout`)
     + noBeds (optional,string,`2|1|3|4`)
-    + possessionDate (optional,string,`2016-08-25`)
     + price (optional,string,`4000;10000`)
     + area (optional,string,`1000;3000`)
     + furnished (optional,string,`semi-furnished|furnished`)
@@ -398,35 +395,22 @@ Search for houses based on filters such as
     
 + Response 200 (application/json)
 
+        
         [
-            {
-                "id": 14,
-                "area": 850,
-                "furnished": "fully-furnished",
-                "noBeds": 1,
-                "possesionDate": 1472167400000,
-                "price": 12000,
-                "roomFor": "male",
-                "title": "1bhk available",
-                "vacancyFor": 2,
-                "postedById": 3,
-                "addressId": 2,
-                "propertyId": 5,
-                "imagesId": [ ]
-            },
-            {
-                "id": 11,
-                "area": 1850,
-                "furnished": "unfurnished",
-                "noBeds": 4,
-                "possesionDate": 1472097400000,
-                "price": 10500,
-                "roomFor": "female",
-                "title": "1 room in 2bhk available",
-                "vacancyFor": 1,
-                "postedById": 3,
-                "addressId": 1,
-                "propertyId": 2,
-                "imagesId": [ ]
-            }
+          {
+            "id": 13,
+            "area": 1500,
+            "furnished": "semi-furnished",
+            "noBeds": 4,
+            "possesionDate": null,
+            "price": 8000,
+            "roomFor": "male",
+            "title": "2  rooms",
+            "vacancyFor": 2,
+            "postedById": 2,
+            "addressId": 2,
+            "propertyId": 1,
+            "postedOn": 1471827747000,
+            "imagesId": []
+          }
         ]
