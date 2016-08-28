@@ -5,11 +5,25 @@ A webapp to find acommodation among the company employees. It is built in maven,
 ## Hosted on
  [amazon ec2 server](http://ec2-52-43-52-91.us-west-2.compute.amazonaws.com/accomfinder/)
 
+## Project Plan
+  [Project plan](https://docs.google.com/a/practo.com/spreadsheets/d/1-AENyGqzP8uD_YZSTLBkqmftwDEM1vkPPhKkhF_Bm0I/edit?usp=sharing)
+  
 ### Dependencies
 The following should be installed in your machine to run the project.
 * Java 8
 * Maven
 * Msql
+
+### Technologies
+* Java(LANGUAGE)
+* ,Mysql (DATABASE)
+* Hibernate (ORM )
+* Javascript,Css
+* Google sign in in javascript(User Authentication)
+* HsqlDb
+* New Relic
+* Travis 
+* Amazon Ec2 for Hosting.
 
 ## Installation and Running
 This application is packaged as a `war`.
