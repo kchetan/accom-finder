@@ -27,6 +27,7 @@ public class PropertyTypeImpl implements PropertyTypeDao {
     DetachedCriteria criteria = DetachedCriteria.forClass(PropertyTypeEntity.class);
     criteria = criteria.add(Restrictions.eq("deleted", false));
     criteria = criteria.add(Restrictions.eq("id", id));
+    @SuppressWarnings("unchecked")
     Iterable<PropertyTypeEntity> result =
         (Iterable<PropertyTypeEntity>) template.findByCriteria(criteria);
     for (PropertyTypeEntity iter : result) {

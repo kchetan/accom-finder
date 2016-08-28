@@ -1,6 +1,5 @@
 package com.practo.jedi.controllers;
 
-import com.practo.jedi.models.Image;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.ListingFilter;
 import com.practo.jedi.service.ListingService;

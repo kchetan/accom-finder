@@ -18,14 +18,14 @@
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
 			<a href="./">
-				<div class="logo-main-box col-xs-4 col-sm-4 col-md-6">
+				<div class="logo-main-box col-xs-2 col-sm-3 col-md-5">
 					<div class="logo"></div>
 					<span> Finder</span>
 				</div>
 			</a>
 			<!-- End of Top Logo -->
 			<!-- Main Menu -->
-			<div class="menu-container col-xs-8 col-sm-6 col-md-6">
+			<div class="menu-container col-xs-10 col-sm-9 col-md-7">
 				<!-- Main Menu -->
 				<nav id="main-menu" class="hidden-xs hidden-sm">
 					<ul class="main-menu list-inline">
@@ -37,9 +37,9 @@
 				<!-- END of Main Menu -->
 
 			</div>
-			<div id="main-menu-handle" class="hidden-md hidden-lg">
+			<!-- <div id="main-menu-handle" class="hidden-md hidden-lg">
 				<i class="fa fa-bars"></i>
-			</div>
+			</div> -->
 			<!-- Mobile Menu handle -->
 
 
@@ -139,9 +139,9 @@
 
 
 				</div> -->
-				<button class="more-options btn">
+				<!-- <button class="more-options btn">
 					<i class="fa fa-chevron-down"></i>
-				</button>
+				</button> -->
 			</div>
 		</section>
 	</form>

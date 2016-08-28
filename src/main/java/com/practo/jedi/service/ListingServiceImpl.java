@@ -20,6 +20,7 @@ import com.practo.jedi.entity.AddressEntity;
 import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.entity.PropertyTypeEntity;
 import com.practo.jedi.entity.UserEntity;
+import com.practo.jedi.models.Address;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.ListingFilter;
 
@@ -36,8 +37,15 @@ public class ListingServiceImpl implements ListingService {
   @Autowired
   private AddressDao addressDao;
   @Autowired
-  private PropertyTypeDao pTypeDao;
+  private PropertyTypeDao propropTypeDao;
 
+  /**
+   * Search a Listing Object Filters .
+   * 
+   * @param filterObj {@link Listing}
+   * @param pageable {@link Pageable}
+   * @return {@link Listing}
+   */
   @Transactional
   public Iterable<Listing> search(ListingFilter filterObj, Pageable pageable) {
     Iterable<ListingEntity> entities = listingDao.filter(filterObj, pageable);
@@ -50,6 +58,12 @@ public class ListingServiceImpl implements ListingService {
     return listings;
   }
 
+  /**
+   * Get all Listing Object paginated.
+   * 
+   * @param pageable {@link Pageable}
+   * @return {@link Listing}
+   */
   @Transactional
   public Iterable<Listing> getAll(Pageable pageable) {
     Iterable<ListingEntity> entity = listingDao.getListings(pageable);
@@ -69,6 +83,12 @@ public class ListingServiceImpl implements ListingService {
     return listings;
   }
 
+  /**
+   * Get a Listing Object based on id.
+   * 
+   * @param id {@link Integer}
+   * @return {@link Listing}
+   */
   @Transactional
   public Listing get(Integer id) {
     ListingEntity entity = listingDao.getListing(id);
@@ -85,6 +105,12 @@ public class ListingServiceImpl implements ListingService {
     }
   }
 
+  /**
+   * Create a Listing Obj based on id.
+   * 
+   * @param d {@link Listing}
+   * @return {@link Listing}
+   */
   @Transactional
   public Listing create(Listing d) {
     ListingEntity entity = d.EntityObj();
@@ -99,14 +125,20 @@ public class ListingServiceImpl implements ListingService {
     entity.setAddress(address);
     // ---------
     // ---------
-    PropertyTypeEntity pType = pTypeDao.getPropertyType(d.getPropertyId());
-    entity.setPropertyType(pType);
+    PropertyTypeEntity propType = propropTypeDao.getPropertyType(d.getPropertyId());
+    entity.setPropertyType(propType);
     // ---------
     listingDao.addListing(entity);
     d.mergeEntity(entity);
     return d;
   }
 
+  /**
+   * update a Listing Object based on id.
+   * 
+   * @param d {@link Listing}
+   * @return {@link Listing}
+   */
   @Transactional
   public Listing update(Listing d, int id) {
     ListingEntity entity = listingDao.getListing(id);
@@ -124,8 +156,8 @@ public class ListingServiceImpl implements ListingService {
       entity.setAddress(address);
       // ---------
       // ---------
-      PropertyTypeEntity pType = pTypeDao.getPropertyType(d.getPropertyId());
-      entity.setPropertyType(pType);
+      PropertyTypeEntity propType = propropTypeDao.getPropertyType(d.getPropertyId());
+      entity.setPropertyType(propType);
       // ---------
       listingDao.updateListing(entity);
       d.mergeEntity(entity);
@@ -134,6 +166,11 @@ public class ListingServiceImpl implements ListingService {
     return null;
   }
 
+  /**
+   * delete an Listing Obj based on id.
+   * 
+   * @param id {@link Integer}
+   */
   @Transactional
   public void delete(Integer id) {
     ListingEntity entity = listingDao.getListing(id);

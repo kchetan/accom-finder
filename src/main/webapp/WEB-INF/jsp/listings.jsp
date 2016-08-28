@@ -16,14 +16,14 @@
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
 			<a href="/accomfinder" >
-			<div  class="logo-main-box col-xs-4 col-sm-4 col-md-6">
-				<div class="logo"></div>
-				<span> Finder</span>
-			</div>
+			<div class="logo-main-box col-xs-2 col-sm-3 col-md-5">
+					<div class="logo"></div>
+					<span> Finder</span>
+				</div>
 			</a>
 			<!-- End of Top Logo -->
 			<!-- Main Menu -->
-			<div class="menu-container col-xs-8 col-sm-6 col-md-6">
+			<div class="menu-container col-xs-10 col-sm-9 col-md-7">
 				<!-- Main Menu -->
 				<nav id="main-menu" class="hidden-xs hidden-sm">
 					<ul class="main-menu list-inline">
@@ -323,7 +323,7 @@
 											</c:choose>
 								</div>
 
-								<div class="col-xs-6 search-field">
+								<!-- <div class="col-xs-6 search-field">
 									<div class="hsq-checkbox check-box-container">
 										<label for="field-1"> <input name="yolo" type="checkbox"
 											value="81" id="field-1"> <span></span> Parking
@@ -332,7 +332,7 @@
 											value="84" id="field-2"> <span></span> gym
 										</label>
 									</div>
-								</div> 
+								</div>  -->
 							</div>
 						</div>
 					</div>

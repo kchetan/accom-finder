@@ -122,11 +122,12 @@ public class JspController {
     if (session.getAttribute("id") == null) {
       return "redirect:/";
     }
+    Listing listing = new Listing();
     try {
 
       // ------ IMAge upload to S3
       // --------
-      Listing listing = new Listing();
+
       listing.setTitle(listingObj.getTitle());
       listing.setNoBeds(Integer.parseInt(listingObj.getNoBeds()));
       listing.setFurnished(listingObj.getFurnished());
@@ -160,9 +161,10 @@ public class JspController {
       listingService.create(listing);
     } catch (Exception err) {
       err.printStackTrace();
+      return "redirect:/";
     }
 
-    return "redirect:/";
+    return "redirect:/listing/" + listing.getId();
   }
 
   @RequestMapping(value = "/contactOwner", method = RequestMethod.POST)

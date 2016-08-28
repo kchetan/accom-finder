@@ -25,11 +25,14 @@
 	<img id="loading-image" src="/accomfinder/img/select2-spinner.gif"
 		alt="Loading..." />
 </div>
-<li><a id="my-signin2"></a></li>
+<li style="float: right;"><a id="my-signin2" ></a></li>
 <li><a id="submit-property-link" style="display: none" class="btn"
 	href="/accomfinder/newproperty"><span>Submit Your Property</span></a></li>
 <li><span id="logout" style="display: none"><a id="login"
 		class="btn">Logout</a></span></li>
+<li id="showusername" style="color: #333333; font-size: 1em;display:none">logged in as <span id="username"
+	style="color:  #bfa249; font-size: 1em;"> </span>
+	</li>
 
 <script type="text/javascript">
 	/* window.oauthReady = function() {
@@ -37,8 +40,8 @@
 			gapi.auth2.init();
 		}); */
 	function login(googleUser) {
-		user = 1;
 		var profile = googleUser.getBasicProfile();
+		var name = profile.getName();
 		/* console.log(profile);
 		console.log('ID: ' + profile.getId());
 		console.log('Name: ' + profile.getName());
@@ -48,18 +51,21 @@
 		console.log(googleUser); */
 		document.getElementById('logout').style.display = "";
 		document.getElementById('submit-property-link').style.display = "";
+		//document.getElementById('my-signin2').style.display = "none";
+		document.getElementById('showusername').style.display = "";
+		document.getElementById('username').innerHTML = name;
 		$.post('/accomfinder/loginUser', {
 			name : profile.getName(),
 			id : profile.getId(),
 			email : profile.getEmail()
-		});
+		});	
 	}
+	
 	function renderButton() {
 		gapi.signin2.render('my-signin2', {
 			'scope' : 'profile email',
-			'width' : 240,
+			'width' : 130,
 			'height' : 50,
-			'longtitle' : true,
 			'theme' : 'dark',
 			'onsuccess' : login,
 			'onfailure' : onFailure
@@ -67,7 +73,7 @@
 		});
 	}
 	function onFailure(error) {
-		console.log(error);
+		console.log(error);alert("came");
 	}
 
 	function logout() {
@@ -79,8 +85,9 @@
 		});
 		document.getElementById('logout').style.display = "none";
 		document.getElementById('submit-property-link').style.display = "none";
+		document.getElementById('my-signin2').style.display = "";
+		document.getElementById('showusername').style.display = "none";
 		$.post('/accomfinder/logoutUser', {
-
 		});
 
 	}
