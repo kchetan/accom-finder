@@ -16,12 +16,17 @@ The following should be installed in your machine to run the project.
 
 ### Technologies
 * Java(LANGUAGE)
-* ,Mysql (DATABASE)
+* Mysql (DATABASE)
 * Hibernate (ORM )
 * Javascript,Css
 * Google sign in in javascript(User Authentication)
 * HsqlDb
 * New Relic
+	[here]()
+	Username : chetan.kasireddy@practo.com
+	Password : NewRelic1@3
+	Link: https://rpm.newrelic.com/accounts/1410169/applications/22261596
+* Sentry
 * Travis 
 * Amazon Ec2 for Hosting.
 
