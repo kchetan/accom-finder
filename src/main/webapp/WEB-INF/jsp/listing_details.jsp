@@ -350,7 +350,7 @@
 				},
 				complete : function(response) {
 					$('#loading').hide();
-					window.location.href = './';
+					window.location.href = '/accomfinder/listing/${listing.getId()}';
 				}
 			});
 			e.preventDefault();

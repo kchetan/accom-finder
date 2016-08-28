@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AddressDaoImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">accomfinder</a> &gt; <a href="index.source.html" class="el_package">com.practo.jedi.dao</a> &gt; <span class="el_source">AddressDaoImpl.java</span></div><h1>AddressDaoImpl.java</h1><pre class="source lang-java linenums">package com.practo.jedi.dao;
 
-import javax.transaction.Transactional;
+import com.practo.jedi.entity.AddressEntity;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.practo.jedi.entity.AddressEntity;
+// import javax.transaction.Transactional;
 
 @Repository
-<span class="fc" id="L14">public class AddressDaoImpl implements AddressDao {</span>
+<span class="fc" id="L15">public class AddressDaoImpl implements AddressDao {</span>
 
   // @Autowired
   // private SessionFactory sessionFactory;
@@ -19,34 +20,41 @@ import com.practo.jedi.entity.AddressEntity;
   @Autowired
   private HibernateTemplate template;
 
+  /**
+   * Get the address based on the id.
+   * 
+   * @param id {@link Integer}
+   * @return {@link AddressEntity}
+   */
   @Transactional
   public AddressEntity getAddress(int id) {
-<span class="fc" id="L24">    DetachedCriteria criteria = DetachedCriteria.forClass(AddressEntity.class);</span>
-<span class="fc" id="L25">    criteria = criteria.add(Restrictions.eq(&quot;deleted&quot;, false));</span>
-<span class="fc" id="L26">    criteria = criteria.add(Restrictions.eq(&quot;id&quot;, id));</span>
-<span class="fc" id="L27">    Iterable&lt;AddressEntity&gt; result = (Iterable&lt;AddressEntity&gt;) template.findByCriteria(criteria);</span>
-<span class="fc bfc" id="L28" title="All 2 branches covered.">    for (AddressEntity iter : result) {</span>
-<span class="fc" id="L29">      return iter;</span>
+<span class="fc" id="L31">    DetachedCriteria criteria = DetachedCriteria.forClass(AddressEntity.class);</span>
+<span class="fc" id="L32">    criteria = criteria.add(Restrictions.eq(&quot;deleted&quot;, false));</span>
+<span class="fc" id="L33">    criteria = criteria.add(Restrictions.eq(&quot;id&quot;, id));</span>
+    @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L35">    Iterable&lt;AddressEntity&gt; result = (Iterable&lt;AddressEntity&gt;) template.findByCriteria(criteria);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">    for (AddressEntity iter : result) {</span>
+<span class="fc" id="L37">      return iter;</span>
     }
-<span class="fc" id="L31">    return null;</span>
+<span class="fc" id="L39">    return null;</span>
   }
 
 
 
   @Transactional
   public void addAddress(AddressEntity address) {
-<span class="fc" id="L38">    template.save(address);</span>
-<span class="fc" id="L39">  }</span>
+<span class="fc" id="L46">    template.save(address);</span>
+<span class="fc" id="L47">  }</span>
 
   @Transactional
   public void updateAddress(AddressEntity address) {
-<span class="fc" id="L43">    template.update(address);</span>
-<span class="fc" id="L44">  }</span>
+<span class="fc" id="L51">    template.update(address);</span>
+<span class="fc" id="L52">  }</span>
 
   @Transactional
   public void deleteAddress(AddressEntity address) {
-<span class="nc" id="L48">    template.delete(address);</span>
-<span class="nc" id="L49">  }</span>
+<span class="nc" id="L56">    template.delete(address);</span>
+<span class="nc" id="L57">  }</span>
 
 
 }

@@ -17,7 +17,7 @@
 	<header id="main-header">
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
-			<a href="./">
+			<a href="/accomfinder/">
 				<div class="logo-main-box col-xs-4 col-sm-4 col-md-6">
 					<div class="logo"></div>
 					<span> Finder</span>

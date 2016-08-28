@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
   /**
    * Get image controller.
    * @param id {@link Integer}
-   * @return {@link ResponseEntity}
+   * @return {@link ResponseEntity } {@link Image}
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.GET)
   public ResponseEntity&lt;Image&gt; getImage(@PathVariable int id) {
@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
   /**
    * Create Image from response body.
    * @param obj {@link Image}
-   * @return {@link ResponseEntity}
+   * @return {@link ResponseEntity } {@link Image}
    */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity&lt;Image&gt; create(@RequestBody Image obj) {
@@ -50,7 +50,7 @@ import javax.servlet.http.HttpServletResponse;
    * Update Image object.
    * @param obj (Image)
    * @param id (int)
-   * @return (ResponseEntity&lt; Image &gt;)
+   * @return {@link ResponseEntity } {@link Image}
    */
   @RequestMapping(value = &quot;/{id}&quot;,method = RequestMethod.PUT)
   public ResponseEntity&lt;Image&gt; update(@RequestBody Image obj,@PathVariable int id) {
@@ -63,7 +63,7 @@ import javax.servlet.http.HttpServletResponse;
    * Delete.
    * @param id (int)
    * @param response (HttpServletResponse)
-   * @return (ResponseEntity&lt; Boolean &gt;)
+   * @return {@link ResponseEntity } {@link Boolean}
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.DELETE)
   public ResponseEntity&lt;Boolean&gt; delete(@PathVariable(&quot;id&quot;) int id, HttpServletResponse response) {

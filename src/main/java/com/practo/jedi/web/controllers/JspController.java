@@ -170,13 +170,15 @@ public class JspController {
       String listingId, HttpSession session) throws MessagingException {
     Listing listingObj = listingService.get(Integer.parseInt(listingId));
     smtpMailSender.send(listingObj.getUser().getEmail(), "Regarding Listing on Accom finder",
-        body + listingId + "Contacted By" + email + mobile);
+        body + "<br >" + "ListingId (for reference): " + listingId
+            + " <br><b> Contacted By :<b><br>" + "email: " + email + "<br> Mobile: " + mobile);
     smtpMailSender.send(email, "Greetings From AccomFinder",
-        "You have requested an interest on a Listing:" + listingId + "Contacted Owner"
-            + listingObj.getUser().getName() + listingObj.getUser().getMobile());
+        "Thank You for using AccomFinder <br>  You have requested an interest on a Listing "
+            + "ListingId (for reference): " + listingId + "<br > <br > Contacted Owner <br>"
+            + "Name: " + listingObj.getUser().getName() + "<br> Mobile: " + mobile);
     model.addAttribute("message", "Contacted By Email");
 
-    return "redirect:./";
+    return "";
   }
 
   @RequestMapping(value = "/loginUser", method = RequestMethod.POST)

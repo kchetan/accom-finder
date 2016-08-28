@@ -4,7 +4,7 @@ import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.entity.UserEntity;

@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletResponse;
   /**
    * Get Address by id.
    * 
-   * @param id (int)
-   * @return (ResponseEntity &lt; Address &gt; )
+   * @param id {@link Integer}
+   * @return {@link ResponseEntity} {@link Address}
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.GET)
   public ResponseEntity&lt;Address&gt; getAddress(@PathVariable int id) {
@@ -35,8 +35,8 @@ import javax.servlet.http.HttpServletResponse;
 
   /**
    * Create an Address.
-   * @param obj (Address obj )
-   * @return (ResponseEntity &lt; Address &gt;)
+   * @param obj {@link Address}
+   * @return {@link ResponseEntity} {@link Address} 
    */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity&lt;Address&gt; create(@RequestBody Address obj) {
@@ -47,9 +47,9 @@ import javax.servlet.http.HttpServletResponse;
 
   /**
    * Update Address object of given id with the obj parameters.
-   * @param id (int)
-   * @param obj (Address)
-   * @return (ResponseEntity &lt; Address &gt;)
+   * @param id {@link Integer}
+   * @param obj {@link Address}
+   * @return {@link ResponseEntity} {@link Address} 
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.PUT)
   public ResponseEntity&lt;Address&gt; update(@PathVariable int id, @RequestBody Address obj) {
@@ -60,9 +60,9 @@ import javax.servlet.http.HttpServletResponse;
 
   /**
    * Delete Address object. 
-   * @param id (int)
-   * @param response (HttpServletResponse)
-   * @return (ResponseEntity&lt; Boolean &gt;)
+   * @param id {@link Integer}
+   * @param response {@link HttpServletResponse}
+   * @return {@link ResponseEntity} {@link Boolean}  
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.DELETE)
   public ResponseEntity&lt;Boolean&gt; delete(@PathVariable(&quot;id&quot;) int id, HttpServletResponse response) {
