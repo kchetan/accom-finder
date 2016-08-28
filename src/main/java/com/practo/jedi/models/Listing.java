@@ -28,6 +28,11 @@ public class Listing {
   private int addressId;
   private int propertyId;
 
+  @Transient
+  public PropertyTypeEntity getPropertyType() {
+    return this.propertyType;
+  }
+
   public void setAddressId(int addressId) {
     this.addressId = addressId;
   }
