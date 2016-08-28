@@ -11,6 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 // import javax.transaction.Transactional;
 
+/**
+ * This is the data access object implementation class for Address table.
+ * 
+ * @author chetan
+ *
+ */
 @Repository
 public class AddressDaoImpl implements AddressDao {
 

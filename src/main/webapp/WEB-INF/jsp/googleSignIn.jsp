@@ -25,14 +25,15 @@
 	<img id="loading-image" src="/accomfinder/img/select2-spinner.gif"
 		alt="Loading..." />
 </div>
+<li id="showusername" style="color: #333333; font-size: 1em;display:none">logged in as <span id="username"
+	style="color:  #bfa249; font-size: 1em;"> </span>
+	</li>
 <li style="float: right;"><a id="my-signin2" ></a></li>
 <li><a id="submit-property-link" style="display: none" class="btn"
 	href="/accomfinder/newproperty"><span>Submit Your Property</span></a></li>
 <li><span id="logout" style="display: none"><a id="login"
 		class="btn">Logout</a></span></li>
-<li id="showusername" style="color: #333333; font-size: 1em;display:none">logged in as <span id="username"
-	style="color:  #bfa249; font-size: 1em;"> </span>
-	</li>
+
 
 <script type="text/javascript">
 	/* window.oauthReady = function() {

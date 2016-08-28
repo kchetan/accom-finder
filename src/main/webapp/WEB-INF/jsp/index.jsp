@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>AccomFinder</title>
 
-	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <!-- 
 <link href="css/googlefont.css" rel="stylesheet" type="text/css"> -->
 
@@ -31,7 +31,7 @@
 					<ul class="main-menu list-inline">
 				</nav>
 				<ul class="main-menu list-inline">
-<jsp:include page="googleSignIn.jsp" />  
+					<jsp:include page="googleSignIn.jsp" />
 					<%-- <%@include file="googleSignIn.jsp"%> --%>
 				</ul>
 				<!-- END of Main Menu -->
@@ -73,7 +73,8 @@
 			<div class="property-search-form horizontal">
 				<div class="main-search-sec">
 					<div class="col-xs-4 col-sm-3 search-field">
-						<input name="locality" type="text" placeholder="Location" id="autocomplete">
+						<input name="locality" type="text" placeholder="Location"
+							id="autocomplete">
 
 					</div>
 					<!-- <div class="col-xs-4 col-sm-2 search-field">
@@ -153,8 +154,6 @@
 	<script type="text/javascript" src="js/select2.min.js"></script>
 	<script type="text/javascript" src="js/ion.rangeSlider.min.js"></script>
 	<script type="text/javascript" src="js/owl.carousel.min.js"></script>
-	<!-- <script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
 	<script type="text/javascript" src="js/template.js"></script>
 	<!-- End of JS Include Section -->
 	<script type="text/javascript">
@@ -181,13 +180,12 @@
 					.getPlace().vicinity;
 
 		}
-		
 	</script>
-	
+
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
 		async defer></script>
-		
+
 
 </body>
 

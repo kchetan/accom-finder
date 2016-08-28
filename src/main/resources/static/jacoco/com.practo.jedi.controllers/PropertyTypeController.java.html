@@ -15,10 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
-
+/**
+ * This is the controller which handles all the api requests corresponding to PropertyType Table.
+ * Handles the api requests for GET,POST,UPDATE,DELETE
+ * 
+ * @author chetan
+ *
+ */
 @RestController
 @RequestMapping(&quot;/api/propertytype&quot;)
-<span class="fc" id="L21">public class PropertyTypeController {</span>
+<span class="fc" id="L27">public class PropertyTypeController {</span>
   @Autowired
   private PropertyTypeService service;
 
@@ -29,10 +35,10 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity&lt;Iterable&lt;PropertyType&gt;&gt; get() {
-<span class="nc" id="L32">    Iterable&lt;PropertyType&gt; dto = service.getAll();</span>
-<span class="nc" id="L33">    ResponseEntity&lt;Iterable&lt;PropertyType&gt;&gt; re =</span>
+<span class="nc" id="L38">    Iterable&lt;PropertyType&gt; dto = service.getAll();</span>
+<span class="nc" id="L39">    ResponseEntity&lt;Iterable&lt;PropertyType&gt;&gt; re =</span>
         new ResponseEntity&lt;Iterable&lt;PropertyType&gt;&gt;(dto, HttpStatus.CREATED);
-<span class="nc" id="L35">    return re;</span>
+<span class="nc" id="L41">    return re;</span>
   }
 
   /**
@@ -43,9 +49,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.GET)
   public ResponseEntity&lt;PropertyType&gt; getPropertyType(@PathVariable int id) {
-<span class="nc" id="L46">    PropertyType propTypeObj = service.get(id);</span>
-<span class="nc" id="L47">    ResponseEntity&lt;PropertyType&gt; re = new ResponseEntity&lt;PropertyType&gt;(propTypeObj, HttpStatus.OK);</span>
-<span class="nc" id="L48">    return re;</span>
+<span class="nc" id="L52">    PropertyType propTypeObj = service.get(id);</span>
+<span class="nc" id="L53">    ResponseEntity&lt;PropertyType&gt; re = new ResponseEntity&lt;PropertyType&gt;(propTypeObj, HttpStatus.OK);</span>
+<span class="nc" id="L54">    return re;</span>
   }
 
   /**
@@ -56,10 +62,10 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity&lt;PropertyType&gt; create(@RequestBody PropertyType obj) {
-<span class="nc" id="L59">    PropertyType propTypeObj = service.create(obj);</span>
-<span class="nc" id="L60">    ResponseEntity&lt;PropertyType&gt; re =</span>
+<span class="nc" id="L65">    PropertyType propTypeObj = service.create(obj);</span>
+<span class="nc" id="L66">    ResponseEntity&lt;PropertyType&gt; re =</span>
         new ResponseEntity&lt;PropertyType&gt;(propTypeObj, HttpStatus.CREATED);
-<span class="nc" id="L62">    return re;</span>
+<span class="nc" id="L68">    return re;</span>
   }
 
   /**
@@ -71,9 +77,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.PUT)
   public ResponseEntity&lt;PropertyType&gt; update(@PathVariable int id, @RequestBody PropertyType obj) {
-<span class="nc" id="L74">    PropertyType propTypeObj = service.update(obj, id);</span>
-<span class="nc" id="L75">    ResponseEntity&lt;PropertyType&gt; re = new ResponseEntity&lt;PropertyType&gt;(propTypeObj, HttpStatus.OK);</span>
-<span class="nc" id="L76">    return re;</span>
+<span class="nc" id="L80">    PropertyType propTypeObj = service.update(obj, id);</span>
+<span class="nc" id="L81">    ResponseEntity&lt;PropertyType&gt; re = new ResponseEntity&lt;PropertyType&gt;(propTypeObj, HttpStatus.OK);</span>
+<span class="nc" id="L82">    return re;</span>
   }
 
   /**
@@ -85,9 +91,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.DELETE)
   public ResponseEntity&lt;Boolean&gt; delete(@PathVariable(&quot;id&quot;) int id, HttpServletResponse response) {
-<span class="nc" id="L88">    service.delete(id);</span>
-<span class="nc" id="L89">    ResponseEntity&lt;Boolean&gt; re = new ResponseEntity&lt;Boolean&gt;(true, HttpStatus.NO_CONTENT);</span>
-<span class="nc" id="L90">    return re;</span>
+<span class="nc" id="L94">    service.delete(id);</span>
+<span class="nc" id="L95">    ResponseEntity&lt;Boolean&gt; re = new ResponseEntity&lt;Boolean&gt;(true, HttpStatus.NO_CONTENT);</span>
+<span class="nc" id="L96">    return re;</span>
   }
 
 }

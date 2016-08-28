@@ -5,6 +5,7 @@ import com.practo.jedi.models.ListingFilter;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +21,14 @@ import java.util.Date;
 import java.util.List;
 
 
-
+/**
+ * This is the data access object implement class for Listing table.
+ * 
+ * @author chetan
+ *
+ */
 @Repository
-<span class="fc" id="L25">public class ListingDaoImpl implements ListingDao {</span>
+<span class="fc" id="L31">public class ListingDaoImpl implements ListingDao {</span>
 
   // @Autowired
   // private SessionFactory sessionFactory;
@@ -38,33 +44,33 @@ import java.util.List;
    */
   @Transactional
   public ListingEntity getListing(int id) {
-<span class="fc" id="L41">    DetachedCriteria criteria = DetachedCriteria.forClass(ListingEntity.class);</span>
-<span class="fc" id="L42">    criteria = criteria.add(Restrictions.eq(&quot;deleted&quot;, false));</span>
+<span class="fc" id="L47">    DetachedCriteria criteria = DetachedCriteria.forClass(ListingEntity.class);</span>
+<span class="fc" id="L48">    criteria = criteria.add(Restrictions.eq(&quot;deleted&quot;, false));</span>
     @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L44">    Iterable&lt;ListingEntity&gt; res =</span>
-<span class="fc" id="L45">        (Iterable&lt;ListingEntity&gt;) template.findByCriteria(criteria.add(Restrictions.eq(&quot;id&quot;, id)));</span>
+<span class="fc" id="L50">    Iterable&lt;ListingEntity&gt; res =</span>
+<span class="fc" id="L51">        (Iterable&lt;ListingEntity&gt;) template.findByCriteria(criteria.add(Restrictions.eq(&quot;id&quot;, id)));</span>
     // System.out.println(res.getEmail());
-<span class="fc bfc" id="L47" title="All 2 branches covered.">    for (ListingEntity iter : res) {</span>
-<span class="fc" id="L48">      return iter;</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">    for (ListingEntity iter : res) {</span>
+<span class="fc" id="L54">      return iter;</span>
     }
-<span class="fc" id="L50">    return null;</span>
+<span class="fc" id="L56">    return null;</span>
   }
 
 
   @Transactional
   public void addListing(ListingEntity listing) {
-<span class="fc" id="L56">    template.save(listing);</span>
-<span class="fc" id="L57">  }</span>
+<span class="fc" id="L62">    template.save(listing);</span>
+<span class="fc" id="L63">  }</span>
 
   @Transactional
   public void updateListing(ListingEntity listing) {
-<span class="fc" id="L61">    template.update(listing);</span>
-<span class="fc" id="L62">  }</span>
+<span class="fc" id="L67">    template.update(listing);</span>
+<span class="fc" id="L68">  }</span>
 
   @Transactional
   public void deleteListing(ListingEntity listing) {
-<span class="fc" id="L66">    template.update(listing);</span>
-<span class="fc" id="L67">  }</span>
+<span class="fc" id="L72">    template.update(listing);</span>
+<span class="fc" id="L73">  }</span>
 
   /**
    * Get all listing with pagination.
@@ -75,9 +81,9 @@ import java.util.List;
   @SuppressWarnings(&quot;unchecked&quot;)
   @Transactional
   public Iterable&lt;ListingEntity&gt; getListings(Pageable pageable) {
-<span class="fc" id="L78">    return (Iterable&lt;ListingEntity&gt;) template.findByCriteria(</span>
-<span class="fc" id="L79">        DetachedCriteria.forClass(ListingEntity.class), pageable.getOffset(),</span>
-<span class="fc" id="L80">        pageable.getPageSize());</span>
+<span class="fc" id="L84">    return (Iterable&lt;ListingEntity&gt;) template.findByCriteria(</span>
+<span class="fc" id="L85">        DetachedCriteria.forClass(ListingEntity.class), pageable.getOffset(),</span>
+<span class="fc" id="L86">        pageable.getPageSize());</span>
   }
 
   /**
@@ -89,21 +95,21 @@ import java.util.List;
    */
   @Transactional
   public DetachedCriteria areaCriteria(ListingFilter filter, DetachedCriteria criteria) {
-<span class="fc" id="L92">    String[] area = filter.getArea().split(&quot;;&quot;);</span>
+<span class="fc" id="L98">    String[] area = filter.getArea().split(&quot;;&quot;);</span>
     // System.out.println(Arrays.toString(beds)+&quot; - length&quot;);
-<span class="fc" id="L94">    List&lt;Float&gt; collectionObj = new ArrayList&lt;Float&gt;();</span>
-<span class="fc bfc" id="L95" title="All 2 branches covered.">    for (String each : area) {</span>
+<span class="fc" id="L100">    List&lt;Float&gt; collectionObj = new ArrayList&lt;Float&gt;();</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">    for (String each : area) {</span>
       try {
-<span class="fc" id="L97">        collectionObj.add(Float.parseFloat(each));</span>
-<span class="fc" id="L98">        System.out.println(collectionObj.get(0));</span>
+<span class="fc" id="L103">        collectionObj.add(Float.parseFloat(each));</span>
+<span class="fc" id="L104">        System.out.println(collectionObj.get(0));</span>
 
-<span class="nc" id="L100">      } catch (Exception exp) {</span>
+<span class="nc" id="L106">      } catch (Exception exp) {</span>
         ;
-<span class="fc" id="L102">      }</span>
+<span class="fc" id="L108">      }</span>
     }
-<span class="fc" id="L104">    criteria =</span>
-<span class="fc" id="L105">        criteria.add(Restrictions.between(&quot;area&quot;, collectionObj.get(0), collectionObj.get(1)));</span>
-<span class="fc" id="L106">    return criteria;</span>
+<span class="fc" id="L110">    criteria =</span>
+<span class="fc" id="L111">        criteria.add(Restrictions.between(&quot;area&quot;, collectionObj.get(0), collectionObj.get(1)));</span>
+<span class="fc" id="L112">    return criteria;</span>
   }
 
   /**
@@ -115,19 +121,19 @@ import java.util.List;
    */
   @Transactional
   public DetachedCriteria priceCriteria(ListingFilter filter, DetachedCriteria criteria) {
-<span class="fc" id="L118">    String[] price = filter.getPrice().split(&quot;;&quot;);</span>
+<span class="fc" id="L124">    String[] price = filter.getPrice().split(&quot;;&quot;);</span>
     // System.out.println(Arrays.toString(beds)+&quot; - length&quot;);
-<span class="fc" id="L120">    List&lt;Integer&gt; collectionObj = new ArrayList&lt;Integer&gt;();</span>
-<span class="fc bfc" id="L121" title="All 2 branches covered.">    for (String each : price) {</span>
+<span class="fc" id="L126">    List&lt;Integer&gt; collectionObj = new ArrayList&lt;Integer&gt;();</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">    for (String each : price) {</span>
       try {
-<span class="fc" id="L123">        collectionObj.add(Integer.parseInt(each));</span>
-<span class="nc" id="L124">      } catch (Exception exp) {</span>
+<span class="fc" id="L129">        collectionObj.add(Integer.parseInt(each));</span>
+<span class="nc" id="L130">      } catch (Exception exp) {</span>
         ;
-<span class="fc" id="L126">      }</span>
+<span class="fc" id="L132">      }</span>
     }
-<span class="fc" id="L128">    criteria =</span>
-<span class="fc" id="L129">        criteria.add(Restrictions.between(&quot;price&quot;, collectionObj.get(0), collectionObj.get(1)));</span>
-<span class="fc" id="L130">    return criteria;</span>
+<span class="fc" id="L134">    criteria =</span>
+<span class="fc" id="L135">        criteria.add(Restrictions.between(&quot;price&quot;, collectionObj.get(0), collectionObj.get(1)));</span>
+<span class="fc" id="L136">    return criteria;</span>
   }
 
   /**
@@ -138,51 +144,51 @@ import java.util.List;
    */
   @Transactional
   public Iterable&lt;ListingEntity&gt; filter(ListingFilter filter, Pageable pageable) {
-<span class="fc" id="L141">    DetachedCriteria criteria = DetachedCriteria.forClass(ListingEntity.class);</span>
-<span class="fc" id="L142">    criteria = criteria.add(Restrictions.eq(&quot;deleted&quot;, false));</span>
+<span class="fc" id="L147">    DetachedCriteria criteria = DetachedCriteria.forClass(ListingEntity.class);</span>
+<span class="fc" id="L148">    criteria = criteria.add(Restrictions.eq(&quot;deleted&quot;, false)).addOrder(Order.desc(&quot;postedOn&quot;));</span>
 
-<span class="pc bpc" id="L144" title="2 of 4 branches missed.">    if (filter.getLocality() != null &amp;&amp; filter.getLocality() != &quot;&quot;) {</span>
+<span class="pc bpc" id="L150" title="2 of 4 branches missed.">    if (filter.getLocality() != null &amp;&amp; filter.getLocality() != &quot;&quot;) {</span>
 
-<span class="fc" id="L146">      criteria = criteria.createAlias(&quot;address&quot;, &quot;addr&quot;)</span>
-<span class="fc" id="L147">          .add(Restrictions.ilike(&quot;addr.locality&quot;, filter.getLocality(), MatchMode.ANYWHERE));</span>
+<span class="fc" id="L152">      criteria = criteria.createAlias(&quot;address&quot;, &quot;addr&quot;)</span>
+<span class="fc" id="L153">          .add(Restrictions.ilike(&quot;addr.locality&quot;, filter.getLocality(), MatchMode.ANYWHERE));</span>
     }
-<span class="pc bpc" id="L149" title="2 of 4 branches missed.">    if (filter.getArea() != null &amp;&amp; filter.getArea() != &quot;&quot;) {</span>
-<span class="fc" id="L150">      criteria = areaCriteria(filter, criteria);</span>
+<span class="pc bpc" id="L155" title="2 of 4 branches missed.">    if (filter.getArea() != null &amp;&amp; filter.getArea() != &quot;&quot;) {</span>
+<span class="fc" id="L156">      criteria = areaCriteria(filter, criteria);</span>
     }
-<span class="pc bpc" id="L152" title="2 of 4 branches missed.">    if (filter.getPrice() != null &amp;&amp; filter.getPrice() != &quot;&quot;) {</span>
-<span class="fc" id="L153">      criteria = priceCriteria(filter, criteria);</span>
+<span class="pc bpc" id="L158" title="2 of 4 branches missed.">    if (filter.getPrice() != null &amp;&amp; filter.getPrice() != &quot;&quot;) {</span>
+<span class="fc" id="L159">      criteria = priceCriteria(filter, criteria);</span>
     }
-<span class="pc bpc" id="L155" title="2 of 4 branches missed.">    if (filter.getNoBeds() != null &amp;&amp; filter.getNoBeds() != &quot;&quot;) {</span>
-<span class="fc" id="L156">      criteria = noBedsCriteria(filter, criteria);</span>
+<span class="pc bpc" id="L161" title="2 of 4 branches missed.">    if (filter.getNoBeds() != null &amp;&amp; filter.getNoBeds() != &quot;&quot;) {</span>
+<span class="fc" id="L162">      criteria = noBedsCriteria(filter, criteria);</span>
     }
-<span class="pc bpc" id="L158" title="2 of 4 branches missed.">    if (filter.getPropertyType() != null &amp;&amp; filter.getPropertyType() != &quot;&quot;) {</span>
-<span class="fc" id="L159">      criteria = propertyTypeCriteria(filter, criteria);</span>
+<span class="pc bpc" id="L164" title="2 of 4 branches missed.">    if (filter.getPropertyType() != null &amp;&amp; filter.getPropertyType() != &quot;&quot;) {</span>
+<span class="fc" id="L165">      criteria = propertyTypeCriteria(filter, criteria);</span>
     }
 
-<span class="pc bpc" id="L162" title="2 of 4 branches missed.">    if (filter.getVacancyFor() != null &amp;&amp; filter.getVacancyFor() != &quot;&quot;) {</span>
-<span class="fc" id="L163">      criteria = vacancyForCriteria(filter, criteria);</span>
+<span class="pc bpc" id="L168" title="2 of 4 branches missed.">    if (filter.getVacancyFor() != null &amp;&amp; filter.getVacancyFor() != &quot;&quot;) {</span>
+<span class="fc" id="L169">      criteria = vacancyForCriteria(filter, criteria);</span>
     }
-<span class="pc bpc" id="L165" title="2 of 4 branches missed.">    if (filter.getFurnished() != null &amp;&amp; filter.getFurnished() != &quot;&quot;) {</span>
-<span class="fc" id="L166">      String[] furnish = filter.getFurnished().split(&quot;\\|&quot;);</span>
-<span class="fc" id="L167">      criteria = criteria.add(Restrictions.in(&quot;furnished&quot;, furnish));</span>
+<span class="pc bpc" id="L171" title="2 of 4 branches missed.">    if (filter.getFurnished() != null &amp;&amp; filter.getFurnished() != &quot;&quot;) {</span>
+<span class="fc" id="L172">      String[] furnish = filter.getFurnished().split(&quot;\\|&quot;);</span>
+<span class="fc" id="L173">      criteria = criteria.add(Restrictions.in(&quot;furnished&quot;, furnish));</span>
     }
-<span class="pc bpc" id="L169" title="2 of 4 branches missed.">    if (filter.getRoomFor() != null &amp;&amp; filter.getRoomFor() != &quot;&quot;) {</span>
-<span class="fc" id="L170">      String[] roomFor = filter.getRoomFor().split(&quot;\\|&quot;);</span>
-<span class="fc" id="L171">      criteria = criteria.add(Restrictions.in(&quot;roomFor&quot;, roomFor));</span>
+<span class="pc bpc" id="L175" title="2 of 4 branches missed.">    if (filter.getRoomFor() != null &amp;&amp; filter.getRoomFor() != &quot;&quot;) {</span>
+<span class="fc" id="L176">      String[] roomFor = filter.getRoomFor().split(&quot;\\|&quot;);</span>
+<span class="fc" id="L177">      criteria = criteria.add(Restrictions.in(&quot;roomFor&quot;, roomFor));</span>
     }
-<span class="pc bpc" id="L173" title="2 of 4 branches missed.">    if (filter.getPossessionDate() != null &amp;&amp; filter.getPossessionDate() != &quot;&quot;) {</span>
+<span class="pc bpc" id="L179" title="2 of 4 branches missed.">    if (filter.getPossessionDate() != null &amp;&amp; filter.getPossessionDate() != &quot;&quot;) {</span>
       try {
-<span class="fc" id="L175">        DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
-<span class="fc" id="L176">        Date posDate = df.parse(filter.getPossessionDate());</span>
-<span class="fc" id="L177">        criteria = criteria.add(Restrictions.le(&quot;possesionDate&quot;, posDate));</span>
-<span class="nc" id="L178">      } catch (ParseException exp) {</span>
+<span class="fc" id="L181">        DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L182">        Date posDate = df.parse(filter.getPossessionDate());</span>
+<span class="fc" id="L183">        criteria = criteria.add(Restrictions.le(&quot;possesionDate&quot;, posDate));</span>
+<span class="nc" id="L184">      } catch (ParseException exp) {</span>
         ;
-<span class="fc" id="L180">      }</span>
+<span class="fc" id="L186">      }</span>
     }
     @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L183">    Iterable&lt;ListingEntity&gt; result = (Iterable&lt;ListingEntity&gt;) template.findByCriteria(criteria,</span>
-<span class="fc" id="L184">        pageable.getOffset(), pageable.getPageSize());</span>
-<span class="fc" id="L185">    return result;</span>
+<span class="fc" id="L189">    Iterable&lt;ListingEntity&gt; result = (Iterable&lt;ListingEntity&gt;) template.findByCriteria(criteria,</span>
+<span class="fc" id="L190">        pageable.getOffset(), pageable.getPageSize());</span>
+<span class="fc" id="L191">    return result;</span>
   }
 
 
@@ -195,18 +201,18 @@ import java.util.List;
    */
   @Transactional
   public DetachedCriteria noBedsCriteria(ListingFilter filter, DetachedCriteria criteria) {
-<span class="fc" id="L198">    String[] beds = filter.getNoBeds().split(&quot;\\|&quot;);</span>
+<span class="fc" id="L204">    String[] beds = filter.getNoBeds().split(&quot;\\|&quot;);</span>
     // System.out.println(Arrays.toString(beds)+&quot; - length&quot;);
-<span class="fc" id="L200">    List&lt;Integer&gt; collectionObj = new ArrayList&lt;Integer&gt;();</span>
-<span class="fc bfc" id="L201" title="All 2 branches covered.">    for (String each : beds) {</span>
+<span class="fc" id="L206">    List&lt;Integer&gt; collectionObj = new ArrayList&lt;Integer&gt;();</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">    for (String each : beds) {</span>
       try {
-<span class="fc" id="L203">        collectionObj.add(Integer.parseInt(each));</span>
-<span class="nc" id="L204">      } catch (Exception exp) {</span>
+<span class="fc" id="L209">        collectionObj.add(Integer.parseInt(each));</span>
+<span class="nc" id="L210">      } catch (Exception exp) {</span>
         ;
-<span class="fc" id="L206">      }</span>
+<span class="fc" id="L212">      }</span>
     }
-<span class="fc" id="L208">    criteria = criteria.add(Restrictions.in(&quot;noBeds&quot;, collectionObj));</span>
-<span class="fc" id="L209">    return criteria;</span>
+<span class="fc" id="L214">    criteria = criteria.add(Restrictions.in(&quot;noBeds&quot;, collectionObj));</span>
+<span class="fc" id="L215">    return criteria;</span>
   }
 
   /**
@@ -218,17 +224,17 @@ import java.util.List;
    */
   @Transactional
   public DetachedCriteria vacancyForCriteria(ListingFilter filter, DetachedCriteria criteria) {
-<span class="fc" id="L221">    String[] vacancies = filter.getVacancyFor().split(&quot;\\|&quot;);</span>
-<span class="fc" id="L222">    List&lt;Integer&gt; collectionObj = new ArrayList&lt;Integer&gt;();</span>
-<span class="fc bfc" id="L223" title="All 2 branches covered.">    for (String each : vacancies) {</span>
+<span class="fc" id="L227">    String[] vacancies = filter.getVacancyFor().split(&quot;\\|&quot;);</span>
+<span class="fc" id="L228">    List&lt;Integer&gt; collectionObj = new ArrayList&lt;Integer&gt;();</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">    for (String each : vacancies) {</span>
       try {
-<span class="fc" id="L225">        collectionObj.add(Integer.parseInt(each));</span>
-<span class="nc" id="L226">      } catch (Exception exp) {</span>
+<span class="fc" id="L231">        collectionObj.add(Integer.parseInt(each));</span>
+<span class="nc" id="L232">      } catch (Exception exp) {</span>
         ;
-<span class="fc" id="L228">      }</span>
+<span class="fc" id="L234">      }</span>
     }
-<span class="fc" id="L230">    criteria = criteria.add(Restrictions.in(&quot;vacancyFor&quot;, collectionObj));</span>
-<span class="fc" id="L231">    return criteria;</span>
+<span class="fc" id="L236">    criteria = criteria.add(Restrictions.in(&quot;vacancyFor&quot;, collectionObj));</span>
+<span class="fc" id="L237">    return criteria;</span>
   }
 
   /**
@@ -240,17 +246,17 @@ import java.util.List;
    */
   @Transactional
   public DetachedCriteria propertyTypeCriteria(ListingFilter filter, DetachedCriteria criteria) {
-<span class="fc" id="L243">    String[] propType = filter.getPropertyType().split(&quot;\\|&quot;);</span>
-<span class="fc" id="L244">    List&lt;Integer&gt; collectionObj = new ArrayList&lt;Integer&gt;();</span>
-<span class="fc bfc" id="L245" title="All 2 branches covered.">    for (String each : propType) {</span>
+<span class="fc" id="L249">    String[] propType = filter.getPropertyType().split(&quot;\\|&quot;);</span>
+<span class="fc" id="L250">    List&lt;Integer&gt; collectionObj = new ArrayList&lt;Integer&gt;();</span>
+<span class="fc bfc" id="L251" title="All 2 branches covered.">    for (String each : propType) {</span>
       try {
-<span class="fc" id="L247">        collectionObj.add(Integer.parseInt(each));</span>
-<span class="nc" id="L248">      } catch (Exception exp) {</span>
+<span class="fc" id="L253">        collectionObj.add(Integer.parseInt(each));</span>
+<span class="nc" id="L254">      } catch (Exception exp) {</span>
         ;
-<span class="fc" id="L250">      }</span>
+<span class="fc" id="L256">      }</span>
     }
-<span class="fc" id="L252">    criteria = criteria.add(Restrictions.in(&quot;propertyType.id&quot;, collectionObj));</span>
-<span class="fc" id="L253">    return criteria;</span>
+<span class="fc" id="L258">    criteria = criteria.add(Restrictions.in(&quot;propertyType.id&quot;, collectionObj));</span>
+<span class="fc" id="L259">    return criteria;</span>
   }
 
 

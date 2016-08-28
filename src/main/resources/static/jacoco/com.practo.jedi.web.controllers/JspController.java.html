@@ -122,87 +122,91 @@ import javax.servlet.http.HttpSession;
 <span class="nc bnc" id="L122" title="All 2 branches missed.">    if (session.getAttribute(&quot;id&quot;) == null) {</span>
 <span class="nc" id="L123">      return &quot;redirect:/&quot;;</span>
     }
+<span class="nc" id="L125">    Listing listing = new Listing();</span>
     try {
 
       // ------ IMAge upload to S3
       // --------
-<span class="nc" id="L129">      Listing listing = new Listing();</span>
-<span class="nc" id="L130">      listing.setTitle(listingObj.getTitle());</span>
-<span class="nc" id="L131">      listing.setNoBeds(Integer.parseInt(listingObj.getNoBeds()));</span>
-<span class="nc" id="L132">      listing.setFurnished(listingObj.getFurnished());</span>
-<span class="nc" id="L133">      listing.setRoomFor(listingObj.getRoomFor());</span>
-<span class="nc" id="L134">      listing.setVacancyFor(Integer.parseInt(listingObj.getVacancyFor()));</span>
-<span class="nc" id="L135">      listing.setArea(Float.parseFloat(listingObj.getArea()));</span>
-<span class="nc" id="L136">      listing.setPrice(Integer.parseInt(listingObj.getPrice()));</span>
-<span class="nc" id="L137">      DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
-<span class="nc" id="L138">      Date posDate = df.parse(listingObj.getPossessionDate());</span>
-<span class="nc" id="L139">      listing.setPossesionDate(posDate);</span>
+
+<span class="nc" id="L131">      listing.setTitle(listingObj.getTitle());</span>
+<span class="nc" id="L132">      listing.setNoBeds(Integer.parseInt(listingObj.getNoBeds()));</span>
+<span class="nc" id="L133">      listing.setFurnished(listingObj.getFurnished());</span>
+<span class="nc" id="L134">      listing.setRoomFor(listingObj.getRoomFor());</span>
+<span class="nc" id="L135">      listing.setVacancyFor(Integer.parseInt(listingObj.getVacancyFor()));</span>
+<span class="nc" id="L136">      listing.setArea(Float.parseFloat(listingObj.getArea()));</span>
+<span class="nc" id="L137">      listing.setPrice(Integer.parseInt(listingObj.getPrice()));</span>
+<span class="nc" id="L138">      DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L139">      Date posDate = df.parse(listingObj.getPossessionDate());</span>
+<span class="nc" id="L140">      listing.setPossesionDate(posDate);</span>
       ///// -------------------------
-<span class="nc" id="L141">      User user = userService.getUserByEmail((String) session.getAttribute(&quot;email&quot;));</span>
-<span class="nc" id="L142">      listing.setUser(user.EntityObj());</span>
+<span class="nc" id="L142">      User user = userService.getUserByEmail((String) session.getAttribute(&quot;email&quot;));</span>
+<span class="nc" id="L143">      listing.setUser(user.EntityObj());</span>
 
-<span class="nc" id="L144">      PropertyType ptype = propService.get(Integer.parseInt(listingObj.getPropertyType()));</span>
-<span class="nc" id="L145">      listing.setPropertyType(ptype.EntityObj());</span>
-
-
-<span class="nc" id="L148">      Address addr = new Address();</span>
-<span class="nc" id="L149">      addr.setPropertyName(listingObj.getPropertyName());</span>
-<span class="nc" id="L150">      addr.setPlotNo(listingObj.getPlotNo());</span>
-<span class="nc" id="L151">      addr.setLocality(listingObj.getLocality());</span>
-
-<span class="nc" id="L153">      addressService.create(addr);</span>
-
-<span class="nc" id="L155">      listing.setAddress(addr.EntityObj());</span>
-
-<span class="nc" id="L157">      listing.setPropertyType(ptype.EntityObj());</span>
+<span class="nc" id="L145">      PropertyType ptype = propService.get(Integer.parseInt(listingObj.getPropertyType()));</span>
+<span class="nc" id="L146">      listing.setPropertyType(ptype.EntityObj());</span>
 
 
-<span class="nc" id="L160">      listingService.create(listing);</span>
-<span class="nc" id="L161">    } catch (Exception err) {</span>
-<span class="nc" id="L162">      err.printStackTrace();</span>
-<span class="nc" id="L163">    }</span>
+<span class="nc" id="L149">      Address addr = new Address();</span>
+<span class="nc" id="L150">      addr.setPropertyName(listingObj.getPropertyName());</span>
+<span class="nc" id="L151">      addr.setPlotNo(listingObj.getPlotNo());</span>
+<span class="nc" id="L152">      addr.setLocality(listingObj.getLocality());</span>
 
-<span class="nc" id="L165">    return &quot;redirect:/&quot;;</span>
+<span class="nc" id="L154">      addressService.create(addr);</span>
+
+<span class="nc" id="L156">      listing.setAddress(addr.EntityObj());</span>
+
+<span class="nc" id="L158">      listing.setPropertyType(ptype.EntityObj());</span>
+
+
+<span class="nc" id="L161">      listingService.create(listing);</span>
+<span class="nc" id="L162">    } catch (Exception err) {</span>
+<span class="nc" id="L163">      err.printStackTrace();</span>
+<span class="nc" id="L164">      return &quot;redirect:/&quot;;</span>
+<span class="nc" id="L165">    }</span>
+
+<span class="nc" id="L167">    return &quot;redirect:/listing/&quot; + listing.getId();</span>
   }
 
   @RequestMapping(value = &quot;/contactOwner&quot;, method = RequestMethod.POST)
   public String contactOwner(Model model, String name, String email, String mobile, String body,
       String listingId, HttpSession session) throws MessagingException {
-<span class="nc" id="L171">    Listing listingObj = listingService.get(Integer.parseInt(listingId));</span>
-<span class="nc" id="L172">    smtpMailSender.send(listingObj.getUser().getEmail(), &quot;Regarding Listing on Accom finder&quot;,</span>
-        body + listingId + &quot;Contacted By&quot; + email + mobile);
-<span class="nc" id="L174">    smtpMailSender.send(email, &quot;Greetings From AccomFinder&quot;,</span>
-        &quot;You have requested an interest on a Listing:&quot; + listingId + &quot;Contacted Owner&quot;
-<span class="nc" id="L176">            + listingObj.getUser().getName() + listingObj.getUser().getMobile());</span>
-<span class="nc" id="L177">    model.addAttribute(&quot;message&quot;, &quot;Contacted By Email&quot;);</span>
+<span class="nc" id="L173">    Listing listingObj = listingService.get(Integer.parseInt(listingId));</span>
+<span class="nc" id="L174">    smtpMailSender.send(listingObj.getUser().getEmail(), &quot;Regarding Listing on Accom finder&quot;,</span>
+        body + &quot;&lt;br &gt;&quot; + &quot;ListingId (for reference): &quot; + listingId
+            + &quot; &lt;br&gt;&lt;b&gt; Contacted By :&lt;b&gt;&lt;br&gt;&quot; + &quot;email: &quot; + email + &quot;&lt;br&gt; Mobile: &quot; + mobile);
+<span class="nc" id="L177">    smtpMailSender.send(email, &quot;Greetings From AccomFinder&quot;,</span>
+        &quot;Thank You for using AccomFinder &lt;br&gt;  You have requested an interest on a Listing &quot;
+            + &quot;ListingId (for reference): &quot; + listingId + &quot;&lt;br &gt; &lt;br &gt; Contacted Owner &lt;br&gt;&quot;
+<span class="nc" id="L180">            + &quot;Name: &quot; + listingObj.getUser().getName() + &quot;&lt;br&gt; Mobile: &quot; + mobile);</span>
+<span class="nc" id="L181">    model.addAttribute(&quot;message&quot;, &quot;Contacted By Email&quot;);</span>
 
-<span class="nc" id="L179">    return &quot;redirect:./&quot;;</span>
+<span class="nc" id="L183">    return &quot;&quot;;</span>
   }
 
   @RequestMapping(value = &quot;/loginUser&quot;, method = RequestMethod.POST)
   public void loginUser(Model model, String id, String email, String name, HttpSession session) {
-<span class="nc" id="L184">    session.setAttribute(&quot;id&quot;, id);</span>
-<span class="nc" id="L185">    session.setAttribute(&quot;email&quot;, email);</span>
-<span class="nc" id="L186">    session.setAttribute(&quot;name&quot;, name);</span>
-<span class="nc" id="L187">    User user = userService.getUserByEmail((String) session.getAttribute(&quot;email&quot;));</span>
-<span class="nc bnc" id="L188" title="All 2 branches missed.">    if (user.getEmail() == null) {</span>
-<span class="nc" id="L189">      User createuser = new User();</span>
-<span class="nc" id="L190">      createuser.setEmail((String) session.getAttribute(&quot;email&quot;));</span>
-<span class="nc" id="L191">      createuser.setName((String) session.getAttribute(&quot;name&quot;));</span>
-<span class="nc" id="L192">      userService.create(createuser);</span>
+<span class="nc" id="L188">    session.setAttribute(&quot;id&quot;, id);</span>
+<span class="nc" id="L189">    session.setAttribute(&quot;email&quot;, email);</span>
+<span class="nc" id="L190">    session.setAttribute(&quot;name&quot;, name);</span>
+<span class="nc" id="L191">    User user = userService.getUserByEmail((String) session.getAttribute(&quot;email&quot;));</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">    if (user.getEmail() == null) {</span>
+<span class="nc" id="L193">      User createuser = new User();</span>
+<span class="nc" id="L194">      createuser.setEmail((String) session.getAttribute(&quot;email&quot;));</span>
+<span class="nc" id="L195">      createuser.setName((String) session.getAttribute(&quot;name&quot;));</span>
+<span class="nc" id="L196">      userService.create(createuser);</span>
     }
-<span class="nc" id="L194">  }</span>
+<span class="nc" id="L198">  }</span>
 
   @RequestMapping(value = &quot;/logoutUser&quot;, method = RequestMethod.POST)
   public void logoutUser(Model model, HttpSession session) {
 
-<span class="nc" id="L199">    session.invalidate();</span>
-<span class="nc" id="L200">  }</span>
+<span class="nc" id="L203">    session.invalidate();</span>
+<span class="nc" id="L204">  }</span>
 
   @RequestMapping(value = &quot;/test&quot;, method = RequestMethod.POST)
   public void dummy(Model model) {
 
-<span class="nc" id="L205">  }</span>
+<span class="nc" id="L209">  }</span>
 
 
 

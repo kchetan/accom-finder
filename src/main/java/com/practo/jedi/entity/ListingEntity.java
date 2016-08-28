@@ -21,10 +21,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 
-/**
- * The persistent class for the listings database table.
- * 
- */
+
+
 @Entity
 @Table(name = "listings")
 @NamedQuery(name = "ListingEntity.findAll", query = "SELECT l FROM ListingEntity l")

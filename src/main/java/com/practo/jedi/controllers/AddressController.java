@@ -14,6 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This is the controller which handles all the api requests corresponding to address table.
+ * Handles the api requests for GET,POST,UPDATE,DELETE
+ * 
+ * @author chetan
+ *
+ */
 @RestController
 @RequestMapping("/api/address")
 public class AddressController {
@@ -35,8 +42,9 @@ public class AddressController {
 
   /**
    * Create an Address.
+   * 
    * @param obj {@link Address}
-   * @return {@link ResponseEntity} {@link Address} 
+   * @return {@link ResponseEntity} {@link Address}
    */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<Address> create(@RequestBody Address obj) {
@@ -47,9 +55,10 @@ public class AddressController {
 
   /**
    * Update Address object of given id with the obj parameters.
+   * 
    * @param id {@link Integer}
    * @param obj {@link Address}
-   * @return {@link ResponseEntity} {@link Address} 
+   * @return {@link ResponseEntity} {@link Address}
    */
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<Address> update(@PathVariable int id, @RequestBody Address obj) {
@@ -59,10 +68,11 @@ public class AddressController {
   }
 
   /**
-   * Delete Address object. 
+   * Delete Address object.
+   * 
    * @param id {@link Integer}
    * @param response {@link HttpServletResponse}
-   * @return {@link ResponseEntity} {@link Boolean}  
+   * @return {@link ResponseEntity} {@link Boolean}
    */
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpServletResponse response) {

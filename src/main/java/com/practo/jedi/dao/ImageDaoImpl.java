@@ -9,7 +9,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
+/**
+ * This is the data access object implemtation for Address table.
+ * 
+ * @author chetan
+ *
+ */
 @Repository
 public class ImageDaoImpl implements ImageDao {
 

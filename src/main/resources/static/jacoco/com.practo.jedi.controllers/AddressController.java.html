@@ -14,9 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This is the controller which handles all the api requests corresponding to address table.
+ * Handles the api requests for GET,POST,UPDATE,DELETE
+ * 
+ * @author chetan
+ *
+ */
 @RestController
 @RequestMapping(&quot;/api/address&quot;)
-<span class="fc" id="L19">public class AddressController {</span>
+<span class="fc" id="L26">public class AddressController {</span>
   @Autowired
   private AddressService service;
 
@@ -28,47 +35,50 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.GET)
   public ResponseEntity&lt;Address&gt; getAddress(@PathVariable int id) {
-<span class="nc" id="L31">    Address addressobj = service.get(id);</span>
-<span class="nc" id="L32">    ResponseEntity&lt;Address&gt; re = new ResponseEntity&lt;Address&gt;(addressobj, HttpStatus.OK);</span>
-<span class="nc" id="L33">    return re;</span>
+<span class="nc" id="L38">    Address addressobj = service.get(id);</span>
+<span class="nc" id="L39">    ResponseEntity&lt;Address&gt; re = new ResponseEntity&lt;Address&gt;(addressobj, HttpStatus.OK);</span>
+<span class="nc" id="L40">    return re;</span>
   }
 
   /**
    * Create an Address.
+   * 
    * @param obj {@link Address}
-   * @return {@link ResponseEntity} {@link Address} 
+   * @return {@link ResponseEntity} {@link Address}
    */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity&lt;Address&gt; create(@RequestBody Address obj) {
-<span class="nc" id="L43">    Address addressobj = service.create(obj);</span>
-<span class="nc" id="L44">    ResponseEntity&lt;Address&gt; re = new ResponseEntity&lt;Address&gt;(addressobj, HttpStatus.CREATED);</span>
-<span class="nc" id="L45">    return re;</span>
+<span class="nc" id="L51">    Address addressobj = service.create(obj);</span>
+<span class="nc" id="L52">    ResponseEntity&lt;Address&gt; re = new ResponseEntity&lt;Address&gt;(addressobj, HttpStatus.CREATED);</span>
+<span class="nc" id="L53">    return re;</span>
   }
 
   /**
    * Update Address object of given id with the obj parameters.
+   * 
    * @param id {@link Integer}
    * @param obj {@link Address}
-   * @return {@link ResponseEntity} {@link Address} 
+   * @return {@link ResponseEntity} {@link Address}
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.PUT)
   public ResponseEntity&lt;Address&gt; update(@PathVariable int id, @RequestBody Address obj) {
-<span class="nc" id="L56">    Address addressobj = service.update(obj, id);</span>
-<span class="nc" id="L57">    ResponseEntity&lt;Address&gt; re = new ResponseEntity&lt;Address&gt;(addressobj, HttpStatus.OK);</span>
-<span class="nc" id="L58">    return re;</span>
+<span class="nc" id="L65">    Address addressobj = service.update(obj, id);</span>
+<span class="nc" id="L66">    ResponseEntity&lt;Address&gt; re = new ResponseEntity&lt;Address&gt;(addressobj, HttpStatus.OK);</span>
+<span class="nc" id="L67">    return re;</span>
   }
 
   /**
-   * Delete Address object. 
+   * Delete Address object.
+   * 
    * @param id {@link Integer}
    * @param response {@link HttpServletResponse}
-   * @return {@link ResponseEntity} {@link Boolean}  
+   * @return {@link ResponseEntity} {@link Boolean}
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.DELETE)
   public ResponseEntity&lt;Boolean&gt; delete(@PathVariable(&quot;id&quot;) int id, HttpServletResponse response) {
-<span class="nc" id="L69">    service.delete(id);</span>
-<span class="nc" id="L70">    ResponseEntity&lt;Boolean&gt; re = new ResponseEntity&lt;Boolean&gt;(true, HttpStatus.NO_CONTENT);</span>
-<span class="nc" id="L71">    return re;</span>
+<span class="nc" id="L79">    service.delete(id);</span>
+<span class="nc" id="L80">    ResponseEntity&lt;Boolean&gt; re = new ResponseEntity&lt;Boolean&gt;(true, HttpStatus.NO_CONTENT);</span>
+<span class="nc" id="L81">    return re;</span>
   }
 
 }

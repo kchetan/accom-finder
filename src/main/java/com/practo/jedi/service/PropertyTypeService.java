@@ -4,6 +4,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.practo.jedi.models.PropertyType;
 
+/**
+ * This is the Service interface for PropertyType table.It has the methods that are implemented.
+ * 
+ * @author chetan
+ *
+ */
 public interface PropertyTypeService {
 
   PropertyType get(Integer id);

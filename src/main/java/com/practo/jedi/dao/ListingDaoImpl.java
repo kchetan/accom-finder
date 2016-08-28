@@ -21,7 +21,12 @@ import java.util.Date;
 import java.util.List;
 
 
-
+/**
+ * This is the data access object implement class for Listing table.
+ * 
+ * @author chetan
+ *
+ */
 @Repository
 public class ListingDaoImpl implements ListingDao {
 

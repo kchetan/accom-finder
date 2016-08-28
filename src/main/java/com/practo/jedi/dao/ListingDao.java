@@ -6,7 +6,12 @@ import com.practo.jedi.models.ListingFilter;
 import org.springframework.data.domain.Pageable;
 
 
-
+/**
+ * This is the data access object interface for Listing table.
+ * 
+ * @author chetan
+ *
+ */
 public interface ListingDao {
 
  

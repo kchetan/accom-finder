@@ -15,10 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
-
+/**
+ * This is the controller which handles all the api requests corresponding to Image table.
+ * Handles the api requests for GET,POST,UPDATE,DELETE
+ * 
+ * @author chetan
+ *
+ */
 @RestController
 @RequestMapping(&quot;/api/image&quot;)
-<span class="fc" id="L21">public class ImageController {</span>
+<span class="fc" id="L27">public class ImageController {</span>
   @Autowired
   private ImageService service;
 
@@ -29,9 +35,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.GET)
   public ResponseEntity&lt;Image&gt; getImage(@PathVariable int id) {
-<span class="nc" id="L32">    Image imageobj = service.get(id);</span>
-<span class="nc" id="L33">    ResponseEntity&lt;Image&gt; re = new ResponseEntity&lt;Image&gt;(imageobj, HttpStatus.OK);</span>
-<span class="nc" id="L34">    return re;</span>
+<span class="nc" id="L38">    Image imageobj = service.get(id);</span>
+<span class="nc" id="L39">    ResponseEntity&lt;Image&gt; re = new ResponseEntity&lt;Image&gt;(imageobj, HttpStatus.OK);</span>
+<span class="nc" id="L40">    return re;</span>
   }
 
   /**
@@ -41,9 +47,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity&lt;Image&gt; create(@RequestBody Image obj) {
-<span class="nc" id="L44">    Image imageobj = service.create(obj);</span>
-<span class="nc" id="L45">    ResponseEntity&lt;Image&gt; re = new ResponseEntity&lt;Image&gt;(imageobj, HttpStatus.CREATED);</span>
-<span class="nc" id="L46">    return re;</span>
+<span class="nc" id="L50">    Image imageobj = service.create(obj);</span>
+<span class="nc" id="L51">    ResponseEntity&lt;Image&gt; re = new ResponseEntity&lt;Image&gt;(imageobj, HttpStatus.CREATED);</span>
+<span class="nc" id="L52">    return re;</span>
   }
 
   /**
@@ -54,9 +60,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}&quot;,method = RequestMethod.PUT)
   public ResponseEntity&lt;Image&gt; update(@RequestBody Image obj,@PathVariable int id) {
-<span class="nc" id="L57">    Image imageobj = service.update(obj,id);</span>
-<span class="nc" id="L58">    ResponseEntity&lt;Image&gt; re = new ResponseEntity&lt;Image&gt;(imageobj, HttpStatus.OK);</span>
-<span class="nc" id="L59">    return re;</span>
+<span class="nc" id="L63">    Image imageobj = service.update(obj,id);</span>
+<span class="nc" id="L64">    ResponseEntity&lt;Image&gt; re = new ResponseEntity&lt;Image&gt;(imageobj, HttpStatus.OK);</span>
+<span class="nc" id="L65">    return re;</span>
   }
 
   /**
@@ -67,9 +73,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.DELETE)
   public ResponseEntity&lt;Boolean&gt; delete(@PathVariable(&quot;id&quot;) int id, HttpServletResponse response) {
-<span class="nc" id="L70">    service.delete(id);</span>
-<span class="nc" id="L71">    ResponseEntity&lt;Boolean&gt; re = new ResponseEntity&lt;Boolean&gt;(true, HttpStatus.NO_CONTENT);</span>
-<span class="nc" id="L72">    return re;</span>
+<span class="nc" id="L76">    service.delete(id);</span>
+<span class="nc" id="L77">    ResponseEntity&lt;Boolean&gt; re = new ResponseEntity&lt;Boolean&gt;(true, HttpStatus.NO_CONTENT);</span>
+<span class="nc" id="L78">    return re;</span>
   }
 
 }

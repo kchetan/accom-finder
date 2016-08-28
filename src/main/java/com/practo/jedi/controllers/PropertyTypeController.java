@@ -15,7 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
-
+/**
+ * This is the controller which handles all the api requests corresponding to PropertyType Table.
+ * Handles the api requests for GET,POST,UPDATE,DELETE
+ * 
+ * @author chetan
+ *
+ */
 @RestController
 @RequestMapping("/api/propertytype")
 public class PropertyTypeController {

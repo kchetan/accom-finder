@@ -24,6 +24,13 @@ import com.practo.jedi.models.Address;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.ListingFilter;
 
+/**
+ * This is the Service implementation for Listing table.It has the methods that are implemented.
+ * Get create update and delete,also search filters based on 
+ * 
+ * @author chetan
+ *
+ */
 @Service
 public class ListingServiceImpl implements ListingService {
   private static final Logger logger = LogManager.getLogger(UserService.class);
@@ -40,7 +47,7 @@ public class ListingServiceImpl implements ListingService {
   private PropertyTypeDao propropTypeDao;
 
   /**
-   * Search a Listing Object Filters .
+   * Search a Listing Object Filters .Check Filters class for more reason
    * 
    * @param filterObj {@link Listing}
    * @param pageable {@link Pageable}

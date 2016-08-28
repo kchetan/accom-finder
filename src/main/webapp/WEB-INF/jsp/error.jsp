@@ -18,14 +18,14 @@
 		<div class="main-header-cont container">
 			<!-- Top Logo -->
 			<a href="/accomfinder/">
-				<div class="logo-main-box col-xs-4 col-sm-4 col-md-6">
+				<div class="logo-main-box col-xs-4 col-sm-4 col-md-5">
 					<div class="logo"></div>
 					<span> Finder</span>
 				</div>
 			</a>
 			<!-- End of Top Logo -->
 			<!-- Main Menu -->
-			<div class="menu-container col-xs-8 col-sm-6 col-md-6">
+			<div class="menu-container col-xs-8 col-sm-6 col-md-7">
 				<!-- Main Menu -->
 				<nav id="main-menu" class="hidden-xs hidden-sm">
 					<ul class="main-menu list-inline">

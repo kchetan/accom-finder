@@ -5,6 +5,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.User;
 
+/**
+ * This is the Service interface for User table.It has the methods that are implemented.
+ * 
+ * @author chetan
+ *
+ */
 public interface UserService {
 
   @Transactional

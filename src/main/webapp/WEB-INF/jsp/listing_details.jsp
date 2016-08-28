@@ -64,6 +64,12 @@
 			<div class="items">
 				<div class="img-container" data-bg-img="../img/slider/3.jpg"></div>
 			</div>
+			<div class="items">
+				<div class="img-container" data-bg-img="../img/slider/4.jpg"></div>
+			</div>
+			<div class="items">
+				<div class="img-container" data-bg-img="../img/slider/5.jpg"></div>
+			</div>
 
 		</div>
 		<!-- End of Main Slider -->
@@ -81,7 +87,12 @@
 			<div class="items">
 				<div class="img-container" data-bg-img="../img/slider/3.jpg"></div>
 			</div>
-		</div>
+			<div class="items">
+				<div class="img-container" data-bg-img="../img/slider/4.jpg"></div>
+			</div>
+			<div class="items">
+				<div class="img-container" data-bg-img="../img/slider/5.jpg"></div>
+			</div>
 	</section>
 
 	<section class="main-container container">
@@ -106,9 +117,9 @@
 					</div>
 
 					<!-- Property Map -->
-					<div class="property-details-map-container">
+					<!-- <div class="property-details-map-container">
 						<div id="property-details-map"></div>
-					</div>
+					</div> -->
 
 				</div>
 				<div class="col-md-8 right-sec">
@@ -188,17 +199,20 @@
 									<div class="col-md-12 contact-form-container">
 										<div class="contact-form">
 											<div class="field-box">
-												<input name="name" type="text" placeholder="Name *">
+												<input name="name" type="text" placeholder="Name *" required>
 											</div>
 											<div class="field-box">
-												<input name="email" type="email" placeholder="Email *">
+												<input name="email" type="email" placeholder="Email *"
+													required>
 											</div>
 											<div class="field-box">
-												<input name="mobile" type="text" placeholder="Phone">
+												<input name="mobile" type="text" placeholder="Phone"
+													required>
 											</div>
 											<input name="listingId" type="text" style="display: none"
 												value="${listing.getId()}">
-											<textarea name="body" id="message">Your Message *</textarea>
+											<textarea name="body" id="message"
+												placeholder="Your Message *" required></textarea>
 											<button type="submit" class="btn btn-lg submit">Submit</button>
 										</div>
 									</div>
@@ -221,10 +235,11 @@
 					<div class="box-content">
 						<div class="property-search-form vertical">
 							<div class="main-search-sec">
-								<div class="col-xs-4 col-sm-3 search-field">
-									<input name="locality" type="text" placeholder="Location"
-										id="autocomplete">
-
+								<div class="search-field">
+									<div class="search-field">
+										<input name="locality" type="text" placeholder="Location"
+											id="autocomplete">
+									</div>
 								</div>
 								<div class="search-field">
 									<select id="property-type" name="propertyType">
@@ -289,39 +304,10 @@
 								</div>
 								<div class="search-field">
 									<button class="btn">Search</button>
-									<button class="more-options btn">More Options</button>
+									<!-- <button class="more-options btn">More Options</button> -->
 								</div>
 							</div>
-							<div class="advanced-search-sec clearfix">
-								<div class="col-xs-6 search-field">
-									<div class="hsq-checkbox check-box-container">
-										<label for="field-1"> <input type="checkbox"
-											value="81" id="field-1"> <span></span> Parking
-										</label>
-									</div>
-								</div>
-								<div class="col-xs-6 search-field">
-									<div class="hsq-checkbox check-box-container">
-										<label for="field-2"> <input type="checkbox"
-											value="81" id="field-2"> <span></span> Balcony
-										</label>
-									</div>
-								</div>
-								<div class="col-xs-6 search-field">
-									<div class="hsq-checkbox check-box-container">
-										<label for="field-3"> <input type="checkbox"
-											value="81" id="field-3"> <span></span> Gym
-										</label>
-									</div>
-								</div>
-								<div class="col-xs-6 search-field">
-									<div class="hsq-checkbox check-box-container">
-										<label for="field-4"> <input type="checkbox"
-											value="81" id="field-4"> <span></span> Storage
-										</label>
-									</div>
-								</div>
-							</div>
+							
 						</div>
 					</div>
 				</form>
@@ -340,23 +326,50 @@
 	<!-- End of JS Include Section -->
 
 	<script type="text/javascript">
-		$('#form').submit(function(e) {
-			$.ajax({
-				type : "POST",
-				url : '../contactOwner',
-				data : $('#form').serialize(),
-				beforeSend : function() {
-					$('#loading').show();
-				},
-				complete : function(response) {
-					$('#loading').hide();
-					window.location.href = '/accomfinder/listing/${listing.getId()}';
-				}
-			});
-			e.preventDefault();
-			return false;
-		});
+	function initAutocomplete() {
+		var options = {
+			types : [ 'geocode' ],
+			componentRestrictions : {
+				country : 'In'
+			}
+		};
+		autocomplete = new google.maps.places.Autocomplete((document
+				.getElementById('autocomplete')), options);
+
+		autocomplete.addListener('place_changed', fillInAddress);
+	}
+
+	function fillInAddress() {
+
+		var place = autocomplete.getPlace();
+		console.log(place);
+		document.getElementById('autocomplete').value = autocomplete
+				.getPlace().vicinity;
+
+	}
+		$('#form')
+				.submit(
+						function(e) {
+							$
+									.ajax({
+										type : "POST",
+										url : '../contactOwner',
+										data : $('#form').serialize(),
+										beforeSend : function() {
+											$('#loading').show();
+										},
+										complete : function(response) {
+											$('#loading').hide();
+											window.location.href = '/accomfinder/listing/${listing.getId()}';
+										}
+									});
+							e.preventDefault();
+							return false;
+						});
 	</script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm95XTLoIBga5JdYinIDroS0HZZNE8jp8&libraries=places&callback=initAutocomplete"
+		async defer></script>
 
 </body>
 </html>

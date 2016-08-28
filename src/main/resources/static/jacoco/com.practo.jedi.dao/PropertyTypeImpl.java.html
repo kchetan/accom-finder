@@ -13,8 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This is the data access object implementation class for Address table.
+ * 
+ * @author chetan
+ *
+ */
 @Repository
-<span class="fc" id="L17">public class PropertyTypeImpl implements PropertyTypeDao {</span>
+<span class="fc" id="L23">public class PropertyTypeImpl implements PropertyTypeDao {</span>
 
   // @Autowired
   // private SessionFactory sessionFactory;
@@ -22,38 +28,40 @@ import java.util.List;
   @Autowired
   private HibernateTemplate template;
 
+
   @Transactional
   public PropertyTypeEntity getPropertyType(int id) {
-<span class="fc" id="L27">    DetachedCriteria criteria = DetachedCriteria.forClass(PropertyTypeEntity.class);</span>
-<span class="fc" id="L28">    criteria = criteria.add(Restrictions.eq(&quot;deleted&quot;, false));</span>
-<span class="fc" id="L29">    criteria = criteria.add(Restrictions.eq(&quot;id&quot;, id));</span>
-<span class="fc" id="L30">    Iterable&lt;PropertyTypeEntity&gt; result =</span>
-<span class="fc" id="L31">        (Iterable&lt;PropertyTypeEntity&gt;) template.findByCriteria(criteria);</span>
-<span class="fc bfc" id="L32" title="All 2 branches covered.">    for (PropertyTypeEntity iter : result) {</span>
-<span class="fc" id="L33">      return iter;</span>
+<span class="fc" id="L34">    DetachedCriteria criteria = DetachedCriteria.forClass(PropertyTypeEntity.class);</span>
+<span class="fc" id="L35">    criteria = criteria.add(Restrictions.eq(&quot;deleted&quot;, false));</span>
+<span class="fc" id="L36">    criteria = criteria.add(Restrictions.eq(&quot;id&quot;, id));</span>
+    @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L38">    Iterable&lt;PropertyTypeEntity&gt; result =</span>
+<span class="fc" id="L39">        (Iterable&lt;PropertyTypeEntity&gt;) template.findByCriteria(criteria);</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">    for (PropertyTypeEntity iter : result) {</span>
+<span class="fc" id="L41">      return iter;</span>
     }
-<span class="fc" id="L35">    return null;</span>
+<span class="fc" id="L43">    return null;</span>
   }
 
   @Transactional
   public void addPropertyType(PropertyTypeEntity propType) {
-<span class="fc" id="L40">    template.save(propType);</span>
-<span class="fc" id="L41">  }</span>
+<span class="fc" id="L48">    template.save(propType);</span>
+<span class="fc" id="L49">  }</span>
 
   @Transactional
   public void updatePropertyType(PropertyTypeEntity propType) {
-<span class="fc" id="L45">    template.update(propType);</span>
-<span class="fc" id="L46">  }</span>
+<span class="fc" id="L53">    template.update(propType);</span>
+<span class="fc" id="L54">  }</span>
 
   @Transactional
   public void deletePropertyType(PropertyTypeEntity propType) {
-<span class="fc" id="L50">    template.update(propType);</span>
-<span class="fc" id="L51">  }</span>
+<span class="fc" id="L58">    template.update(propType);</span>
+<span class="fc" id="L59">  }</span>
 
 
   @Transactional
   public List&lt;PropertyTypeEntity&gt; getPropertyTypes() {
-<span class="fc" id="L56">    return template.loadAll(PropertyTypeEntity.class);</span>
+<span class="fc" id="L64">    return template.loadAll(PropertyTypeEntity.class);</span>
   }
 
 

@@ -19,6 +19,13 @@ import com.practo.jedi.entity.UserEntity;
 import com.practo.jedi.models.Address;
 import com.practo.jedi.models.Image;
 
+/**
+ * This is the Service implementation for Image table.It has the methods that are implemented.
+ * Get create update and delete .
+ * 
+ * @author chetan
+ *
+ */
 @Service
 public class ImageServiceImpl implements ImageService {
   private static final Logger logger = LogManager.getLogger(UserService.class);

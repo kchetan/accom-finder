@@ -13,6 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This is the data access object implementation class for Address table.
+ * 
+ * @author chetan
+ *
+ */
 @Repository
 public class PropertyTypeImpl implements PropertyTypeDao {
 
@@ -21,6 +27,7 @@ public class PropertyTypeImpl implements PropertyTypeDao {
 
   @Autowired
   private HibernateTemplate template;
+
 
   @Transactional
   public PropertyTypeEntity getPropertyType(int id) {

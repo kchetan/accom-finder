@@ -12,6 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
+/**
+ * This is the Service implementation for Address table.It has the methods that are implemented.
+ * Get create update and delete .
+ * 
+ * @author chetan
+ *
+ */
 @Service
 public class AddressServiceImpl implements AddressService {
   private static final Logger logger = LogManager.getLogger(UserService.class);

@@ -13,6 +13,13 @@ import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
+
+/**
+ * This is the data access object implement class for User table.
+ * 
+ * @author chetan
+ *
+ */
 @Repository
 public class UserDaoImpl implements UserDao {
 

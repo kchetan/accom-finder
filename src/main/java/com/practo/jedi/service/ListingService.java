@@ -7,6 +7,12 @@ import org.springframework.data.domain.Pageable;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.ListingFilter;
 
+/**
+ * This is the Service interface for Listing table.It has the methods that are implemented.
+ * 
+ * @author chetan
+ *
+ */
 public interface ListingService {
 
   Listing get(Integer id);

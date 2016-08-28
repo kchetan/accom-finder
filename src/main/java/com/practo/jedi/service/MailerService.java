@@ -11,6 +11,12 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * This is the Service interface for Sending mails,smtp.
+ * 
+ * @author chetan
+ *
+ */
 @Component
 public class MailerService {
   @Autowired

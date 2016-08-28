@@ -15,9 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This is the controller which handles all the api requests corresponding to User.
+ * Handles the api requests for GET,POST,UPDATE,DELETE
+ * 
+ * @author chetan
+ *
+ */
 @RestController
 @RequestMapping(&quot;/api/users&quot;)
-<span class="fc" id="L20">public class UserController {</span>
+<span class="fc" id="L27">public class UserController {</span>
   @Autowired
   private UserService service;
 
@@ -29,9 +36,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.GET)
   public ResponseEntity&lt;User&gt; getUser(@PathVariable int id) {
-<span class="nc" id="L32">    User dto = service.get(id);</span>
-<span class="nc" id="L33">    ResponseEntity&lt;User&gt; re = new ResponseEntity&lt;User&gt;(dto, HttpStatus.CREATED);</span>
-<span class="nc" id="L34">    return re;</span>
+<span class="nc" id="L39">    User dto = service.get(id);</span>
+<span class="nc" id="L40">    ResponseEntity&lt;User&gt; re = new ResponseEntity&lt;User&gt;(dto, HttpStatus.CREATED);</span>
+<span class="nc" id="L41">    return re;</span>
   }
 
   /**
@@ -42,10 +49,10 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}/listings&quot;, method = RequestMethod.GET)
   public ResponseEntity&lt;Iterable&lt;Listing&gt;&gt; getUserListings(@PathVariable int id) {
-<span class="nc" id="L45">    Iterable&lt;Listing&gt; dto = service.getUserListings(id);</span>
-<span class="nc" id="L46">    ResponseEntity&lt;Iterable&lt;Listing&gt;&gt; re =</span>
+<span class="nc" id="L52">    Iterable&lt;Listing&gt; dto = service.getUserListings(id);</span>
+<span class="nc" id="L53">    ResponseEntity&lt;Iterable&lt;Listing&gt;&gt; re =</span>
         new ResponseEntity&lt;Iterable&lt;Listing&gt;&gt;(dto, HttpStatus.CREATED);
-<span class="nc" id="L48">    return re;</span>
+<span class="nc" id="L55">    return re;</span>
   }
 
   /**
@@ -57,9 +64,9 @@ import javax.servlet.http.HttpServletResponse;
   @RequestMapping(value = &quot;/{id}/listings/{listingId}&quot;, method = RequestMethod.GET)
   public ResponseEntity&lt;Listing&gt; getUserListings(@PathVariable int id,
       @PathVariable int listingId) {
-<span class="nc" id="L60">    Listing dto = service.getUserListingsId(id, listingId);</span>
-<span class="nc" id="L61">    ResponseEntity&lt;Listing&gt; re = new ResponseEntity&lt;Listing&gt;(dto, HttpStatus.CREATED);</span>
-<span class="nc" id="L62">    return re;</span>
+<span class="nc" id="L67">    Listing dto = service.getUserListingsId(id, listingId);</span>
+<span class="nc" id="L68">    ResponseEntity&lt;Listing&gt; re = new ResponseEntity&lt;Listing&gt;(dto, HttpStatus.CREATED);</span>
+<span class="nc" id="L69">    return re;</span>
   }
 
   /**
@@ -70,9 +77,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity&lt;User&gt; create(@RequestBody User obj) {
-<span class="nc" id="L73">    User userobj = service.create(obj);</span>
-<span class="nc" id="L74">    ResponseEntity&lt;User&gt; re = new ResponseEntity&lt;User&gt;(userobj, HttpStatus.CREATED);</span>
-<span class="nc" id="L75">    return re;</span>
+<span class="nc" id="L80">    User userobj = service.create(obj);</span>
+<span class="nc" id="L81">    ResponseEntity&lt;User&gt; re = new ResponseEntity&lt;User&gt;(userobj, HttpStatus.CREATED);</span>
+<span class="nc" id="L82">    return re;</span>
   }
 
   /**
@@ -84,9 +91,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.PUT)
   public ResponseEntity&lt;User&gt; update(@RequestBody User obj, @PathVariable int id) {
-<span class="nc" id="L87">    User userobj = service.update(obj, id);</span>
-<span class="nc" id="L88">    ResponseEntity&lt;User&gt; re = new ResponseEntity&lt;User&gt;(userobj, HttpStatus.OK);</span>
-<span class="nc" id="L89">    return re;</span>
+<span class="nc" id="L94">    User userobj = service.update(obj, id);</span>
+<span class="nc" id="L95">    ResponseEntity&lt;User&gt; re = new ResponseEntity&lt;User&gt;(userobj, HttpStatus.OK);</span>
+<span class="nc" id="L96">    return re;</span>
   }
 
   /**
@@ -98,9 +105,9 @@ import javax.servlet.http.HttpServletResponse;
    */
   @RequestMapping(value = &quot;/{id}&quot;, method = RequestMethod.DELETE)
   public ResponseEntity&lt;Boolean&gt; delete(@PathVariable(&quot;id&quot;) int id, HttpServletResponse response) {
-<span class="nc" id="L101">    service.delete(id);</span>
-<span class="nc" id="L102">    ResponseEntity&lt;Boolean&gt; re = new ResponseEntity&lt;Boolean&gt;(true, HttpStatus.NO_CONTENT);</span>
-<span class="nc" id="L103">    return re;</span>
+<span class="nc" id="L108">    service.delete(id);</span>
+<span class="nc" id="L109">    ResponseEntity&lt;Boolean&gt; re = new ResponseEntity&lt;Boolean&gt;(true, HttpStatus.NO_CONTENT);</span>
+<span class="nc" id="L110">    return re;</span>
   }
 
 }

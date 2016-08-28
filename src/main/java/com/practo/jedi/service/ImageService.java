@@ -4,6 +4,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.practo.jedi.models.Image;
 
+/**
+ * This is the Service interface for Image table.It has the methods that are implemented.
+ * 
+ * @author chetan
+ *
+ */
 public interface ImageService {
 
   Image get(Integer id);
