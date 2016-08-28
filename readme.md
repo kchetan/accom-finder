@@ -2,6 +2,8 @@
 # Accommodation Finder
 A webapp to find acommodation among the company employees. It is built in maven, Spring boot.
 
+## Hosted on
+ [amazon ec2 server](http://ec2-52-43-52-91.us-west-2.compute.amazonaws.com/accomfinder/)
 
 ### Dependencies
 The following should be installed in your machine to run the project.
