@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ListingServiceImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">accomfinder</a> &gt; <a href="index.source.html" class="el_package">com.practo.jedi.service</a> &gt; <span class="el_source">ListingServiceImpl.java</span></div><h1>ListingServiceImpl.java</h1><pre class="source lang-java linenums">package com.practo.jedi.service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.practo.jedi.dao.AddressDao;
+import com.practo.jedi.dao.ListingDao;
+import com.practo.jedi.dao.PropertyTypeDao;
+import com.practo.jedi.dao.UserDao;
+import com.practo.jedi.entity.AddressEntity;
+import com.practo.jedi.entity.ListingEntity;
+import com.practo.jedi.entity.PropertyTypeEntity;
+import com.practo.jedi.entity.UserEntity;
+import com.practo.jedi.models.Listing;
+import com.practo.jedi.models.ListingFilter;
+
+@Service
+<span class="fc" id="L27">public class ListingServiceImpl implements ListingService {</span>
+<span class="fc" id="L28">  private static final Logger logger = LogManager.getLogger(UserService.class);</span>
+  // private static final Marker MARKER = MarkerManager.getMarker(&quot;myMarker&quot;);
+
+  @Autowired
+  private ListingDao listingDao;
+
+  @Autowired
+  private UserDao userDao;
+  @Autowired
+  private AddressDao addressDao;
+  @Autowired
+  private PropertyTypeDao pTypeDao;
+
+  @Transactional
+  public Iterable&lt;Listing&gt; search(ListingFilter filterObj, Pageable pageable) {
+<span class="fc" id="L43">    Iterable&lt;ListingEntity&gt; entities = listingDao.filter(filterObj, pageable);</span>
+<span class="fc" id="L44">    ArrayList&lt;Listing&gt; listings = new ArrayList&lt;Listing&gt;();</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">    for (ListingEntity entity : entities) {</span>
+<span class="fc" id="L46">      Listing listing = new Listing();</span>
+<span class="fc" id="L47">      listing.mergeEntity(entity);</span>
+<span class="fc" id="L48">      listings.add(listing);</span>
+<span class="fc" id="L49">    }</span>
+<span class="fc" id="L50">    return listings;</span>
+  }
+
+  @Transactional
+  public Iterable&lt;Listing&gt; getAll(Pageable pageable) {
+<span class="fc" id="L55">    Iterable&lt;ListingEntity&gt; entity = listingDao.getListings(pageable);</span>
+<span class="fc" id="L56">    List&lt;Listing&gt; listings = new ArrayList&lt;Listing&gt;();</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">    for (ListingEntity listingObj : entity) {</span>
+      try {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (!listingObj.getDeleted()) {</span>
+<span class="fc" id="L60">          Listing dto = Listing.class.newInstance();</span>
+<span class="fc" id="L61">          dto.mergeEntity(listingObj);</span>
+<span class="fc" id="L62">          listings.add(dto);</span>
+        }
+<span class="nc" id="L64">      } catch (InstantiationException | IllegalAccessException e) {</span>
+<span class="nc" id="L65">        System.out.printf(&quot;Exception while DAO get for ID :&quot; + e);</span>
+<span class="nc" id="L66">        return null;</span>
+<span class="fc" id="L67">      }</span>
+<span class="fc" id="L68">    }</span>
+<span class="fc" id="L69">    return listings;</span>
+  }
+
+  @Transactional
+  public Listing get(Integer id) {
+<span class="fc" id="L74">    ListingEntity entity = listingDao.getListing(id);</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">    if (entity == null) {</span>
+<span class="fc" id="L76">      return null;</span>
+    }
+    try {
+<span class="fc" id="L79">      Listing dto = Listing.class.newInstance();</span>
+<span class="fc" id="L80">      dto.mergeEntity(entity);</span>
+<span class="fc" id="L81">      return dto;</span>
+<span class="nc" id="L82">    } catch (InstantiationException | IllegalAccessException e) {</span>
+<span class="nc" id="L83">      logger.error(&quot;Exception while DAO get for ID :&quot; + id, e);</span>
+<span class="nc" id="L84">      return null;</span>
+    }
+  }
+
+  @Transactional
+  public Listing create(Listing d) {
+<span class="fc" id="L90">    ListingEntity entity = d.EntityObj();</span>
+<span class="fc" id="L91">    Date date = new Date();</span>
+<span class="fc" id="L92">    entity.setPostedOn(date);</span>
+    // ---------
+<span class="fc" id="L94">    UserEntity user = userDao.getUser(d.getPostedById());</span>
+<span class="fc" id="L95">    entity.setUser(user);</span>
+    // ---------
+    // ---------
+<span class="fc" id="L98">    AddressEntity address = addressDao.getAddress(d.getAddressId());</span>
+<span class="fc" id="L99">    entity.setAddress(address);</span>
+    // ---------
+    // ---------
+<span class="fc" id="L102">    PropertyTypeEntity pType = pTypeDao.getPropertyType(d.getPropertyId());</span>
+<span class="fc" id="L103">    entity.setPropertyType(pType);</span>
+    // ---------
+<span class="fc" id="L105">    listingDao.addListing(entity);</span>
+<span class="fc" id="L106">    d.mergeEntity(entity);</span>
+<span class="fc" id="L107">    return d;</span>
+  }
+
+  @Transactional
+  public Listing update(Listing d, int id) {
+<span class="fc" id="L112">    ListingEntity entity = listingDao.getListing(id);</span>
+<span class="pc bpc" id="L113" title="2 of 4 branches missed.">    if (entity != null &amp;&amp; !entity.getDeleted()) {</span>
+<span class="fc" id="L114">      d.setId(id);</span>
+<span class="fc" id="L115">      Date date = new Date();</span>
+<span class="fc" id="L116">      entity = d.updateEntity(entity);</span>
+<span class="fc" id="L117">      entity.setModifiedOn(date);</span>
+      // ----------
+<span class="fc" id="L119">      UserEntity user = userDao.getUser(d.getPostedById());</span>
+<span class="fc" id="L120">      entity.setUser(user);</span>
+      // ---------
+      // ---------
+<span class="fc" id="L123">      AddressEntity address = addressDao.getAddress(d.getAddressId());</span>
+<span class="fc" id="L124">      entity.setAddress(address);</span>
+      // ---------
+      // ---------
+<span class="fc" id="L127">      PropertyTypeEntity pType = pTypeDao.getPropertyType(d.getPropertyId());</span>
+<span class="fc" id="L128">      entity.setPropertyType(pType);</span>
+      // ---------
+<span class="fc" id="L130">      listingDao.updateListing(entity);</span>
+<span class="fc" id="L131">      d.mergeEntity(entity);</span>
+<span class="fc" id="L132">      return d;</span>
+    }
+<span class="nc" id="L134">    return null;</span>
+  }
+
+  @Transactional
+  public void delete(Integer id) {
+<span class="fc" id="L139">    ListingEntity entity = listingDao.getListing(id);</span>
+<span class="pc bpc" id="L140" title="2 of 4 branches missed.">    if (entity != null &amp;&amp; !entity.getDeleted()) {</span>
+<span class="fc" id="L141">      Date date = new Date();</span>
+<span class="fc" id="L142">      entity.setDeleted(true);</span>
+<span class="fc" id="L143">      entity.setModifiedOn(date);</span>
+<span class="fc" id="L144">      listingDao.deleteListing(entity);</span>
+    }
+<span class="fc" id="L146">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

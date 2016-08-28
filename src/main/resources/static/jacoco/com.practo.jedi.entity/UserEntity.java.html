@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UserEntity.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">accomfinder</a> &gt; <a href="index.source.html" class="el_package">com.practo.jedi.entity</a> &gt; <span class="el_source">UserEntity.java</span></div><h1>UserEntity.java</h1><pre class="source lang-java linenums">package com.practo.jedi.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
+
+
+/**
+ * The persistent class for the users database table.
+ * 
+ */
+@Entity
+@Table(name = &quot;users&quot;)
+@NamedQuery(name = &quot;UserEntity.findAll&quot;, query = &quot;SELECT u FROM UserEntity u&quot;)
+public class UserEntity implements Serializable {
+  private static final long serialVersionUID = 1L;
+
+  @Id
+  @Column(unique = true, nullable = false)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = &quot;created_on&quot;, nullable = false, length = 19)
+  private Date createdOn;
+
+<span class="fc" id="L42">  @Column(columnDefinition = &quot;TINYINT&quot;)</span>
+  @Type(type = &quot;org.hibernate.type.NumericBooleanType&quot;)
+  private boolean deleted = true;
+
+  @Column(nullable = false, length = 100)
+  private String email;
+
+  @Column(length = 45)
+  private String mobile;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = &quot;modified_on&quot;)
+  private Date modifiedOn;
+
+  @Column(nullable = false, length = 100)
+  private String name;
+
+  // bi-directional many-to-one association to ListingEntity
+  @LazyCollection(LazyCollectionOption.FALSE)
+  @OneToMany(mappedBy = &quot;user&quot;)
+  private List&lt;ListingEntity&gt; listings;
+
+<span class="fc" id="L64">  public UserEntity() {}</span>
+
+  public int getId() {
+<span class="fc" id="L67">    return this.id;</span>
+  }
+
+  public void setId(int id) {
+<span class="fc" id="L71">    this.id = id;</span>
+<span class="fc" id="L72">  }</span>
+
+  public Date getCreatedOn() {
+<span class="nc" id="L75">    return this.createdOn;</span>
+  }
+
+  public void setCreatedOn(Date createdOn) {
+<span class="fc" id="L79">    this.createdOn = createdOn;</span>
+<span class="fc" id="L80">  }</span>
+
+  public boolean getDeleted() {
+<span class="fc" id="L83">    return this.deleted;</span>
+  }
+
+  public void setDeleted(boolean deleted) {
+<span class="fc" id="L87">    this.deleted = deleted;</span>
+<span class="fc" id="L88">  }</span>
+
+  public String getEmail() {
+<span class="fc" id="L91">    return this.email;</span>
+  }
+
+  public void setEmail(String email) {
+<span class="fc" id="L95">    this.email = email;</span>
+<span class="fc" id="L96">  }</span>
+
+  public String getMobile() {
+<span class="fc" id="L99">    return this.mobile;</span>
+  }
+
+  public void setMobile(String mobile) {
+<span class="fc" id="L103">    this.mobile = mobile;</span>
+<span class="fc" id="L104">  }</span>
+
+  public Date getModifiedOn() {
+<span class="nc" id="L107">    return this.modifiedOn;</span>
+  }
+
+  public void setModifiedOn(Date modifiedOn) {
+<span class="fc" id="L111">    this.modifiedOn = modifiedOn;</span>
+<span class="fc" id="L112">  }</span>
+
+  public String getName() {
+<span class="fc" id="L115">    return this.name;</span>
+  }
+
+  public void setName(String name) {
+<span class="fc" id="L119">    this.name = name;</span>
+<span class="fc" id="L120">  }</span>
+
+  public List&lt;ListingEntity&gt; getListings() {
+<span class="fc" id="L123">    return this.listings;</span>
+  }
+
+  public void setListings(List&lt;ListingEntity&gt; listings) {
+<span class="fc" id="L127">    this.listings = listings;</span>
+<span class="fc" id="L128">  }</span>
+
+//  public ListingEntity addListing(ListingEntity listing) {
+//    getListings().add(listing);
+//    listing.setUser(this);
+//
+//    return listing;
+//  }
+//
+//  public ListingEntity removeListing(ListingEntity listing) {
+//    getListings().remove(listing);
+//    listing.setUser(null);
+//
+//    return listing;
+//  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

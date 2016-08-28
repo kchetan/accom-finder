@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Image.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">accomfinder</a> &gt; <a href="index.source.html" class="el_package">com.practo.jedi.models</a> &gt; <span class="el_source">Image.java</span></div><h1>Image.java</h1><pre class="source lang-java linenums">package com.practo.jedi.models;
+
+import java.beans.Transient;
+
+import javax.transaction.Transactional;
+
+import com.practo.jedi.entity.ImageEntity;
+import com.practo.jedi.entity.ListingEntity;
+import com.practo.jedi.entity.UserEntity;
+
+public class Image {
+  private String imagePath;
+  
+  private int id;
+  private int listingId;
+  private ListingEntity listing;
+  
+  @Transient
+  public ListingEntity getListing() {
+<span class="fc" id="L20">    return listing;</span>
+  }
+
+  public void setListing(ListingEntity listing) {
+<span class="fc" id="L24">    this.listing = listing;</span>
+<span class="fc" id="L25">  }</span>
+
+  public int getlistingId() {
+<span class="pc bpc" id="L28" title="1 of 2 branches missed.">    if (this.listing != null) {</span>
+<span class="nc" id="L29">      return this.listing.getId();</span>
+    } else {
+<span class="fc" id="L31">      return this.listingId;</span>
+    }
+  }
+
+
+  public void setListingId(int listingId) {
+<span class="fc" id="L37">    this.listingId = listingId;</span>
+<span class="fc" id="L38">  }</span>
+
+<span class="fc" id="L40">  public Image() {}</span>
+
+  public int getId() {
+<span class="fc" id="L43">    return id;</span>
+  }
+
+  public void setId(int id) {
+<span class="fc" id="L47">    this.id = id;</span>
+<span class="fc" id="L48">  }</span>
+
+  public String getImagePath() {
+<span class="fc" id="L51">    return imagePath;</span>
+  }
+
+  public void setImagePath(String imagePath) {
+<span class="fc" id="L55">    this.imagePath = imagePath;</span>
+<span class="fc" id="L56">  }</span>
+
+  @Override
+  public String toString() {
+<span class="nc" id="L60">    return &quot;Image [path=&quot; + imagePath + &quot;]&quot;;</span>
+  }
+
+  @Transactional
+  public ImageEntity entityObj() {
+    // System.out.println(&quot;came get&quot;);
+<span class="fc" id="L66">    ImageEntity et = new ImageEntity();</span>
+<span class="fc" id="L67">    et.setImagePath(getImagePath());</span>
+<span class="fc" id="L68">    et.setListing(getListing());</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">    if (new Integer(getId()) != null) {</span>
+<span class="fc" id="L70">      et.setId(getId());</span>
+    }
+<span class="fc" id="L72">    return et;</span>
+  }
+
+  @Transactional
+  public void mergeEntity(ImageEntity e) {
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">    if (e != null) {</span>
+<span class="fc" id="L78">      setImagePath(e.getImagePath());</span>
+<span class="fc" id="L79">      setId(e.getId());</span>
+<span class="fc" id="L80">      setListing(e.getListing());</span>
+      // System.out.println(&quot;end merge&quot;);
+    }
+<span class="fc" id="L83">  }</span>
+
+  @Transactional
+  public ImageEntity updateEntity(ImageEntity et) {
+<span class="fc" id="L87">    et.setImagePath(getImagePath());</span>
+<span class="fc" id="L88">    et.setId(getId());</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">    if (getListing() != null) {</span>
+<span class="fc" id="L90">      et.setListing(getListing());</span>
+    }
+<span class="fc" id="L92">    return et;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

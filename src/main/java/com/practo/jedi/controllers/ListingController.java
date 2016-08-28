@@ -1,5 +1,6 @@
 package com.practo.jedi.controllers;
 
+import com.practo.jedi.models.Image;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.ListingFilter;
 import com.practo.jedi.service.ListingService;
@@ -38,7 +39,7 @@ public class ListingController {
   /**
    * Fetch all listings.
    * @param pageable {@link Pageable}
-   * @return (ResponseEntity < Iterable < Listing > >)
+   * @return {@link ResponseEntity } {@link Listing}
    */
   @RequestMapping(method = RequestMethod.GET)
   public ResponseEntity<Iterable<Listing>> getAll(Pageable pageable) {

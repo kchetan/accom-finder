@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JspController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">accomfinder</a> &gt; <a href="index.source.html" class="el_package">com.practo.jedi.web.controllers</a> &gt; <span class="el_source">JspController.java</span></div><h1>JspController.java</h1><pre class="source lang-java linenums">package com.practo.jedi.web.controllers;
+
+
+
+import com.practo.jedi.models.Address;
+import com.practo.jedi.models.Listing;
+import com.practo.jedi.models.ListingFilter;
+import com.practo.jedi.models.PropertyType;
+import com.practo.jedi.models.User;
+import com.practo.jedi.service.AddressService;
+import com.practo.jedi.service.ListingService;
+import com.practo.jedi.service.MailerService;
+import com.practo.jedi.service.PropertyTypeService;
+import com.practo.jedi.service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+@Controller
+<span class="fc" id="L34">public class JspController {</span>
+
+  @Autowired
+  private MailerService smtpMailSender;
+
+  @Autowired
+  private PropertyTypeService propService;
+  @Autowired
+  private ListingService listingService;
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private AddressService addressService;
+
+<span class="fc" id="L50">  String[] noBeds = {&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;};</span>
+<span class="fc" id="L51">  String[] vacancyFor = {&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;};</span>
+
+<span class="fc" id="L53">  String[] sortby = {&quot;posted on - asc&quot;, &quot;posted on - desc&quot;, &quot;price - asc&quot;, &quot;price - desc&quot;};</span>
+
+<span class="fc" id="L55">  private int pageSize = 3;</span>
+
+  public int getPageSize() {
+<span class="nc" id="L58">    return pageSize;</span>
+  }
+
+  public void setPageSize(int pageSize) {
+<span class="nc" id="L62">    this.pageSize = pageSize;</span>
+<span class="nc" id="L63">  }</span>
+
+  public static Pageable updatePageable(final Pageable source, final int size) {
+<span class="nc" id="L66">    return new PageRequest(source.getPageNumber(), size, source.getSort());</span>
+  }
+
+
+  @RequestMapping(value = {&quot;/index&quot;, &quot;/&quot;})
+  public String index(Model model, HttpSession session) {
+<span class="nc" id="L72">    model.addAttribute(&quot;session&quot;, session.getAttribute(&quot;id&quot;));</span>
+<span class="nc" id="L73">    model.addAttribute(&quot;propertyType&quot;, propService.getAll());</span>
+<span class="nc" id="L74">    model.addAttribute(&quot;noBeds&quot;, noBeds);</span>
+<span class="nc" id="L75">    model.addAttribute(&quot;vacancyFor&quot;, vacancyFor);</span>
+<span class="nc" id="L76">    return &quot;index&quot;;</span>
+  }
+
+  @RequestMapping(value = &quot;/search&quot;, method = RequestMethod.GET)
+  public String search(Model model, ListingFilter filterObj, Pageable pageable) {
+<span class="nc" id="L81">    pageable = updatePageable(pageable, pageSize);</span>
+<span class="nc" id="L82">    model.addAttribute(&quot;listings&quot;, listingService.search(filterObj, pageable));</span>
+<span class="nc" id="L83">    model.addAttribute(&quot;vacancyFor&quot;, vacancyFor);</span>
+<span class="nc" id="L84">    model.addAttribute(&quot;noBeds&quot;, noBeds);</span>
+<span class="nc" id="L85">    model.addAttribute(&quot;propertyType&quot;, propService.getAll());</span>
+<span class="nc" id="L86">    model.addAttribute(&quot;activeFilters&quot;, filterObj);</span>
+<span class="nc" id="L87">    model.addAttribute(&quot;sortby&quot;, sortby);</span>
+
+    // System.out.println(pageable.getPageNumber() + &quot; &quot; + pageable.getPageSize());
+<span class="nc" id="L90">    return &quot;listings&quot;;</span>
+  }
+
+  @RequestMapping(value = &quot;/listing/{id}&quot;, method = RequestMethod.GET)
+  public String getListing(Model model, @PathVariable int id) {
+<span class="nc" id="L95">    Listing listingobj = listingService.get(id);</span>
+<span class="nc" id="L96">    model.addAttribute(&quot;listing&quot;, listingobj);</span>
+<span class="nc" id="L97">    model.addAttribute(&quot;propertyType&quot;, propService.getAll());</span>
+<span class="nc" id="L98">    model.addAttribute(&quot;noBeds&quot;, noBeds);</span>
+<span class="nc" id="L99">    model.addAttribute(&quot;vacancyFor&quot;, vacancyFor);</span>
+<span class="nc" id="L100">    return &quot;listing_details&quot;;</span>
+  }
+
+  @RequestMapping(value = &quot;/apiary&quot;, method = RequestMethod.GET)
+  public String method(HttpServletResponse httpServletResponse) {
+<span class="nc" id="L105">    return &quot;redirect:&quot; + &quot;http://docs.accommodationfinder.apiary.io/&quot;;</span>
+  }
+
+  @RequestMapping(value = &quot;/newproperty&quot;, method = RequestMethod.GET)
+  public String newproperty(Model model, HttpSession session) {
+<span class="nc bnc" id="L110" title="All 2 branches missed.">    if (session.getAttribute(&quot;id&quot;) == null) {</span>
+<span class="nc" id="L111">      return &quot;redirect:/&quot;;</span>
+    }
+<span class="nc" id="L113">    model.addAttribute(&quot;propertyType&quot;, propService.getAll());</span>
+<span class="nc" id="L114">    model.addAttribute(&quot;noBeds&quot;, noBeds);</span>
+<span class="nc" id="L115">    model.addAttribute(&quot;vacancyFor&quot;, vacancyFor);</span>
+<span class="nc" id="L116">    return &quot;newproperty&quot;;</span>
+  }
+
+  @RequestMapping(value = &quot;/submitProperty&quot;, method = RequestMethod.POST)
+  public String submitproperty(Model model, ListingFilter listingObj, String[] images,
+      HttpSession session) {
+<span class="nc bnc" id="L122" title="All 2 branches missed.">    if (session.getAttribute(&quot;id&quot;) == null) {</span>
+<span class="nc" id="L123">      return &quot;redirect:/&quot;;</span>
+    }
+    try {
+
+      // ------ IMAge upload to S3
+      // --------
+<span class="nc" id="L129">      Listing listing = new Listing();</span>
+<span class="nc" id="L130">      listing.setTitle(listingObj.getTitle());</span>
+<span class="nc" id="L131">      listing.setNoBeds(Integer.parseInt(listingObj.getNoBeds()));</span>
+<span class="nc" id="L132">      listing.setFurnished(listingObj.getFurnished());</span>
+<span class="nc" id="L133">      listing.setRoomFor(listingObj.getRoomFor());</span>
+<span class="nc" id="L134">      listing.setVacancyFor(Integer.parseInt(listingObj.getVacancyFor()));</span>
+<span class="nc" id="L135">      listing.setArea(Float.parseFloat(listingObj.getArea()));</span>
+<span class="nc" id="L136">      listing.setPrice(Integer.parseInt(listingObj.getPrice()));</span>
+<span class="nc" id="L137">      DateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L138">      Date posDate = df.parse(listingObj.getPossessionDate());</span>
+<span class="nc" id="L139">      listing.setPossesionDate(posDate);</span>
+      ///// -------------------------
+<span class="nc" id="L141">      User user = userService.getUserByEmail((String) session.getAttribute(&quot;email&quot;));</span>
+<span class="nc" id="L142">      listing.setUser(user.EntityObj());</span>
+
+<span class="nc" id="L144">      PropertyType ptype = propService.get(Integer.parseInt(listingObj.getPropertyType()));</span>
+<span class="nc" id="L145">      listing.setPropertyType(ptype.EntityObj());</span>
+
+
+<span class="nc" id="L148">      Address addr = new Address();</span>
+<span class="nc" id="L149">      addr.setPropertyName(listingObj.getPropertyName());</span>
+<span class="nc" id="L150">      addr.setPlotNo(listingObj.getPlotNo());</span>
+<span class="nc" id="L151">      addr.setLocality(listingObj.getLocality());</span>
+
+<span class="nc" id="L153">      addressService.create(addr);</span>
+
+<span class="nc" id="L155">      listing.setAddress(addr.EntityObj());</span>
+
+<span class="nc" id="L157">      listing.setPropertyType(ptype.EntityObj());</span>
+
+
+<span class="nc" id="L160">      listingService.create(listing);</span>
+<span class="nc" id="L161">    } catch (Exception err) {</span>
+<span class="nc" id="L162">      err.printStackTrace();</span>
+<span class="nc" id="L163">    }</span>
+
+<span class="nc" id="L165">    return &quot;redirect:/&quot;;</span>
+  }
+
+  @RequestMapping(value = &quot;/contactOwner&quot;, method = RequestMethod.POST)
+  public String contactOwner(Model model, String name, String email, String mobile, String body,
+      String listingId, HttpSession session) throws MessagingException {
+<span class="nc" id="L171">    Listing listingObj = listingService.get(Integer.parseInt(listingId));</span>
+<span class="nc" id="L172">    smtpMailSender.send(listingObj.getUser().getEmail(), &quot;Regarding Listing on Accom finder&quot;,</span>
+        body + listingId + &quot;Contacted By&quot; + email + mobile);
+<span class="nc" id="L174">    smtpMailSender.send(email, &quot;Greetings From AccomFinder&quot;,</span>
+        &quot;You have requested an interest on a Listing:&quot; + listingId + &quot;Contacted Owner&quot;
+<span class="nc" id="L176">            + listingObj.getUser().getName() + listingObj.getUser().getMobile());</span>
+<span class="nc" id="L177">    model.addAttribute(&quot;message&quot;, &quot;Contacted By Email&quot;);</span>
+
+<span class="nc" id="L179">    return &quot;redirect:./&quot;;</span>
+  }
+
+  @RequestMapping(value = &quot;/loginUser&quot;, method = RequestMethod.POST)
+  public void loginUser(Model model, String id, String email, String name, HttpSession session) {
+<span class="nc" id="L184">    session.setAttribute(&quot;id&quot;, id);</span>
+<span class="nc" id="L185">    session.setAttribute(&quot;email&quot;, email);</span>
+<span class="nc" id="L186">    session.setAttribute(&quot;name&quot;, name);</span>
+<span class="nc" id="L187">    User user = userService.getUserByEmail((String) session.getAttribute(&quot;email&quot;));</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">    if (user.getEmail() == null) {</span>
+<span class="nc" id="L189">      User createuser = new User();</span>
+<span class="nc" id="L190">      createuser.setEmail((String) session.getAttribute(&quot;email&quot;));</span>
+<span class="nc" id="L191">      createuser.setName((String) session.getAttribute(&quot;name&quot;));</span>
+<span class="nc" id="L192">      userService.create(createuser);</span>
+    }
+<span class="nc" id="L194">  }</span>
+
+  @RequestMapping(value = &quot;/logoutUser&quot;, method = RequestMethod.POST)
+  public void logoutUser(Model model, HttpSession session) {
+
+<span class="nc" id="L199">    session.invalidate();</span>
+<span class="nc" id="L200">  }</span>
+
+  @RequestMapping(value = &quot;/test&quot;, method = RequestMethod.POST)
+  public void dummy(Model model) {
+
+<span class="nc" id="L205">  }</span>
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.practo.jedi.entity.AddressEntity;
 import com.practo.jedi.entity.ImageEntity;

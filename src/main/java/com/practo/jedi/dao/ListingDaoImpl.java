@@ -1,7 +1,6 @@
 package com.practo.jedi.dao;
 
 import com.practo.jedi.entity.ListingEntity;
-import com.practo.jedi.entity.UserEntity;
 import com.practo.jedi.models.ListingFilter;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
+
 
 @Repository
 public class ListingDaoImpl implements ListingDao {
@@ -30,13 +30,19 @@ public class ListingDaoImpl implements ListingDao {
   @Autowired
   private HibernateTemplate template;
 
-
+  /**
+   * Get a listing based on the id.
+   * 
+   * @param id {@link Integer}
+   * @return {@link ListingEntity}
+   */
   @Transactional
   public ListingEntity getListing(int id) {
     DetachedCriteria criteria = DetachedCriteria.forClass(ListingEntity.class);
     criteria = criteria.add(Restrictions.eq("deleted", false));
-    Iterable<ListingEntity> res = (Iterable<ListingEntity>) template
-        .findByCriteria(criteria.add(Restrictions.eq("id", id)));
+    @SuppressWarnings("unchecked")
+    Iterable<ListingEntity> res =
+        (Iterable<ListingEntity>) template.findByCriteria(criteria.add(Restrictions.eq("id", id)));
     // System.out.println(res.getEmail());
     for (ListingEntity iter : res) {
       return iter;
@@ -60,7 +66,13 @@ public class ListingDaoImpl implements ListingDao {
     template.update(listing);
   }
 
-
+  /**
+   * Get all listing with pagination.
+   * 
+   * @param pageable {@link Pageable}
+   * @return {@link Iterable} {@link ListingEntity} 
+   */
+  @SuppressWarnings("unchecked")
   @Transactional
   public Iterable<ListingEntity> getListings(Pageable pageable) {
     return (Iterable<ListingEntity>) template.findByCriteria(
@@ -118,6 +130,12 @@ public class ListingDaoImpl implements ListingDao {
     return criteria;
   }
 
+  /**
+   * Get the listing based the filters.
+   * @param filter {@link ListingFilter}
+   * @param pageable {@link Pageable}
+   * @return {@link Iterable}  {@link ListingEntity} 
+   */
   @Transactional
   public Iterable<ListingEntity> filter(ListingFilter filter, Pageable pageable) {
     DetachedCriteria criteria = DetachedCriteria.forClass(ListingEntity.class);
@@ -161,8 +179,10 @@ public class ListingDaoImpl implements ListingDao {
         ;
       }
     }
-    return (Iterable<ListingEntity>) template.findByCriteria(criteria, pageable.getOffset(),
-        pageable.getPageSize());
+    @SuppressWarnings("unchecked")
+    Iterable<ListingEntity> result = (Iterable<ListingEntity>) template.findByCriteria(criteria,
+        pageable.getOffset(), pageable.getPageSize());
+    return result;
   }
 
 

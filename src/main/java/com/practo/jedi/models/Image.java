@@ -2,7 +2,7 @@ package com.practo.jedi.models;
 
 import java.beans.Transient;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.practo.jedi.entity.ImageEntity;
 import com.practo.jedi.entity.ListingEntity;

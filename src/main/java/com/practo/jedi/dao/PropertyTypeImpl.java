@@ -1,19 +1,17 @@
 package com.practo.jedi.dao;
 
-import java.util.List;
 
 
 import com.practo.jedi.entity.PropertyTypeEntity;
-import com.practo.jedi.entity.PropertyTypeEntity;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
-
-
+import java.util.List;
 
 @Repository
 public class PropertyTypeImpl implements PropertyTypeDao {

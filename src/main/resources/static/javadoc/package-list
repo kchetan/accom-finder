@@ -1,0 +1,10 @@
+com.practo.jedi.controllers
+com.practo.jedi.dao
+com.practo.jedi.entity
+com.practo.jedi.exception
+com.practo.jedi.models
+com.practo.jedi.run
+com.practo.jedi.service
+com.practo.jedi.test.service
+com.practo.jedi.web.controllers
+log4j2test

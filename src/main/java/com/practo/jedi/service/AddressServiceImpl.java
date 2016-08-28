@@ -2,7 +2,7 @@ package com.practo.jedi.service;
 
 import java.util.Date;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,12 +1,15 @@
 package com.practo.jedi.dao;
 
-import org.springframework.data.domain.Pageable;
-
 import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.models.ListingFilter;
 
+import org.springframework.data.domain.Pageable;
+
+
+
 public interface ListingDao {
 
+ 
   public ListingEntity getListing(int id);
 
   public void addListing(ListingEntity listing);

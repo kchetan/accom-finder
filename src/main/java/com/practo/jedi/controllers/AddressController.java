@@ -23,8 +23,8 @@ public class AddressController {
   /**
    * Get Address by id.
    * 
-   * @param id (int)
-   * @return (ResponseEntity < Address > )
+   * @param id {@link Integer}
+   * @return {@link ResponseEntity} {@link Address}
    */
   @RequestMapping(value = "/{id}", method = RequestMethod.GET)
   public ResponseEntity<Address> getAddress(@PathVariable int id) {
@@ -35,8 +35,8 @@ public class AddressController {
 
   /**
    * Create an Address.
-   * @param obj (Address obj )
-   * @return (ResponseEntity < Address >)
+   * @param obj {@link Address}
+   * @return {@link ResponseEntity} {@link Address} 
    */
   @RequestMapping(method = RequestMethod.POST)
   public ResponseEntity<Address> create(@RequestBody Address obj) {
@@ -47,9 +47,9 @@ public class AddressController {
 
   /**
    * Update Address object of given id with the obj parameters.
-   * @param id (int)
-   * @param obj (Address)
-   * @return (ResponseEntity < Address >)
+   * @param id {@link Integer}
+   * @param obj {@link Address}
+   * @return {@link ResponseEntity} {@link Address} 
    */
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public ResponseEntity<Address> update(@PathVariable int id, @RequestBody Address obj) {
@@ -60,9 +60,9 @@ public class AddressController {
 
   /**
    * Delete Address object. 
-   * @param id (int)
-   * @param response (HttpServletResponse)
-   * @return (ResponseEntity< Boolean >)
+   * @param id {@link Integer}
+   * @param response {@link HttpServletResponse}
+   * @return {@link ResponseEntity} {@link Boolean}  
    */
   @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Boolean> delete(@PathVariable("id") int id, HttpServletResponse response) {

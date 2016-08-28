@@ -1,6 +1,6 @@
 package com.practo.jedi.service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.practo.jedi.models.PropertyType;
 

@@ -1,8 +1,9 @@
 package com.practo.jedi.dao;
 
-import java.util.List;
+import com.practo.jedi.entity.ListingEntity;
+import com.practo.jedi.entity.UserEntity;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -10,9 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.practo.jedi.entity.ListingEntity;
-import com.practo.jedi.entity.UserEntity;
 
+import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
 

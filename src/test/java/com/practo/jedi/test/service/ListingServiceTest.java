@@ -57,15 +57,15 @@ public class ListingServiceTest {
     listingObj.setRoomFor("female");
     listingObj = service.create(listingObj);
     Listing dbListing = service.get(listingObj.getId());
-    assertNotNull(listingObj);
-    assertEquals("2 bhk Room available", listingObj.getTitle());
-    assertEquals(2, listingObj.getPostedById());
-    assertEquals(1, listingObj.getAddressId());
-    assertEquals(3, listingObj.getPropertyId());
-    assertEquals(1, listingObj.getNoBeds());
-    assertEquals(7500, listingObj.getPrice());
-    assertEquals("unfurnished", listingObj.getFurnished());
-    assertEquals("female", listingObj.getRoomFor());
+    assertNotNull(dbListing);
+    assertEquals("2 bhk Room available", dbListing.getTitle());
+    assertEquals(2, dbListing.getPostedById());
+    assertEquals(1, dbListing.getAddressId());
+    assertEquals(3, dbListing.getPropertyId());
+    assertEquals(1, dbListing.getNoBeds());
+    assertEquals(7500, dbListing.getPrice());
+    assertEquals("unfurnished", dbListing.getFurnished());
+    assertEquals("female", dbListing.getRoomFor());
   }
 
   @Test

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PropertyTypeImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">accomfinder</a> &gt; <a href="index.source.html" class="el_package">com.practo.jedi.dao</a> &gt; <span class="el_source">PropertyTypeImpl.java</span></div><h1>PropertyTypeImpl.java</h1><pre class="source lang-java linenums">package com.practo.jedi.dao;
+
+import java.util.List;
+
+
+import com.practo.jedi.entity.PropertyTypeEntity;
+import com.practo.jedi.entity.PropertyTypeEntity;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.stereotype.Repository;
+import javax.transaction.Transactional;
+
+
+
+
+@Repository
+<span class="fc" id="L19">public class PropertyTypeImpl implements PropertyTypeDao {</span>
+
+  // @Autowired
+  // private SessionFactory sessionFactory;
+
+  @Autowired
+  private HibernateTemplate template;
+
+  @Transactional
+  public PropertyTypeEntity getPropertyType(int id) {
+<span class="fc" id="L29">    DetachedCriteria criteria = DetachedCriteria.forClass(PropertyTypeEntity.class);</span>
+<span class="fc" id="L30">    criteria = criteria.add(Restrictions.eq(&quot;deleted&quot;, false));</span>
+<span class="fc" id="L31">    criteria = criteria.add(Restrictions.eq(&quot;id&quot;, id));</span>
+<span class="fc" id="L32">    Iterable&lt;PropertyTypeEntity&gt; result =</span>
+<span class="fc" id="L33">        (Iterable&lt;PropertyTypeEntity&gt;) template.findByCriteria(criteria);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">    for (PropertyTypeEntity iter : result) {</span>
+<span class="fc" id="L35">      return iter;</span>
+    }
+<span class="fc" id="L37">    return null;</span>
+  }
+
+  @Transactional
+  public void addPropertyType(PropertyTypeEntity propType) {
+<span class="fc" id="L42">    template.save(propType);</span>
+<span class="fc" id="L43">  }</span>
+
+  @Transactional
+  public void updatePropertyType(PropertyTypeEntity propType) {
+<span class="fc" id="L47">    template.update(propType);</span>
+<span class="fc" id="L48">  }</span>
+
+  @Transactional
+  public void deletePropertyType(PropertyTypeEntity propType) {
+<span class="fc" id="L52">    template.update(propType);</span>
+<span class="fc" id="L53">  }</span>
+
+
+  @Transactional
+  public List&lt;PropertyTypeEntity&gt; getPropertyTypes() {
+<span class="fc" id="L58">    return template.loadAll(PropertyTypeEntity.class);</span>
+  }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

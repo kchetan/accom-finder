@@ -130,7 +130,7 @@
 										<div class="input-group l-icon">
 											<span class="input-group-addon">Rs.</span> <input
 												type="number" class="" id="p-price" placeholder="Price"
-												name="price">
+												name="price" required>
 										</div>
 									</div>
 									<div class="col-xs-6">
@@ -174,7 +174,7 @@
 									<div class="col-xs-6">
 										<div class="input-group r-icon">
 											<input type="number" name="area" class="" id="p-land"
-												placeholder="Area"> <span class="input-group-addon">sq.ft</span>
+												placeholder="Area" required> <span class="input-group-addon">sq.ft</span>
 										</div>
 									</div>
 
