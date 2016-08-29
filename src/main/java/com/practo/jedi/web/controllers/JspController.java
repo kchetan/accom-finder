@@ -55,7 +55,7 @@ public class JspController {
 
   String[] sortby = {"posted on - asc", "posted on - desc", "price - asc", "price - desc"};
 
-  private int pageSize = 3;
+  private int pageSize = 10;
 
   public int getPageSize() {
     return pageSize;
@@ -176,10 +176,10 @@ public class JspController {
     Listing listingObj = listingService.get(Integer.parseInt(listingId));
     smtpMailSender.send(listingObj.getUser().getEmail(), "Regarding Listing on Accom finder",
         body + "<br >" + "ListingId (for reference): " + listingId
-            + " <br><b> Contacted By :<b><br>" + "email: " + email + "<br> Mobile: " + mobile);
+            + " <br><b> Contacted By :</b><br>" + "email: " + email + "<br> Mobile: " + mobile);
     smtpMailSender.send(email, "Greetings From AccomFinder",
         "Thank You for using AccomFinder <br>  You have requested an interest on a Listing "
-            + "ListingId (for reference): " + listingId + "<br > <br > Contacted Owner <br>"
+            + "ListingId (for reference): " + listingId + "<br > <b > Contacted Owner </b><br>"
             + "Name: " + listingObj.getUser().getName() + "<br> Mobile: " + mobile);
     model.addAttribute("message", "Contacted By Email");
 

@@ -1,0 +1,28 @@
+Chetan Kasireddy
+Mentor : Vikrant Mahajan
+12 August 2016
+
+
+Documentation
+Accommodation Finder
+
+What’s the project about?
+	Accommodation finder is the web application which helps people to find accommodation among people in Practo. It is a platform where people can post vacancies in their flat or any other houses they have idea of.
+The application contains the below stated functionalities: 
+MUST DO
+Post room availability or house availability.(location, cost,photos)
+edit the availability
+delete the availability added
+List of available rooms or houses.
+Search for rooms based on filters.
+Contact the poster or the owner directly
+Login using google.
+
+~ OPTIONAL
+Option of showing the houses on a map or list.
+Integrating with slack channel.
+Request for Booking and the person posted accepts it.
+Mark some houses or 
+
+Why this project ?
+	This application helps people who are relocating to Bangalore and want to share houses among the Practeons.  
