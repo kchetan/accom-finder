@@ -5,17 +5,20 @@ A webapp to find acommodation among the company employees. It is built in maven,
 ## Documentation
 
 * This project has an `apiary` documentation. You can check [here](http://docs.accommodationfinder.apiary.io)
-* The Er diagram of the Database.
-* Requirement Documentation for the project [here](https://github.com/kchetan/accom-finder/blob/master/documentation_files/document.docx)
+* The Er diagram of the Database. (End of Readme)
+* Requirement Documentation for the project [here](https://drive.google.com/file/d/0BxNLMpY0NND3SXZlZTNldjdGaXc/view?usp=sharing)
 * JavaDoc For code [here](http://ec2-52-32-21-2.us-west-2.compute.amazonaws.com/accomfinder/javadoc/index.html)
 * Test Coverage [here] (http://ec2-52-32-21-2.us-west-2.compute.amazonaws.com/accomfinder/jacoco/index.html)
 
 
 ## Hosted on
+
  [amazon ec2 server](http://ec2-52-32-21-2.us-west-2.compute.amazonaws.com/accomfinder)
+ 
  [chetankasireddy.me](http://chetankasireddy.me/accomfinder/)
 
 ## Project Plan
+
   [Project plan](https://docs.google.com/a/practo.com/spreadsheets/d/1-AENyGqzP8uD_YZSTLBkqmftwDEM1vkPPhKkhF_Bm0I/edit?usp=sharing)
   
 ### Dependencies
@@ -32,11 +35,12 @@ The following should be installed in your machine to run the project.
 * Google sign in in javascript(User Authentication)
 * HsqlDb (Used for testing)
 * Google Checkstyle and code formatter
-* New Relic 
-	[here](https://rpm.newrelic.com/accounts/1410169/applications/22261596)
+* New Relic [here](https://rpm.newrelic.com/accounts/1410169/applications/22261596)
+	
 	Username : chetan.kasireddy@practo.com
-	Password : NewRelic1@3 
-* Sentry
+	
+	Password : NewRelic1@3
+	
 * Travis ([here](https://travis-ci.org/kchetan/accom-finder))
 * Amazon Ec2 for Hosting. ([here](http://ec2-52-32-21-2.us-west-2.compute.amazonaws.com/accomfinder))
 
@@ -45,11 +49,10 @@ This application is packaged as a `war`.
 * First clone the repo.`git clone https://github.com/kchetan/accom-finder.git`
 * Set up you application.properties in src/main/resources
 * Create the database schema in local. You can get the script for database creation [here](https://github.com/kchetan/accom-finder/blob/master/documentation_files/script.sql)
-*  To create a JAR
+*  To create a WAR
 	`mvn clean generate-sources package`
 * To start application
-	- Using jar  `java -jar target/car-pool-0.0.1-SNAPSHOT.jar`
-	- Without jar `mvn spring-boot:run`
+	- Using war  `java -jar target/accomfinder-0.0.1-SNAPSHOT.war`
 	
 
 
