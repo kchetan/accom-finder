@@ -2,7 +2,9 @@
 
 import java.util.Date;
 
-import javax.transaction.Transactional;
+import javax.persistence.criteria.CriteriaBuilder.In;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,11 +16,19 @@ import com.practo.jedi.dao.ListingDao;
 import com.practo.jedi.entity.ImageEntity;
 import com.practo.jedi.entity.ListingEntity;
 import com.practo.jedi.entity.UserEntity;
+import com.practo.jedi.models.Address;
 import com.practo.jedi.models.Image;
 
+/**
+ * This is the Service implementation for Image table.It has the methods that are implemented.
+ * Get create update and delete .
+ * 
+ * @author chetan
+ *
+ */
 @Service
-<span class="fc" id="L20">public class ImageServiceImpl implements ImageService {</span>
-<span class="fc" id="L21">  private static final Logger logger = LogManager.getLogger(UserService.class);</span>
+<span class="fc" id="L30">public class ImageServiceImpl implements ImageService {</span>
+<span class="fc" id="L31">  private static final Logger logger = LogManager.getLogger(UserService.class);</span>
   // private static final Marker MARKER = MarkerManager.getMarker(&quot;myMarker&quot;);
 
   @Autowired
@@ -27,59 +37,83 @@ import com.practo.jedi.models.Image;
   @Autowired
   private ListingDao listingDao;
 
+  /**
+   * Get an Image Object based on id.
+   * 
+   * @param id {@link Image}
+   * @return {@link Address}
+   */
   @Transactional
   public Image get(Integer id) {
-<span class="fc" id="L32">    ImageEntity entity = imageDao.getImage(id);</span>
-<span class="fc bfc" id="L33" title="All 2 branches covered.">    if (entity == null) {</span>
-<span class="fc" id="L34">      return null;</span>
+<span class="fc" id="L48">    ImageEntity entity = imageDao.getImage(id);</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">    if (entity == null) {</span>
+<span class="fc" id="L50">      return null;</span>
     }
     try {
-<span class="fc" id="L37">      Image dto = Image.class.newInstance();</span>
-<span class="fc" id="L38">      dto.mergeEntity(entity);</span>
-<span class="fc" id="L39">      return dto;</span>
-<span class="nc" id="L40">    } catch (InstantiationException | IllegalAccessException e) {</span>
-<span class="nc" id="L41">      logger.error(&quot;Exception while DAO get for ID :&quot; + id, e);</span>
-<span class="nc" id="L42">      return null;</span>
+<span class="fc" id="L53">      Image dto = Image.class.newInstance();</span>
+<span class="fc" id="L54">      dto.mergeEntity(entity);</span>
+<span class="fc" id="L55">      return dto;</span>
+<span class="nc" id="L56">    } catch (InstantiationException | IllegalAccessException e) {</span>
+<span class="nc" id="L57">      logger.error(&quot;Exception while DAO get for ID :&quot; + id, e);</span>
+<span class="nc" id="L58">      return null;</span>
     }
   }
   
+  /**
+   * Create an Image Object.
+   * 
+   * @param d {@link Image}
+   * @return {@link Image}
+   */
   @Transactional
   public Image create(Image d) {
-<span class="fc" id="L48">    ImageEntity entity = d.entityObj();</span>
-<span class="fc" id="L49">    Date date = new Date();</span>
-<span class="fc" id="L50">    entity.setCreatedOn(date);</span>
-<span class="fc" id="L51">    ListingEntity listing = listingDao.getListing(d.getlistingId());</span>
-<span class="fc" id="L52">    entity.setListing(listing);</span>
-<span class="fc" id="L53">    imageDao.addImage(entity);</span>
-<span class="fc" id="L54">    d.mergeEntity(entity);</span>
-<span class="fc" id="L55">    return d;</span>
+<span class="fc" id="L70">    ImageEntity entity = d.entityObj();</span>
+<span class="fc" id="L71">    Date date = new Date();</span>
+<span class="fc" id="L72">    entity.setCreatedOn(date);</span>
+<span class="fc" id="L73">    ListingEntity listing = listingDao.getListing(d.getlistingId());</span>
+<span class="fc" id="L74">    entity.setListing(listing);</span>
+<span class="fc" id="L75">    imageDao.addImage(entity);</span>
+<span class="fc" id="L76">    d.mergeEntity(entity);</span>
+<span class="fc" id="L77">    return d;</span>
   }
 
+  /**
+   * Update an Image Object based on id.
+   * 
+   * @param d {@link Image}
+   * @param id {@link Integer}
+   * @return {@link Image}
+   */
   @Transactional
   public Image update(Image d, int id) {
-<span class="fc" id="L60">    ImageEntity entity = imageDao.getImage(id);</span>
-<span class="pc bpc" id="L61" title="2 of 4 branches missed.">    if (entity != null &amp;&amp; !entity.getDeleted()) {</span>
-<span class="fc" id="L62">      d.setId(id);</span>
-<span class="fc" id="L63">      entity = d.updateEntity(entity);</span>
-<span class="fc" id="L64">      Date date = new Date();</span>
-<span class="fc" id="L65">      entity.setModifiedOn(date);</span>
-<span class="fc" id="L66">      imageDao.updateImage(entity);</span>
-<span class="fc" id="L67">      d.mergeEntity(entity);</span>
-<span class="fc" id="L68">      return d;</span>
+<span class="fc" id="L89">    ImageEntity entity = imageDao.getImage(id);</span>
+<span class="pc bpc" id="L90" title="2 of 4 branches missed.">    if (entity != null &amp;&amp; !entity.getDeleted()) {</span>
+<span class="fc" id="L91">      d.setId(id);</span>
+<span class="fc" id="L92">      entity = d.updateEntity(entity);</span>
+<span class="fc" id="L93">      Date date = new Date();</span>
+<span class="fc" id="L94">      entity.setModifiedOn(date);</span>
+<span class="fc" id="L95">      imageDao.updateImage(entity);</span>
+<span class="fc" id="L96">      d.mergeEntity(entity);</span>
+<span class="fc" id="L97">      return d;</span>
     }
-<span class="nc" id="L70">    return null;</span>
+<span class="nc" id="L99">    return null;</span>
   }
 
+  /**
+   * delete an Image Object based on id.
+   * 
+   * @param id {@link Integer}
+   */
   @Transactional
   public void delete(Integer id) {
-<span class="fc" id="L75">    ImageEntity entity = imageDao.getImage(id);</span>
-<span class="pc bpc" id="L76" title="2 of 4 branches missed.">    if (entity != null &amp;&amp; !entity.getDeleted()) {</span>
-<span class="fc" id="L77">      Date date = new Date();</span>
-<span class="fc" id="L78">      entity.setModifiedOn(date);</span>
-<span class="fc" id="L79">      entity.setDeleted(true);</span>
-<span class="fc" id="L80">      imageDao.deleteImage(entity);</span>
+<span class="fc" id="L109">    ImageEntity entity = imageDao.getImage(id);</span>
+<span class="pc bpc" id="L110" title="2 of 4 branches missed.">    if (entity != null &amp;&amp; !entity.getDeleted()) {</span>
+<span class="fc" id="L111">      Date date = new Date();</span>
+<span class="fc" id="L112">      entity.setModifiedOn(date);</span>
+<span class="fc" id="L113">      entity.setDeleted(true);</span>
+<span class="fc" id="L114">      imageDao.deleteImage(entity);</span>
     }
-<span class="fc" id="L82">  }</span>
+<span class="fc" id="L116">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

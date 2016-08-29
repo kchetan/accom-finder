@@ -11,8 +11,14 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * This is the Service interface for Sending mails,smtp.
+ * 
+ * @author chetan
+ *
+ */
 @Component
-<span class="fc" id="L15">public class MailerService {</span>
+<span class="fc" id="L21">public class MailerService {</span>
   @Autowired
   private JavaMailSender javaMailService;
 
@@ -26,19 +32,19 @@ import javax.mail.internet.MimeMessage;
    */
   public void send(String to, String subject, String body) throws MessagingException {
 
-<span class="nc" id="L29">    MimeMessage message = javaMailService.createMimeMessage();</span>
+<span class="nc" id="L35">    MimeMessage message = javaMailService.createMimeMessage();</span>
     MimeMessageHelper helper;
 
-<span class="nc" id="L32">    helper = new MimeMessageHelper(message, true); // true indicates</span>
+<span class="nc" id="L38">    helper = new MimeMessageHelper(message, true); // true indicates</span>
     // multipart message
-<span class="nc" id="L34">    helper.setSubject(subject);</span>
-<span class="nc" id="L35">    helper.setTo(to);</span>
-<span class="nc" id="L36">    helper.setText(body, true); // true indicates html</span>
+<span class="nc" id="L40">    helper.setSubject(subject);</span>
+<span class="nc" id="L41">    helper.setTo(to);</span>
+<span class="nc" id="L42">    helper.setText(body, true); // true indicates html</span>
     // continue using helper object for more functionalities like adding attachments, etc.
 
-<span class="nc" id="L39">    javaMailService.send(message);</span>
+<span class="nc" id="L45">    javaMailService.send(message);</span>
 
 
-<span class="nc" id="L42">  }</span>
+<span class="nc" id="L48">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

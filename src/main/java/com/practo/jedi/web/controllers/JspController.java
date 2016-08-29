@@ -1,7 +1,5 @@
 package com.practo.jedi.web.controllers;
 
-
-
 import com.practo.jedi.models.Address;
 import com.practo.jedi.models.Listing;
 import com.practo.jedi.models.ListingFilter;
@@ -30,6 +28,11 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * JspController handles the requests, like login,index,search etc.
+ * @author chetan
+ *
+ */
 @Controller
 public class JspController {
 
