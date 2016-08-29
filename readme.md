@@ -2,8 +2,18 @@
 # Accommodation Finder
 A webapp to find acommodation among the company employees. It is built in maven, Spring boot.
 
+## Documentation
+
+* This project has an `apiary` documentation. You can check [here](http://docs.accommodationfinder.apiary.io)
+* The Er diagram of the Database.
+* Requirement Documentation for the project [here](https://github.com/kchetan/accom-finder/blob/master/documentation_files/document.docx)
+* JavaDoc For code [here](http://ec2-52-32-21-2.us-west-2.compute.amazonaws.com/accomfinder/javadoc/index.html)
+* Test Coverage [here] (http://ec2-52-32-21-2.us-west-2.compute.amazonaws.com/accomfinder/jacoco/index.html)
+
+
 ## Hosted on
- [amazon ec2 server](http://ec2-52-43-52-91.us-west-2.compute.amazonaws.com/accomfinder/)
+ [amazon ec2 server](http://ec2-52-32-21-2.us-west-2.compute.amazonaws.com/accomfinder)
+ [chetankasireddy.me](http://chetankasireddy.me/accomfinder/)
 
 ## Project Plan
   [Project plan](https://docs.google.com/a/practo.com/spreadsheets/d/1-AENyGqzP8uD_YZSTLBkqmftwDEM1vkPPhKkhF_Bm0I/edit?usp=sharing)
@@ -20,15 +30,15 @@ The following should be installed in your machine to run the project.
 * Hibernate (ORM )
 * Javascript,Css
 * Google sign in in javascript(User Authentication)
-* HsqlDb
-* New Relic
-	[here]()
+* HsqlDb (Used for testing)
+* Google Checkstyle and code formatter
+* New Relic 
+	[here](https://rpm.newrelic.com/accounts/1410169/applications/22261596)
 	Username : chetan.kasireddy@practo.com
-	Password : NewRelic1@3
-	Link: https://rpm.newrelic.com/accounts/1410169/applications/22261596
+	Password : NewRelic1@3 
 * Sentry
-* Travis 
-* Amazon Ec2 for Hosting.
+* Travis ([here](https://travis-ci.org/kchetan/accom-finder))
+* Amazon Ec2 for Hosting. ([here](http://ec2-52-32-21-2.us-west-2.compute.amazonaws.com/accomfinder))
 
 ## Installation and Running
 This application is packaged as a `war`.
@@ -41,13 +51,9 @@ This application is packaged as a `war`.
 	- Using jar  `java -jar target/car-pool-0.0.1-SNAPSHOT.jar`
 	- Without jar `mvn spring-boot:run`
 	
-## Documentation
 
-* This project has an `apiary` documentation. You can check [here](http://docs.accommodationfinder.apiary.io)
-* The Er diagram of the Database.
 
 ### ER Diagram
 ![ER Diagram](https://raw.githubusercontent.com/kchetan/accom-finder/master/documentation_files/accommodation_erdiagram.png)
 
-* Requirement Documentation for the project [here](https://github.com/kchetan/accom-finder/blob/master/documentation_files/document.pages)
 
