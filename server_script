@@ -1,0 +1,9 @@
+SCRIPT ------
+
+sudo cp target/accomfinder-0.0.1-SNAPSHOT.war ../apache-tomcat-8.5.4/webapps/accomfinder.war
+
+sudo ../apache-tomcat-8.5.4/bin/shutdown.sh
+
+sudo ../apache-tomcat-8.5.4/bin/startup.sh
+
+sudo tail -100f ../apache-tomcat-8.5.4/logs/
