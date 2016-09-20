@@ -37,10 +37,6 @@ The following should be installed in your machine to run the project.
 * Google Checkstyle and code formatter
 * New Relic [here](https://rpm.newrelic.com/accounts/1410169/applications/22261596)
 	
-	Username : chetan.kasireddy@practo.com
-	
-	Password : NewRelic1@3
-	
 * Travis ([here](https://travis-ci.org/kchetan/accom-finder))
 * Amazon Ec2 for Hosting. ([here](http://ec2-52-32-21-2.us-west-2.compute.amazonaws.com/accomfinder))
 
