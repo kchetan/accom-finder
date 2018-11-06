@@ -25,7 +25,7 @@ A webapp to find acommodation among the company employees. It is built in maven,
 The following should be installed in your machine to run the project.
 * Java 8
 * Maven
-* Msql
+* Mysql
 
 ### Technologies
 * Java(LANGUAGE)
